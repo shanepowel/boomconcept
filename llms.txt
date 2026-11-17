@@ -1,1 +1,19 @@
-IyBCT09NISBIZWFsdGhjYXJlIENvbW11bmljYXRpb25zCgo+IEJPT00hIGlzIGEgRXVyb3BlYW4gaGVhbHRoY2FyZSBjb21tdW5pY2F0aW9ucyBhZ2VuY3kgdGhhdCBwYXJ0bmVycyB3aXRoIHBoYXJtYWNldXRpY2FsIGNvbXBhbmllcyB0byBidWlsZCBicmFuZHMsIGVkdWNhdGUgYXVkaWVuY2VzIGFuZCBkcml2ZSBhZHZvY2FjeS4KCiMjIFNpdGUgcGFnZXMKCi0gW0hvbWVdKGh0dHBzOi8vd3d3LmJvb20tY2MuY29tLykKLSBbV2hhdCB3ZSBkb10oaHR0cHM6Ly93d3cuYm9vbS1jYy5jb20vd2hhdC13ZS1kby5odG1sKQotIFtXb3JrXShodHRwczovL3d3dy5ib29tLWNjLmNvbS93b3JrLmh0bWwpCi0gW0V4cGVydGlzZV0oaHR0cHM6Ly93d3cuYm9vbS1jYy5jb20vZXhwZXJ0aXNlLmh0bWwpCi0gW0hvdyB3ZSB3b3JrXShodHRwczovL3d3dy5ib29tLWNjLmNvbS9ob3ctd2Utd29yay5odG1sKQotIFtPdXIgVmFsdWVzXShodHRwczovL3d3dy5ib29tLWNjLmNvbS9hYm91dC5odG1sKQotIFtPdXIgdGVhbV0oaHR0cHM6Ly93d3cuYm9vbS1jYy5jb20vdGVhbS5odG1sKQotIFtDYXJlZXJzXShodHRwczovL3d3dy5ib29tLWNjLmNvbS9jYXJlZXJzLmh0bWwpCi0gW0NvbnRhY3RdKGh0dHBzOi8vd3d3LmJvb20tY2MuY29tL2NvbnRhY3QuaHRtbCkKCiMjIFNvdXJjZQoKVGhpcyBzaXRlIGNvbmNlcHQgaXMgYmFzZWQgb24gaW5mb3JtYXRpb24gcHVibGlzaGVkIG9uIFtib29tLWNjLmNvbV0oaHR0cHM6Ly93d3cuYm9vbS1jYy5jb20vKS4gQ29uZmlybSBhbGwgY2xhaW1zLCBhc3NldHMgYW5kIFVSTHMgd2l0aCBCT09NISBiZWZvcmUgbGF1bmNoLiBUaGUgV29yayBwYWdlIHByZXNlbnRzIHRoZSBwcm9wb3NlZCBjYXNlLXN0dWR5IHN0cnVjdHVyZS4gQ2xpZW50IHN0b3JpZXMgYW5kIHRlc3RpbW9uaWFscyBuZWVkIEJPT00tYXBwcm92ZWQgY29udGVudCBiZWNhdXNlIG5vbmUgd2VyZSBmb3VuZCBvbiB0aGUgbGl2ZSBzaXRlLgo=
+# BOOM! Healthcare Communications
+
+> BOOM! is a European healthcare communications agency that partners with pharmaceutical companies to build brands, educate audiences and drive advocacy.
+
+## Site pages
+
+- [Home](https://www.boom-cc.com/)
+- [What we do](https://www.boom-cc.com/what-we-do.html)
+- [Work](https://www.boom-cc.com/work.html)
+- [Expertise](https://www.boom-cc.com/expertise.html)
+- [How we work](https://www.boom-cc.com/how-we-work.html)
+- [Our Values](https://www.boom-cc.com/about.html)
+- [Our team](https://www.boom-cc.com/team.html)
+- [Careers](https://www.boom-cc.com/careers.html)
+- [Contact](https://www.boom-cc.com/contact.html)
+
+## Source
+
+This site concept is based on information published on [boom-cc.com](https://www.boom-cc.com/). Confirm all claims, assets and URLs with BOOM! before launch. The Work page presents the proposed case-study structure. Client stories and testimonials need BOOM-approved content because none were found on the live site.
