@@ -45,12 +45,17 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
         </div>
       </div>
       <div className="wrap flex flex-wrap justify-between gap-x-6 gap-y-3 border-t border-[#2e2e2e] py-6 text-[13px]">
-        <span>
-          {settings.name} Ltd · Company no. {settings.companyNumber} · VAT no. {settings.vatNumber}
-        </span>
+        <div className="space-y-1">
+          <p>
+            {settings.name} Limited · Registered in England and Wales no. {settings.companyNumber} · VAT no. {settings.vatNumber} · Registered office: {settings.registeredOffice}
+          </p>
+          <p>
+            {settings.danishEntity.name} · CVR {settings.danishEntity.cvr} · Copenhagen
+          </p>
+        </div>
         <div className="flex flex-wrap gap-5">
           {settings.legal.map((item) => (
-            <a key={item.href} href={item.href} className="hover:text-white">
+            <a key={item.href} href={item.href} className="whitespace-nowrap hover:text-white">
               {item.label}
             </a>
           ))}

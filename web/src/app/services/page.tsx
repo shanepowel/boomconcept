@@ -146,20 +146,39 @@ export default async function ServicesPage() {
             <h2 className="type-title text-white">Ready for your supplier checks.</h2>
             <p className="mt-4 max-w-[600px] text-[#d0ccd6]">
               Big organisations need suppliers they can check. We keep the essentials in one place: company details, data protection, information security, sustainability and our Veeva
-              credentials.
+              credentials. We work within the ABPI Code of Practice.
             </p>
+            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[15px] font-bold">
+              <li>
+                <a href={settings.sustainabilityUrl} className="text-white link-underline [text-underline-offset:4px]">
+                  Sustainability report 2026
+                </a>
+              </li>
+              <li>
+                <Link href="/privacy" className="text-white link-underline [text-underline-offset:4px]">
+                  Privacy policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="text-white link-underline [text-underline-offset:4px]">
+                  Terms of use
+                </Link>
+              </li>
+            </ul>
           </div>
           <div className="rounded-xl border border-[#2e2e2e] bg-night-2 p-7">
             <dl className="space-y-3 text-[15px]">
               {[
-                ['Company', `${settings.name} Ltd`],
+                ['UK company', `${settings.name} Limited`],
                 ['Company number', settings.companyNumber],
                 ['VAT number', settings.vatNumber],
-                ['Entities', 'UK and Denmark'],
+                ['Registered office', settings.registeredOffice],
+                ['Danish company', `${settings.danishEntity.name}, CVR ${settings.danishEntity.cvr}`],
+                ['Founded', '2018'],
               ].map(([k, v], i, all) => (
                 <div key={k} className={i < all.length - 1 ? 'flex justify-between gap-4 border-b border-[#2e2e2e] pb-3' : 'flex justify-between gap-4'}>
                   <dt>{k}</dt>
-                  <dd className="text-right font-semibold text-white">{v}</dd>
+                  <dd className="max-w-[60%] text-right font-semibold text-white">{v}</dd>
                 </div>
               ))}
             </dl>

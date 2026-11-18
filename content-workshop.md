@@ -54,7 +54,17 @@ Most of these come from BOOM!'s own published Finance Coordinator job advert (CV
 
 Still to confirm:
 
-- The workplace awards. Their Why choose BOOM! page shows five 2026 UK badges (Best Workplaces, Development, Wellbeing, Women, Advertising) but doesn't name the issuer. The new site says "Five 2026 UK Best Workplaces badges"; confirm the wording and get the badge files.
+- The workplace awards are now sourced from the Great Place To Work® UK profile (certification updated October 2025): 96% vs 54% typical, and 2026 Best Workplaces lists (#23 overall small, #18 Women, #33 Wellbeing, #53 Development, plus Advertising, Media & Marketing). Get the official badge files and check GPTW's usage rules.
+- Glassdoor quote on Careers (4.8 from 6 London reviews). Confirm BOOM! is happy to feature it.
+- Team size: GPTW lists 30 UK-based employees (October 2025); the job advert says a team of 65 specialists. Confirm which figure to use and how it's counted.
+
+## Addresses and legal details (conflicts on the current site)
+
+- Registered office: Companies House says 99 Bargates, Christchurch, England, BH23 1QQ (used on the new site). The current Terms page says 1124 Christchurch Road, Bournemouth, BH7 6DT, with 99 Bargates as the trading address. The Privacy page says 199 Bargates in one place and 1124 Christchurch Road in another.
+- Bournemouth office: the new site shows 99 Bargates. LinkedIn lists the HQ as The Echo Building, 18 Albert Road, Bournemouth. Confirm which is the working office.
+- London: no public street address found. Add one if BOOM! wants it shown.
+- Copenhagen: BOOM! Healthcare Communications ApS, CVR 43712470, København K (founded 13 December 2022). Confirm the street address if it should be shown.
+- Privacy policy (updated 5 June 2026) names Google analytics, while the Cookies page names Squarespace Analytics only. Neither gives an ICO registration number. The new Terms, Privacy and Cookies pages are plain-English summaries; the full wording needs legal review before launch.
 
 - Real case studies to replace the three labelled examples on the Work page (client permission, results, assets).
 - Client quotes and logos.

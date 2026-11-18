@@ -22,7 +22,7 @@ export const settings: SiteSettings = {
   proofPoints: [
     'Independent and award-winning',
     'Veeva Multichannel and Vault Content Partner',
-    'Five 2026 UK Best Workplaces badges',
+    '#23 in the UK’s Best Workplaces 2026 (small)',
     'London · Bournemouth · Copenhagen',
   ],
   stats: [
@@ -33,18 +33,22 @@ export const settings: SiteSettings = {
   ],
   offices: [
     { city: 'London', detail: 'United Kingdom', lat: 51.5072, lng: -0.1276, timeZone: 'Europe/London' },
-    { city: 'Bournemouth', detail: 'United Kingdom', lat: 50.7192, lng: -1.8808, timeZone: 'Europe/London' },
-    { city: 'Copenhagen', detail: 'Denmark', lat: 55.6761, lng: 12.5683, timeZone: 'Europe/Copenhagen' },
+    { city: 'Bournemouth', detail: 'United Kingdom', address: '99 Bargates, Christchurch, BH23 1QQ', lat: 50.7192, lng: -1.8808, timeZone: 'Europe/London' },
+    { city: 'Copenhagen', detail: 'Denmark', address: 'København K', lat: 55.6761, lng: 12.5683, timeZone: 'Europe/Copenhagen' },
   ],
   enquiriesEmail: 'cory@boom-cc.com',
   careersEmail: 'cory@boom-cc.com',
   linkedinUrl: 'https://www.linkedin.com/company/boom-healthcare-communications',
   companyNumber: '11717730',
   vatNumber: '314319136',
+  // Companies House is the authority for the registered office (it differs on the current site's Terms and Privacy pages).
+  registeredOffice: '99 Bargates, Christchurch, England, BH23 1QQ',
+  danishEntity: { name: 'BOOM! Healthcare Communications ApS', cvr: '43712470' },
+  sustainabilityUrl: 'https://www.boom-cc.com/s/BOOM-Sustainability-Report-2026-k2tm.pptx',
   legal: [
-    { label: 'Terms', href: 'https://www.boom-cc.com/terms-1' },
-    { label: 'Privacy', href: 'https://www.boom-cc.com/privacy-policy-1' },
-    { label: 'Cookies', href: 'https://www.boom-cc.com/cookies' },
+    { label: 'Terms of use', href: '/terms' },
+    { label: 'Privacy', href: '/privacy' },
+    { label: 'Cookies', href: '/cookies' },
     { label: 'Sustainability report', href: 'https://www.boom-cc.com/s/BOOM-Sustainability-Report-2026-k2tm.pptx' },
   ],
 }
@@ -379,3 +383,32 @@ export const disciplines = [
     ],
   },
 ]
+
+/** Great Place To Work® UK certification page (updated October 2025) and 2026 Best Workplaces lists. */
+export const workplace = {
+  source: 'https://www.greatplacetowork.co.uk/certified-company/1575900',
+  headline: { boom: '96%', typical: '54%' },
+  stats: [
+    { value: '100%', label: 'say people celebrate special events here' },
+    { value: '100%', label: 'say new joiners are made to feel welcome' },
+    { value: '100%', label: 'say people are treated fairly regardless of sexual orientation' },
+    { value: '96%', label: 'say they have the resources and equipment to do their job' },
+  ],
+  lists: [
+    { rank: '#18', name: 'Best Workplaces for Women™ 2026 (Small)' },
+    { rank: '#23', name: 'Best Workplaces™ 2026 (Small)' },
+    { rank: '#33', name: 'Best Workplaces for Wellbeing™ 2026 (Small)' },
+    { rank: '#53', name: 'Best Workplaces for Development™ 2026 (Small)' },
+    { rank: 'Listed', name: 'Best Workplaces in Advertising, Media & Marketing™ 2026' },
+  ],
+  moments: ['Star Wars Day outings', 'A five-year company conference in Lisbon', 'Summer socials in London', 'A BOO(m)! Halloween social'],
+}
+
+/** Glassdoor (London listing). Keep any quote short and attributed, and confirm BOOM! is happy to feature it. */
+export const glassdoor = {
+  url: 'https://www.glassdoor.co.uk/Reviews/BOOM-Healthcare-Communications-London-Reviews-EI_IE10466449.0,30_IL.31,37_IM1035.htm',
+  rating: '4.8',
+  reviews: 6,
+  quote: 'Incredible teamwork, great culture, very easy to talk to anyone in the team.',
+  attribution: 'Associate medical writer, Glassdoor review, August 2026',
+}

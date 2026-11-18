@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink } from '@/components/site/blocks'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { SubNav } from '@/components/site/sub-nav'
-import { beliefs, bestFit, getPage, getSettings, getTeam, values } from '@/lib/data'
+import { beliefs, bestFit, getPage, getSettings, getTeam, values, workplace } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('about', { stega: false })
@@ -112,7 +112,11 @@ export default async function AboutPage() {
               clients would hate to lose, and the place our people would hate to leave.
             </p>
             <p className="mt-6 rounded-xl bg-magenta-tint px-5 py-4 text-[15px] text-ink">
-              <strong>Proud to be a great place to work.</strong> Five 2026 UK Best Workplaces badges, including Wellbeing, Development and Women.
+              <strong>Proud to be a great place to work.</strong> 96% of the team say so, against 54% at a typical UK company, and we&apos;re #23 in the UK&apos;s Best
+              Workplaces™ 2026 for small companies.{' '}
+              <a href={workplace.source} className="font-bold link-underline [text-underline-offset:4px]">
+                Great Place To Work®
+              </a>
             </p>
           </div>
           <div>

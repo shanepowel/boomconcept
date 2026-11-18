@@ -4,7 +4,7 @@ const imageFields = /* groq */ `{ asset, hotspot, crop, "alt": coalesce(alt, "")
 
 export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
   name, description, teamSize, proofPoints, stats[]{value, label}, offices[]{city, detail, address, "lat": location.lat, "lng": location.lng, timeZone},
-  enquiriesEmail, careersEmail, linkedinUrl, companyNumber, vatNumber, legal[]{label, href}
+  enquiriesEmail, careersEmail, linkedinUrl, companyNumber, vatNumber, registeredOffice, danishEntity, sustainabilityUrl, legal[]{label, href}
 }`)
 
 export const PAGE_QUERY = defineQuery(`*[_id == "page-" + $key][0]{

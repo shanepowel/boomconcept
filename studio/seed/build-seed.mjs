@@ -29,6 +29,9 @@ docs.push({
   linkedinUrl: s.linkedinUrl,
   companyNumber: s.companyNumber,
   vatNumber: s.vatNumber,
+  registeredOffice: s.registeredOffice,
+  danishEntity: s.danishEntity,
+  sustainabilityUrl: s.sustainabilityUrl,
   legal: s.legal.map((x) => ({ _key: key(), _type: 'legalLink', ...x })),
 })
 

@@ -35,6 +35,9 @@ export type SiteSettings = {
   linkedinUrl: string
   companyNumber: string
   vatNumber: string
+  registeredOffice: string
+  danishEntity: { name: string; cvr: string }
+  sustainabilityUrl: string
   legal: { label: string; href: string }[]
 }
 

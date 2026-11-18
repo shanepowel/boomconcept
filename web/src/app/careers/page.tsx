@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { CtaBand, Eyebrow, PageHero, SectionHead } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
-import { getPage, getPerks, getSettings } from '@/lib/data'
+import { getPage, getPerks, getSettings, glassdoor, workplace } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('careers', { stega: false })
@@ -41,8 +41,62 @@ export default async function CareersPage() {
             A Wilbury has the skill and the confidence to do the job really well, and the potential to become world-class with the right experience and support.
           </p>
           <p>
-            They&apos;re proactive and curious, they solve problems, they have a good sense of humour, and they&apos;d rather win TOGETHER than alone. Recognised as a great place to
-            work in 2026, we&apos;re proud of the team we&apos;ve built, and we&apos;re still growing.
+            They&apos;re proactive and curious, they solve problems, they have a good sense of humour, and they&apos;d rather win TOGETHER than alone. We&apos;re proud of the team we&apos;ve built, and we&apos;re still growing.
+          </p>
+        </div>
+      </section>
+
+      {/* Great Place To Work */}
+      <section className="bg-night text-[#d9d6de]">
+        <div className="wrap section-pad">
+          <div className="grid items-end gap-10 md:grid-cols-[7fr_5fr]">
+            <SectionHead
+              tone="light"
+              className="mb-0"
+              eyebrow="Don't just take our word for it"
+              title="96% of the team say it's a great place to work."
+              intro={`That's against ${workplace.headline.typical} at a typical UK company, from the independent Great Place To Work® survey of our team.`}
+            />
+            <p className="text-[clamp(4.5rem,11vw,9rem)] leading-none font-semibold tracking-[-0.06em] text-white">
+              96<span className="text-magenta">%</span>
+            </p>
+          </div>
+          <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[#2e2e2e] bg-[#2e2e2e] sm:grid-cols-2 lg:grid-cols-4">
+            {workplace.stats.map((st) => (
+              <li key={st.label} className="bg-night-2 p-6">
+                <p className="text-3xl font-semibold tracking-tight text-white">{st.value}</p>
+                <p className="mt-2 text-[15px]">{st.label}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-12 grid gap-10 md:grid-cols-2">
+            <div>
+              <h3 className="text-[13px] font-bold tracking-[0.14em] text-white uppercase">Best Workplaces™ 2026</h3>
+              <ul className="mt-4">
+                {workplace.lists.map((l) => (
+                  <li key={l.name} className="flex gap-4 border-b border-[#2e2e2e] py-3">
+                    <span className="w-14 shrink-0 font-semibold text-magenta-soft">{l.rank}</span>
+                    <span className="text-white">{l.name}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href={workplace.source} className="mt-4 inline-block text-sm font-bold text-white link-underline [text-underline-offset:4px]">
+                See our Great Place To Work® profile
+              </a>
+            </div>
+            <figure className="rounded-2xl bg-night-2 p-7">
+              <p className="text-sm font-semibold text-magenta-soft">
+                Glassdoor · {glassdoor.rating} out of 5 from {glassdoor.reviews} reviews
+              </p>
+              <blockquote className="mt-4 text-[clamp(1.3rem,2vw,1.6rem)] leading-snug font-medium text-white">&ldquo;{glassdoor.quote}&rdquo;</blockquote>
+              <figcaption className="mt-4 text-[15px]">{glassdoor.attribution}</figcaption>
+              <a href={glassdoor.url} className="mt-5 inline-block text-sm font-bold text-white link-underline [text-underline-offset:4px]">
+                Read the reviews
+              </a>
+            </figure>
+          </div>
+          <p className="mt-12 text-[15px]">
+            Recent highlights: {workplace.moments.join(' · ')}.
           </p>
         </div>
       </section>

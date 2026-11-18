@@ -11,6 +11,10 @@ const faqs = [
     a: 'Yes. We build QC and sign-off around your SOPs from day one, and we are Veeva Multichannel and Vault Content Partners, so content is built to run through PromoMats and your other Veeva tools.',
   },
   {
+    q: 'Do you work within the ABPI Code?',
+    a: 'Yes. We work within the ABPI Code of Practice, and we build medical, legal and regulatory review into every plan from the start.',
+  },
+  {
     q: 'Do you work outside the UK?',
     a: 'Yes. Our teams in the UK and Copenhagen work on global, regional and local projects, including emerging markets.',
   },
