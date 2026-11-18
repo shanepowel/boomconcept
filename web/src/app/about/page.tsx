@@ -4,7 +4,7 @@ import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink } from '@/components/
 import { WorkplaceBadges } from '@/components/site/badges'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { SubNav } from '@/components/site/sub-nav'
-import { beliefs, bestFit, getPage, getSettings, getTeam, teamMix, values, workplace } from '@/lib/data'
+import { beliefs, bestFit, getPage, getSettings, getTeam, teamMix, values, workplace, glassdoor } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('about', { stega: false })
@@ -210,10 +210,16 @@ export default async function AboutPage() {
                 </TextLink>
               </div>
             </div>
-            <p className="text-[clamp(4rem,10vw,8rem)] leading-none font-semibold tracking-[-0.06em] text-white">
-              {settings.teamSize}
-              <span className="text-magenta">.</span>
-            </p>
+            <figure className="relative rounded-2xl border border-[#2e2e2e] bg-night-2 p-8">
+              <span aria-hidden className="absolute -top-6 left-6 text-7xl leading-none font-semibold text-magenta">&ldquo;</span>
+              <blockquote className="text-2xl leading-snug font-medium tracking-tight text-white">{glassdoor.quote}</blockquote>
+              <figcaption className="mt-5 text-sm">
+                {glassdoor.attribution} ·{' '}
+                <a href={glassdoor.url} target="_blank" rel="noreferrer" className="link-underline text-magenta-soft">
+                  {glassdoor.rating} on Glassdoor
+                </a>
+              </figcaption>
+            </figure>
           </div>
           <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[#2e2e2e] bg-[#2e2e2e] sm:grid-cols-2 lg:grid-cols-5">
             {teamMix.disciplines.map((d) => (

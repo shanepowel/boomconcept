@@ -1,0 +1,147 @@
+diff --git a/content-workshop.md b/content-workshop.md
+index 048acd6..678f8d8 100644
+--- a/content-workshop.md
++++ b/content-workshop.md
+@@ -56,7 +56,8 @@ Still to confirm:
+ 
+ - The workplace awards are now sourced from the Great Place To Work® UK profile (certification updated October 2025): 96% vs 54% typical, and 2026 Best Workplaces lists (#23 overall small, #18 Women, #33 Wellbeing, #53 Development, plus Advertising, Media & Marketing). Get the official badge files and check GPTW's usage rules.
+ - Glassdoor quote on Careers (4.8 from 6 London reviews). Confirm BOOM! is happy to feature it.
+-- Team size: the site now says a 30-strong core team (GPTW: 30 UK-based employees, October 2025). The job advert says 65 specialists, which probably includes freelancers and Denmark. Confirm which figure BOOM! prefers.
++- Team size: the site says 65 specialists, matching the job advert and LinkedIn (65 associated members, November 2026, which may include freelancers). Great Place To Work lists 30 UK-based employees (October 2025). Confirm the figure BOOM! wants to use.
++- The About page team breakdown (20+ client services, 15+ writers, 15+ creative, 4 strategists, 7 leaders) and the locations (London, Bournemouth, Manchester, Copenhagen) are counted from LinkedIn job titles. Check them with BOOM!. A designer on the team lists two Cannes Young Lions UK runner-up places, which could be a nice creative credential if they're happy to feature it.
+ - Culture photos on Careers come from BOOM!'s Great Place To Work® profile, and the badges from BOOM!'s own awards graphic. Get the originals and confirm they can be used.
+ - The Sustainability page summarises BOOM!'s Sustainability Report 2026 (2025 data). Check the figures with BOOM! before launch.
+ 
+diff --git a/studio/seed/seed.ndjson b/studio/seed/seed.ndjson
+index f7494b0..ae58e57 100644
+--- a/studio/seed/seed.ndjson
++++ b/studio/seed/seed.ndjson
+@@ -1,5 +1,5 @@
+-{"_id":"siteSettings","_type":"siteSettings","name":"BOOM! Healthcare Communications","description":"An independent, European-based healthcare communications agency. We bring the right people together around every brief, for pharma, biotech and medtech teams.","teamSize":"30","proofPoints":["Independent and award-winning","Veeva Multichannel and Vault Content Partner","#23 in the UK’s Best Workplaces 2026 (small)","London · Bournemouth · Copenhagen"],"stats":[{"_key":"e819d956-83e","_type":"stat","value":"300","label":"brands"},{"_key":"ea404e39-012","_type":"stat","value":"50","label":"brand launches"},{"_key":"06e5ae2b-34e","_type":"stat","value":"70","label":"therapy areas"},{"_key":"a04f1df0-a22","_type":"stat","value":"1,000","label":"completed projects"}],"offices":[{"_key":"8f2adeb8-a8c","_type":"office","city":"London","detail":"United Kingdom","timeZone":"Europe/London","location":{"_type":"geopoint","lat":51.5072,"lng":-0.1276}},{"_key":"46a74475-3d3","_type":"office","city":"Bournemouth","detail":"United Kingdom","address":"99 Bargates, Christchurch, BH23 1QQ","timeZone":"Europe/London","location":{"_type":"geopoint","lat":50.7192,"lng":-1.8808}},{"_key":"91bb4fa8-73f","_type":"office","city":"Copenhagen","detail":"Denmark","address":"København K","timeZone":"Europe/Copenhagen","location":{"_type":"geopoint","lat":55.6761,"lng":12.5683}}],"enquiriesEmail":"cory@boom-cc.com","careersEmail":"cory@boom-cc.com","linkedinUrl":"https://www.linkedin.com/company/boom-healthcare-communications","companyNumber":"11717730","vatNumber":"314319136","registeredOffice":"99 Bargates, Christchurch, England, BH23 1QQ","danishEntity":{"name":"BOOM! Healthcare Communications ApS","cvr":"43712470"},"sustainabilityUrl":"https://www.boom-cc.com/s/BOOM-Sustainability-Report-2026-k2tm.pptx","legal":[{"_key":"33d7b60a-7e7","_type":"legalLink","label":"Terms of use","href":"/terms"},{"_key":"9d0f9a57-b6a","_type":"legalLink","label":"Privacy","href":"/privacy"},{"_key":"fa15382e-893","_type":"legalLink","label":"Cookies","href":"/cookies"},{"_key":"2e1f31f8-51a","_type":"legalLink","label":"Sustainability report","href":"https://www.boom-cc.com/s/BOOM-Sustainability-Report-2026-k2tm.pptx"}]}
+-{"_id":"page-home","_type":"pageCopy","title":"Healthcare communications, played by the right band.","lede":"We're an independent team of specialists in insight, strategy, science and creative. For every brief, we bring together the right people to help pharma, biotech and medtech teams build brands, educate audiences and drive advocacy.","seoTitle":"BOOM! Healthcare Communications | The right band for every brief","seoDescription":"Independent healthcare communications agency. 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams."}
++{"_id":"siteSettings","_type":"siteSettings","name":"BOOM! Healthcare Communications","description":"An independent, European-based healthcare communications agency. We bring the right people together around every brief, for pharma, biotech and medtech teams.","teamSize":"65","proofPoints":["Independent and award-winning","Veeva Multichannel and Vault Content Partner","#23 in the UK’s Best Workplaces 2026 (small)","London · Bournemouth · Copenhagen"],"stats":[{"_key":"25d5f298-eb0","_type":"stat","value":"300","label":"brands"},{"_key":"f4b9f15a-53b","_type":"stat","value":"50","label":"brand launches"},{"_key":"ff4223ba-a09","_type":"stat","value":"70","label":"therapy areas"},{"_key":"6c80aa4c-46c","_type":"stat","value":"1,000","label":"completed projects"}],"offices":[{"_key":"57ec4ab0-bcb","_type":"office","city":"London","detail":"United Kingdom","timeZone":"Europe/London","location":{"_type":"geopoint","lat":51.5072,"lng":-0.1276}},{"_key":"a36d172a-15a","_type":"office","city":"Bournemouth","detail":"United Kingdom","address":"99 Bargates, Christchurch, BH23 1QQ","timeZone":"Europe/London","location":{"_type":"geopoint","lat":50.7192,"lng":-1.8808}},{"_key":"859665ad-412","_type":"office","city":"Copenhagen","detail":"Denmark","address":"København K","timeZone":"Europe/Copenhagen","location":{"_type":"geopoint","lat":55.6761,"lng":12.5683}}],"enquiriesEmail":"cory@boom-cc.com","careersEmail":"cory@boom-cc.com","linkedinUrl":"https://www.linkedin.com/company/boom-healthcare-communications","companyNumber":"11717730","vatNumber":"314319136","registeredOffice":"99 Bargates, Christchurch, England, BH23 1QQ","danishEntity":{"name":"BOOM! Healthcare Communications ApS","cvr":"43712470"},"sustainabilityUrl":"https://www.boom-cc.com/s/BOOM-Sustainability-Report-2026-k2tm.pptx","legal":[{"_key":"236aed99-cae","_type":"legalLink","label":"Terms of use","href":"/terms"},{"_key":"3b026920-cf6","_type":"legalLink","label":"Privacy","href":"/privacy"},{"_key":"951c8171-62f","_type":"legalLink","label":"Cookies","href":"/cookies"},{"_key":"308c44fd-b5d","_type":"legalLink","label":"Sustainability report","href":"https://www.boom-cc.com/s/BOOM-Sustainability-Report-2026-k2tm.pptx"}]}
++{"_id":"page-home","_type":"pageCopy","title":"Healthcare communications, played by the right band.","lede":"We're an independent team of 65 specialists in insight, strategy, science and creative. For every brief, we bring together the right people to help pharma, biotech and medtech teams build brands, educate audiences and drive advocacy.","seoTitle":"BOOM! Healthcare Communications | The right band for every brief","seoDescription":"Independent healthcare communications agency. 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams."}
+ {"_id":"page-work","_type":"pageCopy","eyebrow":"Work","title":"Proof, not promises.","lede":"A few of the briefs we're proud of: the problem, the people it had to reach, what we made and what changed.","seoDescription":"Selected healthcare communications work by BOOM!, from launches to patient support."}
+ {"_id":"page-services","_type":"pageCopy","eyebrow":"Services","title":"Insight, strategy and communications. Joined up.","lede":"Three disciplines, one team, from the first question to the final approved asset. The insight that shapes your strategy is still there in the finished work, because the same people carry it through.","seoDescription":"Insights, strategy and communications for pharma, biotech and medtech brands, with Veeva-built content and a process designed for regulated work."}
+ {"_id":"page-therapyAreas","_type":"pageCopy","eyebrow":"Therapy areas","title":"We know the science. And the people it affects.","lede":"More than 70 therapy areas across 300+ brands. Some of our experience runs especially deep, and it shows in the questions we ask before we write a word.","seoDescription":"Healthcare communications experience across 70+ therapy areas, with particular depth in oncology, haematology, immunology, neurology, rare disease and medical devices."}
+diff --git a/web/src/app/about/page.tsx b/web/src/app/about/page.tsx
+index 4e28a75..c42884f 100644
+--- a/web/src/app/about/page.tsx
++++ b/web/src/app/about/page.tsx
+@@ -4,7 +4,7 @@ import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink } from '@/components/
+ import { WorkplaceBadges } from '@/components/site/badges'
+ import { OfficeStrip } from '@/components/site/office-strip'
+ import { SubNav } from '@/components/site/sub-nav'
+-import { beliefs, bestFit, getPage, getSettings, getTeam, values, workplace } from '@/lib/data'
++import { beliefs, bestFit, getPage, getSettings, getTeam, teamMix, values, workplace } from '@/lib/data'
+ 
+ export async function generateMetadata(): Promise<Metadata> {
+   const page = await getPage('about', { stega: false })
+@@ -194,26 +194,39 @@ export default async function AboutPage() {
+       </section>
+ 
+       <section className="bg-night text-[#d9d6de]">
+-        <div className="wrap section-pad grid items-end gap-10 md:grid-cols-[7fr_5fr]">
+-          <div>
+-            <SectionHead
+-              tone="light"
+-              className="mb-0"
+-              eyebrow="The wider team"
+-              title={`A ${settings.teamSize}-strong core team.`}
+-              intro={`Strategists, medical writers, researchers, creatives, digital producers, project managers and client service leads across ${settings.offices
+-                .map((o) => o.city)
+-                .join(', ')}. Every brief gets the line-up it needs, with trusted specialists brought in when it helps.`}
+-            />
+-            <div className="mt-8">
+-              <TextLink href="/careers" light>
+-                Think you&apos;re a Wilbury?
+-              </TextLink>
++        <div className="wrap section-pad">
++          <div className="grid items-end gap-10 md:grid-cols-[7fr_5fr]">
++            <div>
++              <SectionHead
++                tone="light"
++                className="mb-0"
++                eyebrow="The wider team"
++                title={`${settings.teamSize} specialists in the band.`}
++                intro={`${teamMix.where} Every brief gets the line-up it needs.`}
++              />
++              <div className="mt-8">
++                <TextLink href="/careers" light>
++                  Think you&apos;re a Wilbury?
++                </TextLink>
++              </div>
+             </div>
++            <p className="text-[clamp(4rem,10vw,8rem)] leading-none font-semibold tracking-[-0.06em] text-white">
++              {settings.teamSize}
++              <span className="text-magenta">.</span>
++            </p>
+           </div>
+-          <p className="text-[clamp(4rem,10vw,8rem)] leading-none font-semibold tracking-[-0.06em] text-white">
+-            {settings.teamSize}
+-            <span className="text-magenta">.</span>
++          <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[#2e2e2e] bg-[#2e2e2e] sm:grid-cols-2 lg:grid-cols-5">
++            {teamMix.disciplines.map((d) => (
++              <li key={d.label} className="bg-night-2 p-6">
++                <p className="text-4xl font-semibold tracking-tight text-white">{d.count}</p>
++                <p className="mt-2 font-semibold text-white">{d.label}</p>
++                <p className="mt-1 text-[14px]">{d.note}</p>
++              </li>
++            ))}
++          </ul>
++          <p className="mt-8 text-[15px]">
++            <span className="font-semibold text-white">Science runs deep.</span> Between us we&apos;ve studied {teamMix.backgrounds.slice(0, -1).join(', ').toLowerCase()} and{' '}
++            {teamMix.backgrounds[teamMix.backgrounds.length - 1].toLowerCase()}, so the people writing about the data understand it.
+           </p>
+         </div>
+         <div id="offices" className="wrap scroll-mt-36 pb-[clamp(64px,8vw,120px)]">
+diff --git a/web/src/content/fallback.ts b/web/src/content/fallback.ts
+index b01bb6e..a66e81d 100644
+--- a/web/src/content/fallback.ts
++++ b/web/src/content/fallback.ts
+@@ -18,7 +18,7 @@ export const settings: SiteSettings = {
+   name: 'BOOM! Healthcare Communications',
+   description:
+     'An independent, European-based healthcare communications agency. We bring the right people together around every brief, for pharma, biotech and medtech teams.',
+-  teamSize: '30',
++  teamSize: '65',
+   proofPoints: [
+     'Independent and award-winning',
+     'Veeva Multichannel and Vault Content Partner',
+@@ -56,7 +56,7 @@ export const settings: SiteSettings = {
+ export const pages: Record<PageKey, PageCopy> = {
+   home: {
+     title: 'Healthcare communications, played by the right band.',
+-    lede: "We're an independent team of specialists in insight, strategy, science and creative. For every brief, we bring together the right people to help pharma, biotech and medtech teams build brands, educate audiences and drive advocacy.",
++    lede: "We're an independent team of 65 specialists in insight, strategy, science and creative. For every brief, we bring together the right people to help pharma, biotech and medtech teams build brands, educate audiences and drive advocacy.",
+     seoTitle: 'BOOM! Healthcare Communications | The right band for every brief',
+     seoDescription:
+       'Independent healthcare communications agency. 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams.',
+@@ -467,3 +467,17 @@ export const glassdoor = {
+   quote: 'Incredible teamwork, great culture, very easy to talk to anyone in the team.',
+   attribution: 'Associate medical writer, Glassdoor review, August 2026',
+ }
++
++/** The shape of the band, from BOOM!'s LinkedIn people page (65 associated members, November 2026). Aggregates only, no names. */
++export const teamMix = {
++  source: 'https://www.linkedin.com/company/boom-healthcare-communications/people/',
++  disciplines: [
++    { count: '20+', label: 'Client services and account management', note: 'From account executives to senior account directors' },
++    { count: '15+', label: 'Medical and scientific writers', note: 'Associate to principal level' },
++    { count: '15+', label: 'Creative, copy and design', note: 'Copywriters, designers, artworkers and art direction' },
++    { count: '4', label: 'Strategists', note: 'Led by our Head of Scientific Strategy' },
++    { count: '7', label: 'Leadership team', note: 'Senior people who stay close to the work' },
++  ],
++  backgrounds: ['Biology', 'Biomedical science', 'Chemistry', 'Pharmacology', 'Psychology', 'Graphic design'],
++  where: 'Most of the band are based in the UK, around London, Bournemouth and Manchester, with colleagues in Copenhagen.',
++}
+diff --git a/web/src/lib/data.ts b/web/src/lib/data.ts
+index a59c47c..e563f22 100644
+--- a/web/src/lib/data.ts
++++ b/web/src/lib/data.ts
+@@ -114,4 +114,4 @@ export async function getPerks(): Promise<Perk[]> {
+   return hasItems(data) ? data : fallback.perks
+ }
+ 
+-export const { audiences, values, beliefs, capabilities, bestFit, processSteps, disciplines, workplace, glassdoor, people2025, sustainability } = fallback
++export const { audiences, values, beliefs, capabilities, bestFit, processSteps, disciplines, workplace, glassdoor, people2025, sustainability, teamMix } = fallback
