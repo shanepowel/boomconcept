@@ -119,7 +119,6 @@ export const team: TeamMember[] = [
     photo: { src: '/images/team/cory.webp', alt: 'Cory Inglis, Founder and CEO of BOOM!', width: 750, height: 750 },
     linkedinUrl: 'https://www.linkedin.com/in/cory-inglis-0a40ab6/',
     email: 'cory@boom-cc.com',
-    phone: '+44 (0)7917 660874',
     isFounder: true,
     showOnContact: true,
   },
@@ -133,7 +132,6 @@ export const team: TeamMember[] = [
     photo: { src: '/images/team/viv.webp', alt: 'Viv Howells, Managing Director', width: 750, height: 750 },
     linkedinUrl: 'https://www.linkedin.com/in/vivien-howells-34515390/',
     email: 'viv@boom-cc.com',
-    phone: '+45 3158 5363',
     showOnContact: true,
   },
   {

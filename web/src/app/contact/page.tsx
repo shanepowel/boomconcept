@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { ArrowUpRight, FileText, MessageSquareText, Phone, Users } from 'lucide-react'
+import { ArrowUpRight, FileText, Mail, MessageSquareText, Users } from 'lucide-react'
 import { ContactFaq } from '@/components/site/contact-faq'
 import { ContactForm, ContactFormWithTopic } from '@/components/site/contact-form'
 import { Eyebrow } from '@/components/site/blocks'
@@ -19,7 +19,6 @@ export default async function ContactPage() {
   const [page, settings, team] = await Promise.all([getPage('contact'), getSettings(), getTeam()])
   const contacts = team.filter((m) => m.showOnContact)
   const lead = contacts[0]
-  const phoneHref = lead?.phone ? `tel:${lead.phone.replace(/\(0\)/, '').replace(/[^+\d]/g, '')}` : undefined
 
   const options = [
     {
@@ -41,10 +40,10 @@ export default async function ContactPage() {
       action: { label: 'Life at BOOM!', href: '/careers' },
     },
     {
-      icon: Phone,
-      title: 'Call us',
-      body: lead ? `Speak to ${lead.fullName}, ${lead.role}.` : 'Speak to the team.',
-      action: lead?.phone && phoneHref ? { label: lead.phone, href: phoneHref } : { label: settings.enquiriesEmail, href: `mailto:${settings.enquiriesEmail}` },
+      icon: Mail,
+      title: 'Email us',
+      body: lead ? `Prefer to write? Reach ${lead.fullName}, ${lead.role}, directly.` : 'Prefer to write? Drop us a line.',
+      action: { label: lead?.email ?? settings.enquiriesEmail, href: `mailto:${lead?.email ?? settings.enquiriesEmail}` },
     },
   ]
 
@@ -107,11 +106,6 @@ export default async function ContactPage() {
                     {m.email ? (
                       <a href={`mailto:${m.email}`} className="text-ink link-underline [text-underline-offset:4px]">
                         {m.email}
-                      </a>
-                    ) : null}
-                    {m.phone ? (
-                      <a href={`tel:${m.phone.replace(/\(0\)/, '').replace(/[^+\d]/g, '')}`} className="mt-1 text-ink">
-                        {m.phone}
                       </a>
                     ) : null}
                   </div>

@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { createMap } from 'svg-dotted-map'
 import { ArrowUpRight, Clock, MapPin } from 'lucide-react'
 import type { Office } from '@/content/types'
 import { cn } from '@/lib/utils'
-import { LAND_DOTS, MAP, project } from './europe-dots'
+import { DottedMap } from '@/components/ui/dotted-map'
 
 export function mapsUrl(office: Office) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.address ? `${office.address}, ${office.city}` : `${office.city}, ${office.detail ?? ''}`)}`
@@ -37,68 +38,71 @@ function LocalTime({ timeZone, className }: { timeZone?: string; className?: str
   )
 }
 
+const REGION = { lat: { min: 48.2, max: 59.8 }, lng: { min: -11.5, max: 18.5 } }
+const W = 100
+const H = 66
+const SAMPLES = 4000
+
 export function OfficeMap({ offices }: { offices: Office[] }) {
-  const pinned = offices.filter((o) => typeof o.lat === 'number' && typeof o.lng === 'number')
+  const pinned = useMemo(() => offices.filter((o) => typeof o.lat === 'number' && typeof o.lng === 'number'), [offices])
   const [active, setActive] = useState(0)
   const current = pinned[active]
 
+  // Same projection the map uses, so HTML pins and the tooltip line up with the SVG markers.
+  const positions = useMemo(() => {
+    const { addMarkers } = createMap({ width: W, height: H, mapSamples: SAMPLES, region: REGION })
+    return addMarkers(pinned.map((o) => ({ lat: o.lat!, lng: o.lng! })))
+  }, [pinned])
+
+  const markers = pinned.map((o, i) => ({ lat: o.lat!, lng: o.lng!, size: i === active ? 1.1 : 0.8, pulse: i === active }))
+  const pos = (i: number) => ({ left: `${(positions[i].x / W) * 100}%`, top: `${(positions[i].y / H) * 100}%` })
+
   return (
     <div>
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-warm">
-        <svg viewBox={`0 0 ${MAP.width} ${MAP.height}`} className="block h-auto w-full" role="img" aria-label="Map of north-west Europe showing BOOM! offices in London, Bournemouth and Copenhagen">
-          <defs>
-            <radialGradient id="map-fade" cx="45%" cy="55%" r="65%">
-              <stop offset="72%" stopColor="#fff" />
-              <stop offset="100%" stopColor="#fff" stopOpacity="0" />
-            </radialGradient>
-            <mask id="map-mask">
-              <rect width="100%" height="100%" fill="url(#map-fade)" />
-            </mask>
-          </defs>
-          <path d={LAND_DOTS} stroke="#b9b0a7" strokeWidth={6.4} strokeLinecap="round" fill="none" mask="url(#map-mask)" />
-        </svg>
+      <div className="relative overflow-hidden rounded-2xl border border-border bg-warm p-[clamp(8px,2vw,24px)]">
+        <div className="relative">
+          <DottedMap
+            width={W}
+            height={H}
+            mapSamples={SAMPLES}
+            region={REGION}
+            stagger={false}
+            dotRadius={0.28}
+            dotColor="#bdb4ab"
+            markerColor="#d90070"
+            markers={markers}
+            style={{ height: "auto" }}
+            role="img"
+            aria-label="Map of north-west Europe showing BOOM! offices in London, Bournemouth and Copenhagen"
+          />
 
-        {pinned.map((office, i) => {
-          const { x, y } = project(office.lat!, office.lng!)
-          const isActive = i === active
-          return (
+          {pinned.map((office, i) => (
             <button
               key={office.city}
               type="button"
               onClick={() => setActive(i)}
               onMouseEnter={() => setActive(i)}
               onFocus={() => setActive(i)}
-              aria-pressed={isActive}
+              aria-pressed={i === active}
               aria-label={`${office.city}, ${office.detail ?? ''}`}
-              className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-full p-2 focus-visible:outline-none"
-              style={{ left: `${(x / MAP.width) * 100}%`, top: `${(y / MAP.height) * 100}%` }}
-            >
-              <span className={cn('absolute inset-1 rounded-full bg-magenta/40 motion-safe:animate-ping', !isActive && 'opacity-0 group-hover:opacity-100')} />
-              <span
-                className={cn(
-                  'relative block size-4 rounded-full border-[3px] border-white bg-magenta shadow-[0_2px_10px_rgba(217,0,112,0.45)] transition-transform group-focus-visible:ring-3 group-focus-visible:ring-magenta/50',
-                  isActive ? 'scale-125' : 'bg-ink',
-                )}
-              />
-            </button>
-          )
-        })}
+              className="absolute size-8 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:ring-3 focus-visible:ring-magenta/50 focus-visible:outline-none"
+              style={pos(i)}
+            />
+          ))}
 
-        {current ? (
-          <div
-            key={current.city}
-            className="pointer-events-none absolute z-10 w-max max-w-[240px] -translate-x-1/2 -translate-y-[calc(100%+18px)] animate-in fade-in-0 zoom-in-95 rounded-xl bg-night px-4 py-3 text-[13px] leading-snug text-[#d6d2db] shadow-xl max-sm:hidden"
-            style={{
-              left: `${(project(current.lat!, current.lng!).x / MAP.width) * 100}%`,
-              top: `${(project(current.lat!, current.lng!).y / MAP.height) * 100}%`,
-            }}
-          >
-            <strong className="block text-[15px] text-white">{current.city}</strong>
-            {current.address ? <span className="block whitespace-pre-line">{current.address}</span> : <span className="block">{current.detail}</span>}
-            <LocalTime timeZone={current.timeZone} className="mt-1 text-magenta-soft" />
-            <span aria-hidden className="absolute top-full left-1/2 -translate-x-1/2 border-x-8 border-t-8 border-x-transparent border-t-night" />
-          </div>
-        ) : null}
+          {current ? (
+            <div
+              key={current.city}
+              className="pointer-events-none absolute z-10 w-max max-w-[240px] -translate-x-1/2 -translate-y-[calc(100%+16px)] animate-in fade-in-0 zoom-in-95 rounded-xl bg-night px-4 py-3 text-[13px] leading-snug text-[#d6d2db] shadow-xl max-sm:hidden"
+              style={pos(active)}
+            >
+              <strong className="block text-[15px] text-white">{current.city}</strong>
+              {current.address ? <span className="block whitespace-pre-line">{current.address}</span> : <span className="block">{current.detail}</span>}
+              <LocalTime timeZone={current.timeZone} className="mt-1 text-magenta-soft" />
+              <span aria-hidden className="absolute top-full left-1/2 -translate-x-1/2 border-x-8 border-t-8 border-x-transparent border-t-night" />
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <ul className="mt-5 grid gap-3 sm:grid-cols-3">

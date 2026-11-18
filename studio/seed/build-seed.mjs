@@ -50,7 +50,6 @@ content.team.forEach((m, i) => {
     photo: { _type: 'image', alt: m.photo.alt, _sanityAsset: `image@file://./images/${file}` },
     linkedinUrl: m.linkedinUrl,
     email: m.email,
-    phone: m.phone,
     isFounder: Boolean(m.isFounder),
     showOnContact: Boolean(m.showOnContact),
   })

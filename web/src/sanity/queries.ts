@@ -12,7 +12,7 @@ export const PAGE_QUERY = defineQuery(`*[_id == "page-" + $key][0]{
 }`)
 
 export const TEAM_QUERY = defineQuery(`*[_type == "teamMember"] | order(orderRank asc, name asc){
-  "slug": slug.current, name, fullName, role, discipline, bio, linkedinUrl, email, phone,
+  "slug": slug.current, name, fullName, role, discipline, bio, linkedinUrl, email,
   isFounder, showOnContact, photo${imageFields}
 }`)
 

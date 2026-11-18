@@ -24,7 +24,6 @@ export const teamMember = defineType({
     }),
     defineField({ name: 'linkedinUrl', title: 'LinkedIn URL', type: 'url' }),
     defineField({ name: 'email', type: 'string', validation: (r) => r.email() }),
-    defineField({ name: 'phone', type: 'string' }),
     defineField({ name: 'isFounder', title: 'Founder', type: 'boolean', description: 'Featured at the top of the team page.', initialValue: false }),
     defineField({ name: 'showOnContact', title: 'Show on contact page', type: 'boolean', initialValue: false }),
   ],

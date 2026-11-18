@@ -57,7 +57,6 @@ export type TeamMember = {
   photo: Img
   linkedinUrl?: string
   email?: string
-  phone?: string
   isFounder?: boolean
   showOnContact?: boolean
 }
