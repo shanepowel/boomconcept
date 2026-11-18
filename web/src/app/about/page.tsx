@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink } from '@/components/site/blocks'
+import { WorkplaceBadges } from '@/components/site/badges'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { SubNav } from '@/components/site/sub-nav'
 import { beliefs, bestFit, getPage, getSettings, getTeam, values, workplace } from '@/lib/data'
@@ -9,6 +10,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('about', { stega: false })
   return { title: page.seoTitle || 'About', description: page.seoDescription }
 }
+
+const milestones = [
+  { year: 'Before', text: 'Cory spends his first ten years at Novartis, in sales, market access, research and marketing.' },
+  { year: '2005', text: 'He moves agency-side, leading research, digital, medical communications and creative agencies.' },
+  { year: '2018', text: 'BOOM! Healthcare Communications is founded in December.' },
+  { year: '2022', text: 'BOOM! opens in Copenhagen with a Danish company, BOOM! Healthcare Communications ApS.' },
+  { year: '2025', text: 'Certified a Great Place To Work®, and the whole team heads to Lisbon for the company conference.' },
+  { year: '2026', text: 'Five UK Best Workplaces™ lists, including #18 for Women and #23 overall for small companies.' },
+]
 
 const why = [
   { title: 'Independent', body: "Your work matters more to us. It's personal." },
@@ -70,6 +80,22 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {/* Timeline */}
+      <section aria-labelledby="timeline-heading" className="wrap pb-[clamp(64px,8vw,120px)]">
+        <h2 id="timeline-heading" className="text-[13px] font-bold tracking-[0.14em] text-ink uppercase">
+          The story so far
+        </h2>
+        <ol className="mt-6 grid gap-0 border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-6">
+          {milestones.map((m) => (
+            <li key={m.year} className="relative border-b border-border py-5 pr-5 lg:border-b-0 lg:border-l lg:pl-5 lg:first:border-l-0 lg:first:pl-0">
+              <span aria-hidden className="absolute -top-[7px] left-0 size-3 rounded-full bg-magenta lg:left-5 lg:first:left-0" />
+              <p className="text-2xl font-semibold tracking-tight text-ink">{m.year}</p>
+              <p className="mt-2 text-[15px]">{m.text}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
       {/* Beliefs */}
       <section id="beliefs" className="scroll-mt-36 bg-warm">
         <div className="wrap section-pad">
@@ -111,7 +137,8 @@ export default async function AboutPage() {
               It&apos;s not one single thing that makes working with us a success. It&apos;s several, and they depend on each other. Our aim is simple: to be the agency our
               clients would hate to lose, and the place our people would hate to leave.
             </p>
-            <p className="mt-6 rounded-xl bg-magenta-tint px-5 py-4 text-[15px] text-ink">
+            <WorkplaceBadges size="sm" className="mt-8" />
+            <p className="mt-4 rounded-xl bg-magenta-tint px-5 py-4 text-[15px] text-ink">
               <strong>Proud to be a great place to work.</strong> 96% of the team say so, against 54% at a typical UK company, and we&apos;re #23 in the UK&apos;s Best
               Workplaces™ 2026 for small companies.{' '}
               <a href={workplace.source} className="font-bold link-underline [text-underline-offset:4px]">
@@ -173,10 +200,10 @@ export default async function AboutPage() {
               tone="light"
               className="mb-0"
               eyebrow="The wider team"
-              title={`${settings.teamSize} specialists in all.`}
+              title={`A ${settings.teamSize}-strong core team.`}
               intro={`Strategists, medical writers, researchers, creatives, digital producers, project managers and client service leads across ${settings.offices
                 .map((o) => o.city)
-                .join(', ')}. Every brief gets the line-up it needs.`}
+                .join(', ')}. Every brief gets the line-up it needs, with trusted specialists brought in when it helps.`}
             />
             <div className="mt-8">
               <TextLink href="/careers" light>

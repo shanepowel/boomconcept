@@ -42,6 +42,8 @@ The site works straight away with no Sanity project. Until one is connected, eve
 | Specialist areas, therapy areas | Therapy areas page and home page |
 | Careers perks | Careers page |
 
+Workplace awards, culture photos, the sustainability figures and the legal pages live in `web/src/content/fallback.ts` and `web/src/app/{terms,privacy,cookies,sustainability}`.
+
 Longer-form section copy (for example the service disciplines and the process steps) still lives in `web/src/content/fallback.ts`. Moving it into Sanity is the natural next step.
 
 ## How it is built

@@ -22,6 +22,7 @@ export const footerNav = [
       { href: '/about', label: 'About BOOM!' },
       { href: '/about#band', label: 'The band' },
       { href: '/careers', label: 'Careers' },
+      { href: '/sustainability', label: 'Sustainability' },
     ],
   },
   {

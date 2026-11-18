@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
+import { WorkplaceBadges } from '@/components/site/badges'
 import { CtaBand, Eyebrow, SectionHead, Stats, TextLink } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
 import { disciplines, getSpecialistAreas, getCaseStudies, getPage, getSettings, getTeam, beliefs } from '@/lib/data'
@@ -180,6 +181,25 @@ export default async function HomePage() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Great place to work */}
+      <section className="wrap py-[clamp(56px,7vw,96px)]">
+        <div className="grid items-center gap-10 rounded-2xl border border-border p-[clamp(24px,4vw,48px)] lg:grid-cols-[5fr_7fr]">
+          <div>
+            <Eyebrow>Proud to be a great place to work</Eyebrow>
+            <h2 className="type-title">
+              96<span className="text-magenta">%</span> of our people say it&apos;s a great place to work.
+            </h2>
+            <p className="mt-4">
+              Against 54% at a typical UK company. Happy teams do better work, and clients notice. We aim to be the place our people would hate to leave.
+            </p>
+            <div className="mt-6">
+              <TextLink href="/careers">Life at BOOM!</TextLink>
+            </div>
+          </div>
+          <WorkplaceBadges className="justify-start lg:justify-end" />
         </div>
       </section>
 

@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { CtaBand, Eyebrow, PageHero, SectionHead } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
-import { getPage, getPerks, getSettings, glassdoor, workplace } from '@/lib/data'
+import Image from 'next/image'
+import { WorkplaceBadges } from '@/components/site/badges'
+import { getPage, getPerks, getSettings, glassdoor, people2025, workplace } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('careers', { stega: false })
@@ -69,17 +71,10 @@ export default async function CareersPage() {
               </li>
             ))}
           </ul>
-          <div className="mt-12 grid gap-10 md:grid-cols-2">
+          <div className="mt-12 grid gap-10 lg:grid-cols-[7fr_5fr]">
             <div>
-              <h3 className="text-[13px] font-bold tracking-[0.14em] text-white uppercase">Best Workplaces™ 2026</h3>
-              <ul className="mt-4">
-                {workplace.lists.map((l) => (
-                  <li key={l.name} className="flex gap-4 border-b border-[#2e2e2e] py-3">
-                    <span className="w-14 shrink-0 font-semibold text-magenta-soft">{l.rank}</span>
-                    <span className="text-white">{l.name}</span>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="text-[13px] font-bold tracking-[0.14em] text-white uppercase">Five UK Best Workplaces™ lists in 2026</h3>
+              <WorkplaceBadges showRanks dark className="mt-5" />
               <a href={workplace.source} className="mt-4 inline-block text-sm font-bold text-white link-underline [text-underline-offset:4px]">
                 See our Great Place To Work® profile
               </a>
@@ -95,10 +90,55 @@ export default async function CareersPage() {
               </a>
             </figure>
           </div>
-          <p className="mt-12 text-[15px]">
-            Recent highlights: {workplace.moments.join(' · ')}.
-          </p>
         </div>
+      </section>
+
+      {/* Culture gallery */}
+      <section className="wrap section-pad">
+        <SectionHead
+          eyebrow="Life outside the brief"
+          title="We celebrate TOGETHER, too."
+          intro="Star Wars Day, socials in London, and a five-year birthday conference in Lisbon. Every person in our survey said we celebrate special events, and we meant it."
+        />
+        <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          {workplace.photos.map((ph, i) => (
+            <li key={ph.src} className={i === 0 ? 'relative col-span-2 overflow-hidden rounded-2xl md:row-span-2' : 'relative overflow-hidden rounded-2xl'}>
+              <figure className="group h-full">
+                <Image
+                  src={ph.src}
+                  alt={ph.caption}
+                  width={1000}
+                  height={750}
+                  sizes={i === 0 ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 50vw'}
+                  className="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/85 to-transparent p-3 pt-10 text-[13px] leading-snug text-white sm:text-sm">
+                  {ph.caption}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 text-xs text-[#5e5e5e]">Photos: BOOM!&apos;s Great Place To Work® profile.</p>
+
+        <dl className="mt-[clamp(48px,6vw,80px)] grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {people2025.map((m) => (
+            <div key={m.label} className="bg-white p-6">
+              <dt className="sr-only">{m.label}</dt>
+              <dd>
+                <span className="block text-4xl font-semibold tracking-tight text-ink">{m.value}</span>
+                <span className="mt-2 block text-[15px]">{m.label} (2025)</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-3 text-xs text-[#5e5e5e]">
+          From our{' '}
+          <Link href="/sustainability" className="underline">
+            2026 sustainability report
+          </Link>
+          .
+        </p>
       </section>
 
       <section className="bg-warm">

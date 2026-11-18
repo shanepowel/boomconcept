@@ -146,9 +146,14 @@ export default async function ServicesPage() {
             <h2 className="type-title text-white">Ready for your supplier checks.</h2>
             <p className="mt-4 max-w-[600px] text-[#d0ccd6]">
               Big organisations need suppliers they can check. We keep the essentials in one place: company details, data protection, information security, sustainability and our Veeva
-              credentials. We work within the ABPI Code of Practice.
+              credentials. We work within the ABPI Code of Practice, report against SASB standards, and in 2025 had zero information security incidents.
             </p>
             <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[15px] font-bold">
+              <li>
+                <Link href="/sustainability" className="text-white link-underline [text-underline-offset:4px]">
+                  Sustainability and data security
+                </Link>
+              </li>
               <li>
                 <a href={settings.sustainabilityUrl} className="text-white link-underline [text-underline-offset:4px]">
                   Sustainability report 2026

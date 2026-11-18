@@ -17,8 +17,8 @@ import type {
 export const settings: SiteSettings = {
   name: 'BOOM! Healthcare Communications',
   description:
-    'An independent healthcare communications agency of 65 specialists. We bring the right people together around every brief, for pharma, biotech and medtech teams.',
-  teamSize: '65',
+    'An independent, European-based healthcare communications agency. We bring the right people together around every brief, for pharma, biotech and medtech teams.',
+  teamSize: '30',
   proofPoints: [
     'Independent and award-winning',
     'Veeva Multichannel and Vault Content Partner',
@@ -56,10 +56,10 @@ export const settings: SiteSettings = {
 export const pages: Record<PageKey, PageCopy> = {
   home: {
     title: 'Healthcare communications, played by the right band.',
-    lede: "We're an independent team of 65 specialists in insight, strategy, science and creative. For every brief, we bring together the right people to help pharma, biotech and medtech teams build brands, educate audiences and drive advocacy.",
+    lede: "We're an independent team of specialists in insight, strategy, science and creative. For every brief, we bring together the right people to help pharma, biotech and medtech teams build brands, educate audiences and drive advocacy.",
     seoTitle: 'BOOM! Healthcare Communications | The right band for every brief',
     seoDescription:
-      'Independent healthcare communications agency. 65 specialists, 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams.',
+      'Independent healthcare communications agency. 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams.',
   },
   work: {
     eyebrow: 'Work',
@@ -402,7 +402,62 @@ export const workplace = {
     { rank: 'Listed', name: 'Best Workplaces in Advertising, Media & Marketing™ 2026' },
   ],
   moments: ['Star Wars Day outings', 'A five-year company conference in Lisbon', 'Summer socials in London', 'A BOO(m)! Halloween social'],
+  badges: [
+    { src: '/images/badges/best-workplaces-2026.webp', alt: 'Best Workplaces™ UK 2026, Great Place To Work®', rank: '#23', label: 'Best Workplaces™ (Small)' },
+    { src: '/images/badges/women-2026.webp', alt: 'Best Workplaces™ for Women UK 2026, Great Place To Work®', rank: '#18', label: 'for Women' },
+    { src: '/images/badges/wellbeing-2026.webp', alt: 'Best Workplaces™ for Wellbeing UK 2026, Great Place To Work®', rank: '#33', label: 'for Wellbeing' },
+    { src: '/images/badges/development-2026.webp', alt: 'Best Workplaces™ for Development UK 2026, Great Place To Work®', rank: '#53', label: 'for Development' },
+    { src: '/images/badges/advertising-media-marketing-2026.webp', alt: 'Best Workplaces™ in Advertising, Media & Marketing UK 2026, Great Place To Work®', rank: 'Listed', label: 'in Advertising, Media & Marketing' },
+  ],
+  photos: [
+    { src: '/images/culture/five-year-conference.webp', caption: 'Walking through the history of BOOM! at our five-year company conference' },
+    { src: '/images/culture/five-years-lisbon.webp', caption: 'Celebrating five years of BOOM! in Lisbon' },
+    { src: '/images/culture/lisbon-coach.webp', caption: 'Off to explore Lisbon at our 2025 company conference' },
+    { src: '/images/culture/summer-social-london.webp', caption: 'Our summer social in London' },
+    { src: '/images/culture/star-wars-day.webp', caption: 'Out and about for Star Wars Day' },
+    { src: '/images/culture/halloween-social-london.webp', caption: 'Our London BOO(m)! Halloween social' },
+  ],
 }
+
+/** From BOOM!'s Sustainability Report 2026 (reporting period 2025). */
+export const people2025 = [
+  { value: '30', label: 'hours of training per person, on average' },
+  { value: '6', label: 'internal promotions' },
+  { value: '68%', label: 'of our people are women, and half of our executive team' },
+  { value: '0', label: 'reports of discrimination or harassment' },
+]
+
+export const sustainability = {
+  reportUrl: 'https://www.boom-cc.com/s/BOOM-Sustainability-Report-2026-k2tm.pptx',
+  intro:
+    'Building a sustainable, responsible business is central to how we work. We report against recognised standards, align our work with the UN Sustainable Development Goals, and hold ourselves accountable with real numbers, including the ones that show where we still have work to do.',
+  pillars: [
+    { title: 'Environmental action', body: 'Green considerations are built into day-to-day work, project planning and travel decisions. We are cloud-first on Microsoft infrastructure rather than running energy-hungry servers, and we sort and recycle our office waste at source.' },
+    { title: 'People growth', body: 'Continuous training and development so everyone can grow their career and keep their expertise sharp: an average of 30 hours of training per person in 2025.' },
+    { title: 'Culture and ethics', body: 'A transparent, accountable workplace where people at every level feel safe to speak up, with whistleblowing procedures and business ethics training for the whole team.' },
+    { title: 'Client advisory', body: 'We help pharma and biotech partners build sustainable choices into launches, medical education events and patient materials.' },
+  ],
+  security: [
+    'Annual risk assessments and real-time threat monitoring',
+    'Multi-factor authentication, encryption and access controls',
+    'Mandatory cybersecurity training for every member of staff',
+    'Periodic audits and penetration testing',
+    'An incident response plan and GDPR-compliant data governance',
+  ],
+  metrics2025: [
+    { value: '0', label: 'information security incidents' },
+    { value: '0', label: 'confirmed corruption incidents' },
+    { value: '0', label: 'work-related ill health cases' },
+    { value: '70%', label: 'of office waste recycled (22kg of 32kg)' },
+  ],
+  standards: [
+    'Reporting aligned to the SASB Standards for Professional & Commercial Services',
+    'A double-materiality assessment of what matters most to our impact and our business',
+    'Work aligned to the UN Sustainable Development Goals, including SDG 12, Responsible Consumption and Production',
+  ],
+  next: 'In 2026 we introduced a supplier code of conduct, a supplier sustainability questionnaire, sustainable procurement training and business ethics training for the whole organisation.',
+}
+
 
 /** Glassdoor (London listing). Keep any quote short and attributed, and confirm BOOM! is happy to feature it. */
 export const glassdoor = {

@@ -22,6 +22,7 @@ type Topic = (typeof topics)[number]['value']
 export function ContactForm({ email, initialTopic }: { email: string; initialTopic?: string }) {
   const startTopic = (topics.find((t) => t.value === initialTopic)?.value ?? 'brief') as Topic
   const [topic, setTopic] = useState<Topic>(startTopic)
+  const [sent, setSent] = useState<{ name: string; href: string } | null>(null)
 
   // Concept build: no form backend yet, so the form opens a pre-filled email to BOOM!.
   // Swap this for a server action (for example with Resend) when the site goes live.
@@ -38,7 +39,31 @@ export function ContactForm({ email, initialTopic }: { email: string; initialTop
       `Email: ${data.get('email')}`,
       `Phone: ${data.get('phone') || '-'}`,
     ].join('\n')
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    setSent({ name: String(data.get('name') || '').split(' ')[0], href })
+    window.location.href = href
+  }
+
+  if (sent) {
+    return (
+      <div role="status" className="rounded-xl bg-magenta-tint p-7 text-ink">
+        <p className="text-2xl font-semibold tracking-tight">Thanks{sent.name ? `, ${sent.name}` : ''}. Your message is ready to go.</p>
+        <p className="mt-3">
+          Your email app should have opened with everything filled in. Hit send and the right person from the band will be in touch. If nothing opened,{' '}
+          <a href={sent.href} className="font-bold underline decoration-magenta underline-offset-4">
+            try again
+          </a>{' '}
+          or email{' '}
+          <a href={`mailto:${email}`} className="font-bold underline decoration-magenta underline-offset-4">
+            {email}
+          </a>
+          .
+        </p>
+        <Button type="button" variant="outlineBrand" size="lg" className="mt-6 h-10 px-4 font-bold" onClick={() => setSent(null)}>
+          Start another message
+        </Button>
+      </div>
+    )
   }
 
   return (
