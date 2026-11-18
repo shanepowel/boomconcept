@@ -32,9 +32,9 @@ export const settings: SiteSettings = {
     { value: '1,000', label: 'completed projects' },
   ],
   offices: [
-    { city: 'London', detail: 'United Kingdom' },
-    { city: 'Bournemouth', detail: 'United Kingdom' },
-    { city: 'Copenhagen', detail: 'Denmark' },
+    { city: 'London', detail: 'United Kingdom', lat: 51.5072, lng: -0.1276, timeZone: 'Europe/London' },
+    { city: 'Bournemouth', detail: 'United Kingdom', lat: 50.7192, lng: -1.8808, timeZone: 'Europe/London' },
+    { city: 'Copenhagen', detail: 'Denmark', lat: 55.6761, lng: 12.5683, timeZone: 'Europe/Copenhagen' },
   ],
   enquiriesEmail: 'cory@boom-cc.com',
   careersEmail: 'cory@boom-cc.com',

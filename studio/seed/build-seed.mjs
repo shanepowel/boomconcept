@@ -23,7 +23,7 @@ docs.push({
   teamSize: s.teamSize,
   proofPoints: s.proofPoints,
   stats: s.stats.map((x) => ({ _key: key(), _type: 'stat', ...x })),
-  offices: s.offices.map((x) => ({ _key: key(), _type: 'office', ...x })),
+  offices: s.offices.map(({ lat, lng, ...x }) => ({ _key: key(), _type: 'office', ...x, location: lat != null ? { _type: 'geopoint', lat, lng } : undefined })),
   enquiriesEmail: s.enquiriesEmail,
   careersEmail: s.careersEmail,
   linkedinUrl: s.linkedinUrl,

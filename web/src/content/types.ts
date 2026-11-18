@@ -23,7 +23,14 @@ export type PageKey =
   | 'contact'
 
 export type Stat = { value: string; label: string }
-export type Office = { city: string; detail?: string }
+export type Office = {
+  city: string
+  detail?: string
+  address?: string
+  lat?: number
+  lng?: number
+  timeZone?: string
+}
 
 export type SiteSettings = {
   name: string

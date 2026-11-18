@@ -18,6 +18,15 @@ export const office = defineType({
   fields: [
     defineField({ name: 'city', type: 'string', validation: (r) => r.required() }),
     defineField({ name: 'detail', type: 'string', description: 'Country or a short line shown under the city.' }),
+    defineField({ name: 'address', type: 'text', rows: 3, description: 'Street address. Leave empty to show the city only.' }),
+    defineField({ name: 'location', type: 'geopoint', description: 'Where the pin sits on the contact page map.' }),
+    defineField({
+      name: 'timeZone',
+      title: 'Time zone',
+      type: 'string',
+      options: { list: ['Europe/London', 'Europe/Copenhagen'] },
+      initialValue: 'Europe/London',
+    }),
   ],
   preview: { select: { title: 'city', subtitle: 'detail' } },
 })
