@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink } from '@/components/site/blocks'
+import { OfficeStrip } from '@/components/site/office-strip'
 import { SubNav } from '@/components/site/sub-nav'
 import { beliefs, bestFit, getPage, getSettings, getTeam, values } from '@/lib/data'
 
@@ -39,6 +40,7 @@ export default async function AboutPage() {
           { id: 'beliefs', label: 'What we believe' },
           { id: 'why', label: 'Why BOOM!' },
           { id: 'band', label: 'The band' },
+          { id: 'offices', label: 'Where we are' },
         ]}
       />
 
@@ -182,6 +184,9 @@ export default async function AboutPage() {
             {settings.teamSize}
             <span className="text-magenta">.</span>
           </p>
+        </div>
+        <div id="offices" className="wrap scroll-mt-36 pb-[clamp(64px,8vw,120px)]">
+          <OfficeStrip offices={settings.offices} />
         </div>
       </section>
 

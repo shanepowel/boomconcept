@@ -161,6 +161,7 @@ export const team: TeamMember[] = [
     discipline: 'Operations · Process',
     bio: 'Laura has spent more than 20 years in healthcare communications agencies, most of them in client services. She loves putting processes in place, and reviewing them, so that creative work runs more smoothly for the BOOM! team and for clients.',
     photo: { src: '/images/team/laura.webp', alt: 'Laura Maguire, Head of Operations', width: 750, height: 750 },
+    linkedinUrl: 'https://www.linkedin.com/in/laura-maguire-32130729/',
   },
   {
     slug: 'amie',
