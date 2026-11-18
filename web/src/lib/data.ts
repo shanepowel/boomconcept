@@ -114,4 +114,4 @@ export async function getPerks(): Promise<Perk[]> {
   return hasItems(data) ? data : fallback.perks
 }
 
-export const { audiences, values, beliefs, capabilities, bestFit, processSteps, disciplines, workplace, glassdoor, people2025, sustainability } = fallback
+export const { audiences, values, beliefs, capabilities, bestFit, processSteps, disciplines, workplace, glassdoor, people2025, sustainability, teamMix } = fallback

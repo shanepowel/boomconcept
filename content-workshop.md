@@ -56,7 +56,8 @@ Still to confirm:
 
 - The workplace awards are now sourced from the Great Place To Work® UK profile (certification updated October 2025): 96% vs 54% typical, and 2026 Best Workplaces lists (#23 overall small, #18 Women, #33 Wellbeing, #53 Development, plus Advertising, Media & Marketing). Get the official badge files and check GPTW's usage rules.
 - Glassdoor quote on Careers (4.8 from 6 London reviews). Confirm BOOM! is happy to feature it.
-- Team size: the site now says a 30-strong core team (GPTW: 30 UK-based employees, October 2025). The job advert says 65 specialists, which probably includes freelancers and Denmark. Confirm which figure BOOM! prefers.
+- Team size: the site says 65 specialists, matching the job advert and LinkedIn (65 associated members, November 2026, which may include freelancers). Great Place To Work lists 30 UK-based employees (October 2025). Confirm the figure BOOM! wants to use.
+- The About page team breakdown (20+ client services, 15+ writers, 15+ creative, 4 strategists, 7 leaders) and the locations (London, Bournemouth, Manchester, Copenhagen) are counted from LinkedIn job titles. Check them with BOOM!. A designer on the team lists two Cannes Young Lions UK runner-up places, which could be a nice creative credential if they're happy to feature it.
 - Culture photos on Careers come from BOOM!'s Great Place To Work® profile, and the badges from BOOM!'s own awards graphic. Get the originals and confirm they can be used.
 - The Sustainability page summarises BOOM!'s Sustainability Report 2026 (2025 data). Check the figures with BOOM! before launch.
 

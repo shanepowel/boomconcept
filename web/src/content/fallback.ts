@@ -18,7 +18,7 @@ export const settings: SiteSettings = {
   name: 'BOOM! Healthcare Communications',
   description:
     'An independent, European-based healthcare communications agency. We bring the right people together around every brief, for pharma, biotech and medtech teams.',
-  teamSize: '30',
+  teamSize: '65',
   proofPoints: [
     'Independent and award-winning',
     'Veeva Multichannel and Vault Content Partner',
@@ -56,7 +56,7 @@ export const settings: SiteSettings = {
 export const pages: Record<PageKey, PageCopy> = {
   home: {
     title: 'Healthcare communications, played by the right band.',
-    lede: "We're an independent team of specialists in insight, strategy, science and creative. For every brief, we bring together the right people to help pharma, biotech and medtech teams build brands, educate audiences and drive advocacy.",
+    lede: "We're an independent team of 65 specialists in insight, strategy, science and creative. For every brief, we bring together the right people to help pharma, biotech and medtech teams build brands, educate audiences and drive advocacy.",
     seoTitle: 'BOOM! Healthcare Communications | The right band for every brief',
     seoDescription:
       'Independent healthcare communications agency. 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams.',
@@ -466,4 +466,18 @@ export const glassdoor = {
   reviews: 6,
   quote: 'Incredible teamwork, great culture, very easy to talk to anyone in the team.',
   attribution: 'Associate medical writer, Glassdoor review, August 2026',
+}
+
+/** The shape of the band, from BOOM!'s LinkedIn people page (65 associated members, November 2026). Aggregates only, no names. */
+export const teamMix = {
+  source: 'https://www.linkedin.com/company/boom-healthcare-communications/people/',
+  disciplines: [
+    { count: '20+', label: 'Client services and account management', note: 'From account executives to senior account directors' },
+    { count: '15+', label: 'Medical and scientific writers', note: 'Associate to principal level' },
+    { count: '15+', label: 'Creative, copy and design', note: 'Copywriters, designers, artworkers and art direction' },
+    { count: '4', label: 'Strategists', note: 'Led by our Head of Scientific Strategy' },
+    { count: '7', label: 'Leadership team', note: 'Senior people who stay close to the work' },
+  ],
+  backgrounds: ['Biology', 'Biomedical science', 'Chemistry', 'Pharmacology', 'Psychology', 'Graphic design'],
+  where: 'Most of the band are based in the UK, around London, Bournemouth and Manchester, with colleagues in Copenhagen.',
 }

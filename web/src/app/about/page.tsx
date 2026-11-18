@@ -4,7 +4,7 @@ import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink } from '@/components/
 import { WorkplaceBadges } from '@/components/site/badges'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { SubNav } from '@/components/site/sub-nav'
-import { beliefs, bestFit, getPage, getSettings, getTeam, values, workplace } from '@/lib/data'
+import { beliefs, bestFit, getPage, getSettings, getTeam, teamMix, values, workplace } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('about', { stega: false })
@@ -194,26 +194,39 @@ export default async function AboutPage() {
       </section>
 
       <section className="bg-night text-[#d9d6de]">
-        <div className="wrap section-pad grid items-end gap-10 md:grid-cols-[7fr_5fr]">
-          <div>
-            <SectionHead
-              tone="light"
-              className="mb-0"
-              eyebrow="The wider team"
-              title={`A ${settings.teamSize}-strong core team.`}
-              intro={`Strategists, medical writers, researchers, creatives, digital producers, project managers and client service leads across ${settings.offices
-                .map((o) => o.city)
-                .join(', ')}. Every brief gets the line-up it needs, with trusted specialists brought in when it helps.`}
-            />
-            <div className="mt-8">
-              <TextLink href="/careers" light>
-                Think you&apos;re a Wilbury?
-              </TextLink>
+        <div className="wrap section-pad">
+          <div className="grid items-end gap-10 md:grid-cols-[7fr_5fr]">
+            <div>
+              <SectionHead
+                tone="light"
+                className="mb-0"
+                eyebrow="The wider team"
+                title={`${settings.teamSize} specialists in the band.`}
+                intro={`${teamMix.where} Every brief gets the line-up it needs.`}
+              />
+              <div className="mt-8">
+                <TextLink href="/careers" light>
+                  Think you&apos;re a Wilbury?
+                </TextLink>
+              </div>
             </div>
+            <p className="text-[clamp(4rem,10vw,8rem)] leading-none font-semibold tracking-[-0.06em] text-white">
+              {settings.teamSize}
+              <span className="text-magenta">.</span>
+            </p>
           </div>
-          <p className="text-[clamp(4rem,10vw,8rem)] leading-none font-semibold tracking-[-0.06em] text-white">
-            {settings.teamSize}
-            <span className="text-magenta">.</span>
+          <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[#2e2e2e] bg-[#2e2e2e] sm:grid-cols-2 lg:grid-cols-5">
+            {teamMix.disciplines.map((d) => (
+              <li key={d.label} className="bg-night-2 p-6">
+                <p className="text-4xl font-semibold tracking-tight text-white">{d.count}</p>
+                <p className="mt-2 font-semibold text-white">{d.label}</p>
+                <p className="mt-1 text-[14px]">{d.note}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-[15px]">
+            <span className="font-semibold text-white">Science runs deep.</span> Between us we&apos;ve studied {teamMix.backgrounds.slice(0, -1).join(', ').toLowerCase()} and{' '}
+            {teamMix.backgrounds[teamMix.backgrounds.length - 1].toLowerCase()}, so the people writing about the data understand it.
           </p>
         </div>
         <div id="offices" className="wrap scroll-mt-36 pb-[clamp(64px,8vw,120px)]">
