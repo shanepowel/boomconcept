@@ -6,10 +6,8 @@
 
 - [Home](https://www.boom-cc.com/)
 - [Work](https://www.boom-cc.com/work): selected case studies
-- [What we do](https://www.boom-cc.com/what-we-do): insights, strategy and communications, Veeva content
-- [Expertise](https://www.boom-cc.com/expertise): brand moments, specialist therapy areas and the full therapy area list
-- [How we work](https://www.boom-cc.com/how-we-work): process, approvals and procurement information
-- [About](https://www.boom-cc.com/about): values and why clients choose BOOM!
-- [Team](https://www.boom-cc.com/team): the leadership team
+- [Services](https://www.boom-cc.com/services): insights, strategy and communications, Veeva content, how we work and procurement information
+- [Therapy areas](https://www.boom-cc.com/therapy-areas): specialist areas, audiences and the full list of 70+ therapy areas
+- [About](https://www.boom-cc.com/about): story, values and the leadership team
 - [Careers](https://www.boom-cc.com/careers): culture, perks and how to get in touch
 - [Contact](https://www.boom-cc.com/contact): enquiries, credentials, procurement and careers

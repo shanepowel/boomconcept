@@ -1,52 +1,22 @@
 import type { Metadata } from 'next'
 import { CtaBand, Eyebrow, PageHero, SectionHead, Stats, Tags, TextLink } from '@/components/site/blocks'
 import { TherapyDirectory } from '@/components/site/therapy-directory'
-import { audiences, getBrandMoments, getPage, getSettings, getSpecialistAreas, getTherapyAreas } from '@/lib/data'
+import { audiences, getPage, getSettings, getSpecialistAreas, getTherapyAreas } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const page = await getPage('expertise', { stega: false })
-  return { title: page.seoTitle || 'Expertise', description: page.seoDescription }
+  const page = await getPage('therapyAreas', { stega: false })
+  return { title: page.seoTitle || 'Therapy areas', description: page.seoDescription }
 }
 
-export default async function ExpertisePage() {
-  const [page, settings, moments, specialist, areas] = await Promise.all([
-    getPage('expertise'),
-    getSettings(),
-    getBrandMoments(),
-    getSpecialistAreas(),
-    getTherapyAreas(),
-  ])
+export default async function TherapyAreasPage() {
+  const [page, settings, specialist, areas] = await Promise.all([getPage('therapyAreas'), getSettings(), getSpecialistAreas(), getTherapyAreas()])
 
   return (
     <>
       <PageHero copy={page} />
 
-      <section className="wrap pt-10">
+      <section className="wrap pt-10 pb-[clamp(48px,6vw,88px)]">
         <Stats stats={settings.stats} />
-      </section>
-
-      {/* Moments */}
-      <section className="wrap section-pad">
-        <SectionHead
-          eyebrow="The moments we're built for"
-          title="Wherever your brand is in its life, we've been there."
-          intro="Expertise isn't just knowing the disease. It's knowing what the brand needs next."
-        />
-        <ol className="border-t-2 border-ink">
-          {moments.map((m, i) => (
-            <li key={m.title} className="grid gap-x-[clamp(20px,3vw,48px)] gap-y-3 border-b border-border py-[clamp(26px,3vw,38px)] md:grid-cols-[72px_4fr_6fr]">
-              <span className="text-[15px] font-bold text-magenta">{String(i + 1).padStart(2, '0')}</span>
-              <h3 className="text-[clamp(1.3rem,2vw,1.65rem)] leading-tight">
-                <span className="mb-1.5 block text-[13px] font-bold tracking-[0.12em] text-[#5e5e5e] uppercase">{m.stage}</span>
-                {m.title}
-              </h3>
-              <div>
-                <p>{m.body}</p>
-                <Tags items={m.tags} />
-              </div>
-            </li>
-          ))}
-        </ol>
       </section>
 
       {/* Depth */}
@@ -54,7 +24,7 @@ export default async function ExpertisePage() {
         <div className="wrap section-pad">
           <SectionHead
             tone="light"
-            eyebrow="Hard science, made human"
+            eyebrow="Where we go deepest"
             title="The harder the science, the more we enjoy it."
             intro="This is where our experience runs deepest. Each area has its own language, its own specialists and its own reasons why a message lands or doesn't."
           />
@@ -79,7 +49,7 @@ export default async function ExpertisePage() {
             ))}
           </div>
           <div className="mt-8">
-            <TextLink href="/team" light>
+            <TextLink href="/about#band" light>
               Meet the people behind the work
             </TextLink>
           </div>

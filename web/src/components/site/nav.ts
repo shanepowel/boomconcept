@@ -1,9 +1,8 @@
 export const mainNav = [
   { href: '/work', label: 'Work' },
-  { href: '/what-we-do', label: 'What we do' },
-  { href: '/expertise', label: 'Expertise' },
+  { href: '/services', label: 'Services' },
+  { href: '/therapy-areas', label: 'Therapy areas' },
   { href: '/about', label: 'About' },
-  { href: '/team', label: 'Team' },
   { href: '/careers', label: 'Careers' },
 ] as const
 
@@ -11,26 +10,26 @@ export const footerNav = [
   {
     title: 'What we do',
     links: [
-      { href: '/what-we-do', label: 'Capabilities' },
-      { href: '/expertise', label: 'Expertise' },
+      { href: '/services', label: 'Services' },
+      { href: '/services#how-we-work', label: 'How we work' },
+      { href: '/therapy-areas', label: 'Therapy areas' },
       { href: '/work', label: 'Work' },
     ],
   },
   {
-    title: 'About',
+    title: 'Who we are',
     links: [
-      { href: '/about', label: 'Our values' },
-      { href: '/how-we-work', label: 'How we work' },
-      { href: '/team', label: 'The band' },
+      { href: '/about', label: 'About BOOM!' },
+      { href: '/about#band', label: 'The band' },
       { href: '/careers', label: 'Careers' },
     ],
   },
   {
     title: 'Get in touch',
     links: [
-      { href: '/contact', label: 'Start a conversation' },
+      { href: '/contact', label: 'Contact' },
       { href: '/contact?topic=credentials', label: 'Request credentials' },
-      { href: '/how-we-work#procurement', label: 'Procurement' },
+      { href: '/services#procurement', label: 'Procurement' },
     ],
   },
 ] as const

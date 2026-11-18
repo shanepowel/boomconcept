@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { CtaBand, Eyebrow, SectionHead, Stats, TextLink } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
-import { disciplines, getBrandMoments, getCaseStudies, getPage, getSettings, getTeam, values } from '@/lib/data'
+import { disciplines, getSpecialistAreas, getCaseStudies, getPage, getSettings, getTeam, values } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('home', { stega: false })
@@ -12,13 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [page, settings, team, moments, cases] = await Promise.all([
-    getPage('home'),
-    getSettings(),
-    getTeam(),
-    getBrandMoments(),
-    getCaseStudies(),
-  ])
+  const [page, settings, team, specialist, cases] = await Promise.all([getPage('home'), getSettings(), getTeam(), getSpecialistAreas(), getCaseStudies()])
 
   return (
     <>
@@ -34,7 +28,7 @@ export default async function HomePage() {
                   Bring us a brief <ArrowUpRight aria-hidden />
                 </Link>
               </Button>
-              <TextLink href="/team">Meet the band</TextLink>
+              <TextLink href="/about#band">Meet the band</TextLink>
             </div>
           </div>
           <div className="relative aspect-[5/4] overflow-hidden rounded-xl bg-night">
@@ -61,16 +55,16 @@ export default async function HomePage() {
       {/* What we do */}
       <section className="wrap section-pad">
         <SectionHead
-          eyebrow="What we do"
+          eyebrow="Services"
           title="From the first question to the final approved asset."
           intro="One connected team for insight, strategy and communications, so nothing important gets lost in a handover."
-          action={<TextLink href="/what-we-do">Explore our capabilities</TextLink>}
+          action={<TextLink href="/services">Explore our services</TextLink>}
         />
         <div className="grid gap-5 md:grid-cols-3">
           {disciplines.map((d) => (
             <Link
               key={d.id}
-              href={`/what-we-do#${d.id}`}
+              href={`/services#${d.id}`}
               className="group flex flex-col gap-3 rounded-xl border border-border p-7 transition hover:-translate-y-1 hover:border-magenta"
             >
               <span className="text-sm font-bold tracking-wider text-magenta">{d.number}</span>
@@ -92,30 +86,25 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Expertise teaser */}
+      {/* Therapy areas teaser */}
       <section className="wrap section-pad">
         <div className="grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
           <div>
-            <Eyebrow>Expertise</Eyebrow>
-            <h2 className="type-title">Wherever your brand is in its life.</h2>
-            <p className="mt-4">
-              Launches, crowded classes, biosimilars, rare diseases with a few hundred patients. Whatever stage your brand is at, someone on our team has worked through it.
-            </p>
+            <Eyebrow>Therapy areas</Eyebrow>
+            <h2 className="type-title">We know the science. And the people it affects.</h2>
+            <p className="mt-4">More than 70 therapy areas, from blockbuster classes to rare diseases with a few hundred patients. This is where our experience runs deepest.</p>
             <div className="mt-7">
-              <TextLink href="/expertise">See where our experience runs deepest</TextLink>
+              <TextLink href="/therapy-areas">See all therapy areas</TextLink>
             </div>
           </div>
-          <ol className="border-t-2 border-ink">
-            {moments.map((m, i) => (
-              <li key={m.title} className="grid grid-cols-[48px_1fr] gap-x-4 border-b border-border py-5">
-                <span className="text-sm font-bold text-magenta">{String(i + 1).padStart(2, '0')}</span>
-                <div>
-                  <p className="text-[13px] font-bold tracking-[0.12em] text-[#5e5e5e] uppercase">{m.stage}</p>
-                  <h3 className="mt-1 text-xl">{m.title}</h3>
-                </div>
+          <ul className="border-t-2 border-ink">
+            {specialist.map((a) => (
+              <li key={a.name} className="grid gap-1 border-b border-border py-5 sm:grid-cols-[220px_1fr] sm:gap-6">
+                <h3 className="text-xl">{a.name}</h3>
+                <p className="text-[15px]">{a.experience}</p>
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       </section>
 
@@ -155,7 +144,7 @@ export default async function HomePage() {
               Our founder spent a decade inside Novartis before moving agency-side. Our leaders have run agencies, written the science and launched cell therapies. And they stay close to the work.
             </p>
             <div className="mt-7 flex flex-wrap gap-6">
-              <TextLink href="/team">Meet the band</TextLink>
+              <TextLink href="/about#band">Meet the band</TextLink>
               <TextLink href="/careers">Join the band</TextLink>
             </div>
           </div>

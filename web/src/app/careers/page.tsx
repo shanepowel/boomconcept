@@ -95,7 +95,7 @@ export default async function CareersPage() {
         </div>
       </section>
 
-      <CtaBand title="Want to see who you'd be working with?" body="Meet the people behind the work." href="/team" label="Meet the band" />
+      <CtaBand title="Want to see who you'd be working with?" body="Meet the people behind the work." href="/about#band" label="Meet the band" />
     </>
   )
 }

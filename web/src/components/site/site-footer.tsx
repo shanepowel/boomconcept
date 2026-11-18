@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import type { SiteSettings } from '@/content/types'
 import { footerNav } from './nav'
 
@@ -14,9 +16,16 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
           <p className="mt-5 max-w-xs">
             Independent healthcare communications for pharma, biotech and medtech. {settings.offices.map((o) => o.city).join(' · ')}.
           </p>
-          <a href={settings.linkedinUrl} className="mt-4 inline-block font-semibold text-white link-underline">
-            Follow us on LinkedIn
-          </a>
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Button asChild variant="magenta" size="xl">
+              <Link href="/contact">
+                Start a conversation <ArrowUpRight aria-hidden />
+              </Link>
+            </Button>
+            <a href={settings.linkedinUrl} className="font-semibold text-white link-underline">
+              LinkedIn
+            </a>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
           {footerNav.map((group) => (

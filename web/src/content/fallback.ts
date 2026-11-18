@@ -56,43 +56,31 @@ export const pages: Record<PageKey, PageCopy> = {
     seoDescription:
       'Independent healthcare communications agency. 65 specialists, 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams.',
   },
-  whatWeDo: {
-    eyebrow: 'What we do',
-    title: 'An explosion of experience.',
-    lede: 'Most agencies are good at one part of the journey. We cover the whole of it, so the insight that shapes your strategy is still there in the final approved asset, and nothing gets lost in a handover.',
-    seoDescription:
-      'Insights, strategy and communications for pharma, biotech and medtech brands, from the first question to the final approved asset.',
-  },
   work: {
     eyebrow: 'Work',
-    title: 'Real challenges. Work that moved things on.',
+    title: 'Proof, not promises.',
     lede: "A few of the briefs we're proud of: the problem, the people it had to reach, what we made and what changed.",
     seoDescription: 'Selected healthcare communications work by BOOM!, from launches to patient support.',
   },
-  expertise: {
-    eyebrow: 'Expertise',
-    title: "We've been here before.",
-    lede: "Most briefs we see are a version of a challenge we've already worked through. A launch on a tight timeline. A crowded class. A twenty-year-old brand that needs a reason to be talked about again. Across 300+ brands, 50+ launches and more than 70 therapy areas, we've built up the kind of experience you only get by doing the work.",
+  services: {
+    eyebrow: 'Services',
+    title: 'Insight, strategy and communications. Joined up.',
+    lede: 'Three disciplines, one team, from the first question to the final approved asset. The insight that shapes your strategy is still there in the finished work, because the same people carry it through.',
     seoDescription:
-      'Healthcare communications expertise across 70+ therapy areas, from pre-launch and launch to biosimilars, rare disease and patient support.',
+      'Insights, strategy and communications for pharma, biotech and medtech brands, with Veeva-built content and a process designed for regulated work.',
   },
-  howWeWork: {
-    eyebrow: 'How we work',
-    title: 'Big ideas. No surprises.',
-    lede: 'In a regulated industry, a great idea is only great if it gets approved, on time and on budget. So we pair creative ambition with a process clients can rely on.',
-    seoDescription: 'How BOOM! works: a clear five-step process, approval built in from day one, and a team ready for procurement.',
+  therapyAreas: {
+    eyebrow: 'Therapy areas',
+    title: 'We know the science. And the people it affects.',
+    lede: "More than 70 therapy areas across 300+ brands. Some of our experience runs especially deep, and it shows in the questions we ask before we write a word.",
+    seoDescription:
+      'Healthcare communications experience across 70+ therapy areas, with particular depth in oncology, haematology, immunology, neurology, rare disease and medical devices.',
   },
   about: {
     eyebrow: 'About BOOM!',
-    title: 'Experience. Skill. Effort. Courage.',
-    lede: 'Four values, held together by one word: TOGETHER. Founded in 2018, independent ever since, and aiming to be the agency clients would hate to lose.',
-    seoDescription: "BOOM!'s values and what it's like to work with an independent, founder-led healthcare communications agency.",
-  },
-  team: {
-    eyebrow: 'The band',
-    title: 'Great alone. Better TOGETHER.',
-    lede: 'The Traveling Wilburys were five musicians who could each fill a stadium, and who made something better together. That is how we build teams: senior specialists, each brilliant in their own field, brought together around your brief.',
-    seoDescription: "Meet BOOM!'s leadership team: pharma-side experience, scientific depth and creative leadership.",
+    title: 'Pharma roots. Agency thinking. One band.',
+    lede: 'Founded in 2018 by a former Novartis marketer, independent ever since, and built around one idea: put the right people around every brief, then stay close to the work.',
+    seoDescription: "BOOM!'s story, values and leadership team: pharma-side experience, scientific depth and creative leadership.",
   },
   careers: {
     eyebrow: 'Careers',
@@ -103,7 +91,7 @@ export const pages: Record<PageKey, PageCopy> = {
   contact: {
     eyebrow: 'Contact',
     title: "Let's talk about what's next.",
-    lede: 'Bring us the challenge, the half-formed idea or the tricky question. Choose a route below and we will put the right person on it.',
+    lede: 'Bring us the challenge, the half-formed idea or the tricky question. Tell us a little about it and the right person will come back to you.',
     seoDescription: 'Contact BOOM! Healthcare Communications in London, Bournemouth and Copenhagen.',
   },
 }

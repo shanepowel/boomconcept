@@ -5,12 +5,10 @@ export const SINGLETON_TYPES = new Set(['siteSettings', 'pageCopy'])
 
 export const PAGE_KEYS = [
   { key: 'home', title: 'Home' },
-  { key: 'whatWeDo', title: 'What we do' },
   { key: 'work', title: 'Work' },
-  { key: 'expertise', title: 'Expertise' },
-  { key: 'howWeWork', title: 'How we work' },
+  { key: 'services', title: 'Services' },
+  { key: 'therapyAreas', title: 'Therapy areas' },
   { key: 'about', title: 'About' },
-  { key: 'team', title: 'Team' },
   { key: 'careers', title: 'Careers' },
   { key: 'contact', title: 'Contact' },
 ] as const

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MenuIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
@@ -17,9 +17,20 @@ function isActive(pathname: string, href: string) {
 export function SiteHeader() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    const first = window.requestAnimationFrame(onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.cancelAnimationFrame(first)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
+    <header className={cn('sticky top-0 z-40 border-b bg-white/95 backdrop-blur transition-[box-shadow,border-color] duration-200', scrolled ? 'border-transparent shadow-[0_6px_24px_-12px_rgba(17,17,17,0.25)]' : 'border-border')}>
       <div className="wrap flex h-20 items-center justify-between gap-6">
         <Link href="/" className="shrink-0" aria-label="BOOM! Healthcare Communications home">
           <Image src="/images/boom-logo.png" alt="BOOM! Healthcare Communications" width={640} height={338} priority className="h-auto w-[116px] sm:w-[128px]" />
@@ -60,7 +71,7 @@ export function SiteHeader() {
               <SheetTitle className="sr-only">Navigation</SheetTitle>
             </SheetHeader>
             <nav aria-label="Mobile navigation" className="flex flex-col px-6 pb-8 text-lg font-semibold">
-              {[...mainNav, { href: '/how-we-work', label: 'How we work' }].map((item) => (
+              {mainNav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}

@@ -11,16 +11,7 @@ export type PageCopy = {
   seoDescription?: string
 }
 
-export type PageKey =
-  | 'home'
-  | 'whatWeDo'
-  | 'work'
-  | 'expertise'
-  | 'howWeWork'
-  | 'about'
-  | 'team'
-  | 'careers'
-  | 'contact'
+export type PageKey = 'home' | 'work' | 'services' | 'therapyAreas' | 'about' | 'careers' | 'contact'
 
 export type Stat = { value: string; label: string }
 export type Office = {

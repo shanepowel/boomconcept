@@ -35,13 +35,14 @@ The site works straight away with no Sanity project. Until one is connected, eve
 | In the Studio | Where it shows |
 | --- | --- |
 | Site settings | Proof points, stats, team size, offices, emails, company details, legal links |
-| Page copy (one per page) | Each page's eyebrow, headline, intro and SEO title and description |
-| Team | Team page, home page line-up, contact people (drag to reorder) |
+| Page copy (one per page) | Each page's eyebrow, headline, intro and SEO title and description. Pages: Home, Work, Services, Therapy areas, About, Careers, Contact |
+| Team | About page (the band), home page line-up, contact people (drag to reorder) |
 | Case studies | Work page and home page. Untick "Example only" once a story is real and approved |
-| Brand moments, specialist areas, therapy areas | Expertise page and home page |
+| Brand moments | Services page |
+| Specialist areas, therapy areas | Therapy areas page and home page |
 | Careers perks | Careers page |
 
-Longer-form section copy (for example the What we do disciplines and the process steps) still lives in `web/src/content/fallback.ts`. Moving it into Sanity is the natural next step.
+Longer-form section copy (for example the service disciplines and the process steps) still lives in `web/src/content/fallback.ts`. Moving it into Sanity is the natural next step.
 
 ## How it is built
 
