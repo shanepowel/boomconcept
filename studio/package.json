@@ -1,0 +1,29 @@
+{
+  "name": "boom-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "seed": "node --experimental-strip-types seed/build-seed.mjs && sanity dataset import seed/seed.ndjson production --replace",
+    "typegen": "sanity schema extract && sanity typegen generate"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@sanity/icons": "^5.4.0",
+    "@sanity/orderable-document-list": "^2.0.29",
+    "@sanity/vision": "^6.24.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sanity": "^6.24.0",
+    "styled-components": "^6.6.0"
+  }
+}

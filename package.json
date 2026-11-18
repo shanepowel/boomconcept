@@ -1,0 +1,11 @@
+{
+  "name": "boomconcept",
+  "private": true,
+  "scripts": {
+    "install:all": "npm --prefix web install && npm --prefix studio install",
+    "dev": "npm --prefix web run dev",
+    "dev:studio": "npm --prefix studio run dev",
+    "build": "npm --prefix web run build",
+    "build:studio": "npm --prefix studio run build"
+  }
+}

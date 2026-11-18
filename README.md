@@ -1,25 +1,60 @@
 # BOOM! Healthcare Communications: website concept
 
-A responsive nine-page corporate website concept based on public information from [boom-cc.com](https://www.boom-cc.com/). Open `index.html` in a browser to start. The pages are static HTML and share one stylesheet and one small JavaScript file; there is no build step.
+A redesigned website for BOOM! Healthcare Communications, built as a Next.js site with a Sanity content studio.
 
-## Site structure
+```
+boomconcept/
+├── web/             Next.js 16 site (App Router, Tailwind CSS 4, shadcn/ui on Radix)
+├── studio/          Sanity Studio (standalone) with the content model and a seed dataset
+├── static-concept/  The earlier static HTML version, kept for reference
+└── content-workshop.md  Facts and assets to confirm with BOOM! before launch
+```
 
-- `index.html`: “right band for the brief” positioning, capabilities, experience figures, selected therapy areas, team introduction and a clear contact path.
-- `what-we-do.html`: detailed Insights, Strategy and Communications capabilities.
-- `expertise.html`: brand-moment framing, audience perspective and a searchable directory of the therapy areas currently shown on BOOM!'s site.
-- `how-we-work.html`: the four working principles, regulated-industry process and ways of working.
-- `work.html`: case-study architecture for future approved work stories.
-- `about.html`: BOOM!'s values, what it is like to work with the agency, and routes to the team and careers pages.
-- `team.html`: leadership profiles based on the public team page.
-- `careers.html`: a people and culture story based on BOOM!'s stated values, with a contact path for future opportunities.
-- `contact.html`: leadership contacts and locations.
-- `content-workshop.md`: sourced content gaps and questions to resolve before completing the proposed Work, Careers and Contact experiences.
-- `sitemap.xml` and `llms.txt`: draft discovery files for the proposed static route map.
+## Run it
 
-The therapy directory filter, small-screen navigation, gentle section reveals and reduced-motion-aware count-up figures work client-side. The hero and process imagery are AI-generated concept illustrations in `assets/`. The header and favicon use the logo image linked from BOOM!'s live site, and the team profiles link to public BOOM! headshots and LinkedIn profiles. Replace these with BOOM-approved, self-hosted brand and image assets before production. The careers page does not imply that roles are currently open or invent benefits that BOOM! has not published.
+You need Node 22 or later.
 
-The structure takes cues from people-forward agency sites such as [AND Digital](https://www.and.digital/), [Make](https://makeagency.co.uk/), and [Found's team](https://www.found.co.uk/meet-the-team/) and [careers](https://www.found.co.uk/about-us/careers/) pages. It uses their clear routes into leadership, people and careers as inspiration while keeping BOOM!'s own story, voice and claims.
+```bash
+npm run install:all   # installs web/ and studio/
+npm run dev           # site on http://localhost:3000
+```
 
-The Work page provides a case-study structure, while real project stories are intentionally left for the content workshop because no published project stories or client testimonials were found on the live site. See [content-workshop.md](content-workshop.md) for the evidence and decisions needed to complete those sections.
+The site works straight away with no Sanity project. Until one is connected, every page renders the content in `web/src/content/fallback.ts`.
 
-The content was checked against BOOM!'s [homepage](https://www.boom-cc.com/), [how we work](https://www.boom-cc.com/how-we-do-it-22), [beliefs](https://www.boom-cc.com/what-we-stand-for), [team](https://www.boom-cc.com/who-we-are-25), [expertise](https://www.boom-cc.com/expertise-22), [contact](https://www.boom-cc.com/contact-1), [Why choose BOOM](https://www.boom-cc.com/why-choose-boom-22), and [terms](https://www.boom-cc.com/terms-1) pages. Claims, names, numbers, contact details, policy links and source-page conditions should be confirmed with the agency before launch. The sitemap, canonical links and structured data use the current concept's `.html` route map and need updating if production URLs differ. This is a static concept: production work would still need BOOM!'s approved brand assets and photography, final copy review, an agreed CMS/hosting setup, and any required analytics or cookie-consent configuration.
+## Connect Sanity
+
+1. Create a project: `cd studio && npx sanity login && npx sanity init --env` (or create one at sanity.io/manage and note the project ID).
+2. Add the project ID to `studio/.env` (`SANITY_STUDIO_PROJECT_ID`) and `web/.env.local` (`NEXT_PUBLIC_SANITY_PROJECT_ID`). See the two `.env.example` files.
+3. Load the current content into the dataset: `cd studio && npm run seed`. This builds `seed/seed.ndjson` from the site's fallback content, including the team photos, and imports it.
+4. Allow the site to talk to the API: `npx sanity cors add http://localhost:3000 --credentials` (and later the production URL).
+5. Run the Studio: `npm run dev:studio` (http://localhost:3333). Deploy it with `cd studio && npx sanity deploy`.
+6. For live preview and draft mode, create a Viewer token in sanity.io/manage and set `SANITY_API_READ_TOKEN` in `web/.env.local`.
+
+### What editors can change
+
+| In the Studio | Where it shows |
+| --- | --- |
+| Site settings | Proof points, stats, team size, offices, emails, company details, legal links |
+| Page copy (one per page) | Each page's eyebrow, headline, intro and SEO title and description |
+| Team | Team page, home page line-up, contact people (drag to reorder) |
+| Case studies | Work page and home page. Untick "Example only" once a story is real and approved |
+| Brand moments, specialist areas, therapy areas | Expertise page and home page |
+| Careers perks | Careers page |
+
+Longer-form section copy (for example the What we do disciplines and the process steps) still lives in `web/src/content/fallback.ts`. Moving it into Sanity is the natural next step.
+
+## How it is built
+
+- **Components:** shadcn/ui (Radix) in `web/src/components/ui`, themed to the BOOM! brand in `web/src/app/globals.css` (black type, magenta `#D90070` from the logo, the colour-burst gradient). Site-level building blocks are in `web/src/components/site`.
+- **Data:** `web/src/lib/data.ts` reads from Sanity through `next-sanity` (Live Content API) and falls back to local content if Sanity is not configured or a document is missing.
+- **Content model:** `studio/schemaTypes`. Singletons (Site settings and Page copy) are locked to fixed IDs in `studio/structure`.
+- **Contact form:** for the concept it opens a pre-filled email to the enquiries address. Replace it with a server action (for example Resend) for launch.
+- **Images:** self-hosted in `web/public/images`. The logo and team photos come from boom-cc.com. The splash and process images are AI-generated concept art.
+
+## Deploy
+
+Deploy `web/` to Vercel (set the root directory to `web` and add the environment variables). Set `NEXT_PUBLIC_SITE_URL` to the production URL for canonical links, the sitemap and social images.
+
+## Sources
+
+Content is based on boom-cc.com and BOOM!'s published Finance Coordinator job advert (team size, values, benefits, working pattern and the Wilburys hiring philosophy). The three case studies on the Work page are labelled examples to show the layout; they are not real projects. See `content-workshop.md` for everything to confirm with BOOM!.
