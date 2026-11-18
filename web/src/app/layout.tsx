@@ -39,7 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <html lang="en-GB" className={`${dmSans.variable} antialiased`}>
+    <html lang="en-GB" data-scroll-behavior="smooth" className={`${dmSans.variable} antialiased`}>
       <body className="flex min-h-screen flex-col">
         <a href="#main" className="fixed top-3 left-3 z-50 -translate-y-[200%] bg-ink px-4 py-3 text-white focus:translate-y-0">
           Skip to content
