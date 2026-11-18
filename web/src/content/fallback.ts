@@ -22,7 +22,7 @@ export const settings: SiteSettings = {
   proofPoints: [
     'Independent and award-winning',
     'Veeva Multichannel and Vault Content Partner',
-    'Recognised as a great place to work in 2026',
+    'Five 2026 UK Best Workplaces badges',
     'London · Bournemouth · Copenhagen',
   ],
   stats: [
@@ -45,6 +45,7 @@ export const settings: SiteSettings = {
     { label: 'Terms', href: 'https://www.boom-cc.com/terms-1' },
     { label: 'Privacy', href: 'https://www.boom-cc.com/privacy-policy-1' },
     { label: 'Cookies', href: 'https://www.boom-cc.com/cookies' },
+    { label: 'Sustainability report', href: 'https://www.boom-cc.com/s/BOOM-Sustainability-Report-2026-k2tm.pptx' },
   ],
 }
 
@@ -128,7 +129,7 @@ export const team: TeamMember[] = [
     fullName: 'Kim Hughes',
     role: 'Creative Director',
     discipline: 'Creative · Craft',
-    bio: 'Kim has spent more than 25 years in healthcare communications. She started as an art director, became creative director and then joint managing director of a successful healthcare agency. At BOOM! she leads the creative work and makes sure the ideas are as strong as the science behind them.',
+    bio: 'Kim has spent more than 25 years in healthcare communications. She started as an art director, became creative director and then joint managing director of a successful healthcare agency. At BOOM! she leads the creative output, and her job is simple to describe and hard to do: igniting great creative.',
     photo: { src: '/images/team/kim.webp', alt: 'Kim Hughes, Creative Director', width: 750, height: 750 },
     linkedinUrl: 'https://www.linkedin.com/in/kim-hughes-802a845/',
   },
@@ -138,7 +139,7 @@ export const team: TeamMember[] = [
     fullName: 'David Wright',
     role: 'Head of Scientific Communications',
     discipline: 'Science · Story',
-    bio: 'David has worked across academia, pharma and agencies, and before joining BOOM! he ran his own healthcare communications agency. He loves clinical data and has an eye for the detail that makes a scientific story stand up.',
+    bio: 'David has worked across academia, pharma and healthcare communications agencies. Before joining BOOM! he ran his own agency, providing writing and client services support to pharma and to other agencies. He brings a real passion for clinical data and an eye for the detail that makes a scientific story stand up.',
     photo: { src: '/images/team/david.webp', alt: 'David Wright, Head of Scientific Communications', width: 750, height: 750 },
     linkedinUrl: 'https://www.linkedin.com/in/david-b-wright/',
   },
@@ -148,7 +149,7 @@ export const team: TeamMember[] = [
     fullName: 'Ali Americanos',
     role: 'Head of Scientific Strategy',
     discipline: 'Evidence · Direction',
-    bio: 'From launching CAR-T therapies to giving twenty-year-old brands a new lease of life, Ali connects deep therapy area knowledge to clear direction. He brings years of medical writing to every strategy.',
+    bio: 'From launching CAR-T therapies to giving twenty-year-old brands a new lease of life, Ali has led strategy for pharma brands on the agency side. Nine years of medical writing mean he never loses sight of the compliance and regulatory detail behind a clear strategy.',
     photo: { src: '/images/team/ali.webp', alt: 'Ali Americanos, Head of Scientific Strategy', width: 750, height: 750 },
     linkedinUrl: 'https://www.linkedin.com/in/aliamericanos/',
   },
@@ -158,7 +159,7 @@ export const team: TeamMember[] = [
     fullName: 'Laura Maguire',
     role: 'Head of Operations',
     discipline: 'Operations · Process',
-    bio: 'Laura has spent more than 20 years in healthcare agencies and knows client service from both sides. She makes sure the way we work makes the work better, and more enjoyable for everyone.',
+    bio: 'Laura has spent more than 20 years in healthcare communications agencies, most of them in client services. She loves putting processes in place, and reviewing them, so that creative work runs more smoothly for the BOOM! team and for clients.',
     photo: { src: '/images/team/laura.webp', alt: 'Laura Maguire, Head of Operations', width: 750, height: 750 },
   },
   {
@@ -167,7 +168,7 @@ export const team: TeamMember[] = [
     fullName: 'Amie Smith',
     role: 'Head of Client Services',
     discipline: 'Client services · Experience',
-    bio: 'Amie puts real thought into every client relationship. Her job is to make working with BOOM! feel easy, from the first brief to the final sign-off.',
+    bio: 'Amie is focused on making every client interaction better than the last. She leads and empowers the client services team, so that working with BOOM! feels smooth, engaging and consistently high quality.',
     photo: { src: '/images/team/amie.webp', alt: 'Amie Smith, Head of Client Services', width: 750, height: 750 },
     linkedinUrl: 'https://www.linkedin.com/in/amie-smith-6bb193a1/',
   },
@@ -282,19 +283,63 @@ export const perks: Perk[] = [
   { title: 'Pension', body: '5% employer pension contribution.' },
 ]
 
+/** How BOOM! says it succeeds (boom-cc.com, How we do it). */
 export const values = [
-  { title: 'Experience', body: "300+ brands and more than 50 launches. We've learned what works, and what doesn't." },
-  { title: 'Skill', body: 'Strategy, research, science, creative, digital and project management, under one roof.' },
-  { title: 'Effort', body: 'The right mix of inspiration and perspiration. We know when to think and when to act.' },
-  { title: 'Courage', body: 'The confidence to speak up, and the good sense to sit down and listen.' },
+  { title: 'Experience', body: "300+ brands, more than 50 launches and over 1,000 projects. We've learned what works, and what doesn't." },
+  { title: 'Skill', body: 'Client services, project management, strategy, research, science, creative and digital, all under one roof.' },
+  { title: 'Effort', body: 'The perfect mix of inspiration and perspiration. We know when to think and when to act.' },
+  { title: 'Courage', body: 'The confidence to stand up and speak, and the good sense to sit down and listen.' },
+]
+
+/** What BOOM! believes (boom-cc.com, What we believe), in a warmer voice. */
+export const beliefs = [
+  {
+    title: 'Achieving together',
+    short: 'Working with us should be the easy part.',
+    body: 'We give our clients 100% support to do the best job they can: building brands, educating audiences, driving advocacy, and growing their own careers through the success of the work.',
+  },
+  {
+    title: 'People at the heart',
+    short: 'The journey should be enjoyable.',
+    body: 'Teamwork, alignment with our clients and real experience come first. Good work is hard enough without making the process miserable, so we make it enjoyable.',
+  },
+  {
+    title: 'Pride in everything we do',
+    short: 'Craft and creativity, all the way through.',
+    body: 'We strive for excellence in the craft, the creative and the science, and we tell its story with the same care, from the big idea to the last reference.',
+  },
+  {
+    title: 'Process underpins performance',
+    short: 'Consistency builds trust.',
+    body: 'Tried-and-trusted ways of working mean everyone knows what is next and what is needed, so the team can spend its energy on the work, not the admin.',
+  },
+  {
+    title: 'Results, the right way',
+    short: 'The juice has to be worth the squeeze.',
+    body: 'We challenge beliefs and change behaviour to win market share, always in the right way, and always checking that the effort is worth the result.',
+  },
+]
+
+/** The skills that sit behind all three disciplines (boom-cc.com, How we do it). */
+export const capabilities = [
+  { title: 'Science and medical writing', body: 'Scientists and medical writers who get the data right first time, and know what will survive review.' },
+  { title: 'Digital and Veeva build', body: 'Sales aids, approved email and multichannel content, built and project managed through Veeva.' },
+  { title: 'Client services and project management', body: 'One team that keeps the plan, the budget and the approvals moving, and keeps you in the loop.' },
+]
+
+/** Who BOOM! says it works best with (boom-cc.com, home page). */
+export const bestFit = [
+  'Small to mid-sized brand teams, or teams running lean, who want a genuine partner rather than a supplier',
+  'Challenging projects, where a broad mix of experience gets to the heart of the issue quickly',
+  'Global, regional and local teams, including emerging markets',
 ]
 
 export const processSteps = [
   { title: 'Get to the heart of it', body: 'Agree the challenge, the audience and what success looks like, before anyone opens a laptop.' },
-  { title: 'Make a clear plan', body: 'Owners, timings, account rhythm and budget tracking, set from day one.' },
+  { title: 'Make a clear plan', body: 'A proper briefing, then owners, timings, account rhythm and budget tracking, set from day one.' },
   { title: 'Make it TOGETHER', body: 'The right specialists in the room early, with you involved, not just shown the result.' },
   { title: 'Check every detail', body: 'QC and sign-off built around your SOPs and approval process, including Veeva PromoMats.' },
-  { title: 'Keep moving forward', body: 'Regular status reports, open conversations and lessons carried into the next project.' },
+  { title: 'Keep moving forward', body: 'Regular status reports, financial tracking, training where it helps, and lessons carried into the next project.' },
 ]
 
 export const disciplines = [

@@ -54,6 +54,8 @@ Most of these come from BOOM!'s own published Finance Coordinator job advert (CV
 
 Still to confirm:
 
+- The workplace awards. Their Why choose BOOM! page shows five 2026 UK badges (Best Workplaces, Development, Wellbeing, Women, Advertising) but doesn't name the issuer. The new site says "Five 2026 UK Best Workplaces badges"; confirm the wording and get the badge files.
+
 - Real case studies to replace the three labelled examples on the Work page (client permission, results, assets).
 - Client quotes and logos.
 - Which leader to name against each specialist therapy area, and whether CAR-T work can be mentioned publicly.

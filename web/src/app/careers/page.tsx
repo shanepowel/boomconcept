@@ -49,7 +49,11 @@ export default async function CareersPage() {
 
       <section className="bg-warm">
         <div className="wrap section-pad">
-          <SectionHead eyebrow="Life at BOOM!" title="Good work should feel good to do." />
+          <SectionHead
+            eyebrow="Life at BOOM!"
+            title="People at the heart. The journey should be enjoyable."
+            intro="Teamwork, trust and the right support to grow. We win TOGETHER, we lose TOGETHER, and most importantly we do it TOGETHER."
+          />
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {dayToDay.map((d) => (
               <div key={d.title} className="border-t-2 border-ink pt-5">

@@ -5,7 +5,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { CtaBand, Eyebrow, PageHero, SectionHead, Tags } from '@/components/site/blocks'
 import { SubNav } from '@/components/site/sub-nav'
 import { Button } from '@/components/ui/button'
-import { disciplines, getBrandMoments, getPage, getSettings, processSteps } from '@/lib/data'
+import { capabilities, disciplines, getBrandMoments, getPage, getSettings, processSteps } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('services', { stega: false })
@@ -52,6 +52,19 @@ export default async function ServicesPage() {
           </div>
         </section>
       ))}
+
+      {/* Supporting capabilities */}
+      <section className="wrap py-[clamp(56px,7vw,96px)]">
+        <SectionHead eyebrow="Behind every discipline" title="The skills that make it all work." className="mb-10" />
+        <ul className="grid gap-5 md:grid-cols-3">
+          {capabilities.map((c) => (
+            <li key={c.title} className="rounded-2xl border border-border p-7">
+              <h3 className="text-xl">{c.title}</h3>
+              <p className="mt-2 text-[16px]">{c.body}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {/* Veeva */}
       <section className="bg-night text-[#d9d6de]">
@@ -102,8 +115,8 @@ export default async function ServicesPage() {
         <div className="wrap section-pad">
           <SectionHead
             eyebrow="How we work"
-            title="Big ideas. No surprises."
-            intro="In a regulated industry, a great idea is only great if it gets approved, on time and on budget. So we pair creative ambition with a process clients can rely on."
+            title="Process underpins our performance."
+            intro="In a highly regulated industry, experience has taught us the value of process. Whether we're following your SOPs or bringing our own, a great idea only counts if it gets approved, on time and on budget."
           />
           <ol className="grid gap-6 md:grid-cols-5">
             {processSteps.map((s, i) => (
@@ -115,7 +128,7 @@ export default async function ServicesPage() {
             ))}
           </ol>
           <p className="mt-10 max-w-3xl text-lg">
-            We&apos;re as comfortable on Teams and Miro as we are in a workshop room. Every day starts with a quick team call, and when getting together will move the work on,
+            From Microsoft Teams to Miro, we&apos;re set up to work just as well remotely as face to face. Every day starts with a quick team call, and when getting together will move the work on,
             we&apos;re there: in {settings.offices.map((o) => o.city).join(', ')} or at your office.
           </p>
         </div>

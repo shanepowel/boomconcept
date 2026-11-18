@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink } from '@/components/site/blocks'
 import { SubNav } from '@/components/site/sub-nav'
-import { getPage, getSettings, getTeam, values } from '@/lib/data'
+import { beliefs, bestFit, getPage, getSettings, getTeam, values } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('about', { stega: false })
@@ -10,11 +10,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const why = [
-  { title: 'Independent', body: 'Your work matters more to us, because it is personal.' },
-  { title: 'Healthcare experts', body: 'Everyone here understands the science, the sector and the standards.' },
-  { title: 'The right band', body: 'The right mix of skills for your brief, brought together from the start.' },
-  { title: 'Genuine partnership', body: 'Open, day-to-day collaboration that makes the work better and lasts.' },
-  { title: 'Process with purpose', body: 'Consistency builds trust, so we never leave delivery to chance.' },
+  { title: 'Independent', body: "Your work matters more to us. It's personal." },
+  { title: 'Healthcare experts', body: 'Everyone here is a healthcare communications specialist, so quality is built in.' },
+  { title: 'The right band', body: 'We build the team around your needs, and bring in specific expertise whenever it helps.' },
+  { title: 'Genuine partnership', body: 'Long-term relationships that grow, built on the everyday, not just the pitch.' },
+  { title: 'Process with purpose', body: 'Process underpins our performance, because consistency builds trust.' },
 ]
 
 export default async function AboutPage() {
@@ -36,7 +36,8 @@ export default async function AboutPage() {
       <SubNav
         items={[
           { id: 'story', label: 'Our story' },
-          { id: 'values', label: 'What we believe' },
+          { id: 'beliefs', label: 'What we believe' },
+          { id: 'why', label: 'Why BOOM!' },
           { id: 'band', label: 'The band' },
         ]}
       />
@@ -67,30 +68,52 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
-      <section id="values" className="scroll-mt-36 bg-warm">
+      {/* Beliefs */}
+      <section id="beliefs" className="scroll-mt-36 bg-warm">
         <div className="wrap section-pad">
-          <SectionHead eyebrow="What we believe" title="Experience. Skill. Effort. Courage." />
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {values.map((v) => (
-              <div key={v.title}>
-                <h3 className="text-[clamp(1.5rem,2.4vw,2rem)] tracking-[-0.04em] after:mt-4 after:block after:h-[3px] after:w-9 after:bg-burst">{v.title}</h3>
-                <p className="mt-4">{v.body}</p>
-              </div>
+          <SectionHead
+            eyebrow="What we believe"
+            title="We believe in achieving TOGETHER."
+            intro="Creativity and chemistry win pitches. It's the everyday that produces great results and long partnerships, so that's where our beliefs live."
+          />
+          <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {beliefs.map((b, i) => (
+              <li key={b.title} className={i === 0 ? 'flex flex-col rounded-2xl bg-night p-7 text-[#d6d2db] lg:row-span-2' : 'flex flex-col rounded-2xl bg-white p-7'}>
+                <span className="text-sm font-bold text-magenta">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className={i === 0 ? 'mt-3 text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight text-white' : 'mt-3 text-xl'}>{b.title}</h3>
+                <p className={i === 0 ? 'mt-2 text-lg font-semibold text-magenta-soft' : 'mt-1 font-semibold text-magenta'}>{b.short}</p>
+                <p className="mt-3 text-[16px]">{b.body}</p>
+              </li>
             ))}
-          </div>
-          <p className="mt-12 max-w-3xl text-[clamp(1.2rem,1.8vw,1.5rem)] text-ink">
-            We win TOGETHER, we lose TOGETHER and, most importantly, we do everything <strong className="tracking-wide text-magenta">TOGETHER</strong>.
-          </p>
+          </ol>
+        </div>
+      </section>
 
-          <div className="mt-[clamp(56px,7vw,96px)] grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
-            <div>
-              <h3 className="type-title text-[clamp(1.8rem,3vw,2.5rem)]">The agency you&apos;d hate to lose.</h3>
-              <p className="mt-4">
-                Chemistry and creativity win pitches. It&apos;s the everyday that makes a partnership: answering quickly, flagging risks early, and making sure the juice is worth the
-                squeeze.
-              </p>
+      {/* How we succeed + why BOOM! */}
+      <section id="why" className="wrap section-pad scroll-mt-36">
+        <SectionHead eyebrow="How we succeed" title="Experience. Skill. Effort. Courage." intro="Four things we bring to every brief, and the reason clients stay." />
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {values.map((v) => (
+            <div key={v.title}>
+              <h3 className="text-[clamp(1.5rem,2.4vw,2rem)] tracking-[-0.04em] after:mt-4 after:block after:h-[3px] after:w-9 after:bg-burst">{v.title}</h3>
+              <p className="mt-4">{v.body}</p>
             </div>
+          ))}
+        </div>
+
+        <div className="mt-[clamp(56px,7vw,96px)] grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
+          <div>
+            <Eyebrow>Why choose BOOM!</Eyebrow>
+            <h3 className="type-title text-[clamp(1.8rem,3vw,2.5rem)]">The agency you&apos;d absolutely hate to lose.</h3>
+            <p className="mt-4">
+              It&apos;s not one single thing that makes working with us a success. It&apos;s several, and they depend on each other. Our aim is simple: to be the agency our
+              clients would hate to lose, and the place our people would hate to leave.
+            </p>
+            <p className="mt-6 rounded-xl bg-magenta-tint px-5 py-4 text-[15px] text-ink">
+              <strong>Proud to be a great place to work.</strong> Five 2026 UK Best Workplaces badges, including Wellbeing, Development and Women.
+            </p>
+          </div>
+          <div>
             <ol className="border-t-2 border-ink">
               {why.map((w, i) => (
                 <li key={w.title} className="grid grid-cols-[48px_1fr] gap-x-4 border-b border-border py-5 sm:grid-cols-[48px_200px_1fr]">
@@ -100,6 +123,14 @@ export default async function AboutPage() {
                 </li>
               ))}
             </ol>
+            <h4 className="mt-10 text-[13px] font-bold tracking-[0.14em] text-ink uppercase">Who we work best with</h4>
+            <ul className="mt-3 space-y-2">
+              {bestFit.map((f) => (
+                <li key={f} className="relative pl-7 before:absolute before:top-[0.8rem] before:left-0 before:h-0.5 before:w-4 before:bg-magenta">
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

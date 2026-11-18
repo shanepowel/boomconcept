@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { CtaBand, Eyebrow, SectionHead, Stats, TextLink } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
-import { disciplines, getSpecialistAreas, getCaseStudies, getPage, getSettings, getTeam, values } from '@/lib/data'
+import { disciplines, getSpecialistAreas, getCaseStudies, getPage, getSettings, getTeam, beliefs } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('home', { stega: false })
@@ -162,21 +162,24 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Values */}
+      {/* Beliefs */}
       <section className="bg-warm">
         <div className="wrap section-pad">
-          <SectionHead eyebrow="What we believe" title="Experience. Skill. Effort. Courage." action={<TextLink href="/about">Our values</TextLink>} />
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {values.map((v) => (
-              <div key={v.title}>
-                <h3 className="text-2xl after:mt-3 after:block after:h-[3px] after:w-9 after:bg-burst">{v.title}</h3>
-                <p className="mt-3">{v.body}</p>
-              </div>
+          <SectionHead
+            eyebrow="What we believe"
+            title="We believe in achieving TOGETHER."
+            intro="Creativity and chemistry win pitches. It's the everyday that makes a partnership."
+            action={<TextLink href="/about#beliefs">What we believe</TextLink>}
+          />
+          <ol className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
+            {beliefs.map((b, i) => (
+              <li key={b.title} className="bg-white p-6">
+                <span className="text-sm font-bold text-magenta">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="mt-3 text-lg leading-snug">{b.title}</h3>
+                <p className="mt-2 text-[15px]">{b.short}</p>
+              </li>
             ))}
-          </div>
-          <p className="mt-10 text-xl text-ink">
-            And one word that holds them together: <strong className="tracking-wide text-magenta">TOGETHER</strong>.
-          </p>
+          </ol>
         </div>
       </section>
 
