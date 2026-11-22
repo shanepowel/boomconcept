@@ -1,9 +1,10 @@
+import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ContactFaq } from '@/components/site/contact-faq'
 import { ContactForm } from '@/components/site/contact-form'
-import { Eyebrow } from '@/components/site/blocks'
+import { EditableSectionHead, Eyebrow } from '@/components/site/blocks'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { Button } from '@/components/ui/button'
 import { contactTopics, getContactTopic } from '@/content/contact-topics'
@@ -22,8 +23,8 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
 
   return (
     <>
-      <section className="bg-warm">
-        <div className="wrap grid items-start gap-x-14 gap-y-8 py-[clamp(36px,5vw,76px)] lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="page-masthead border-b border-border bg-warm">
+        <div className="wrap masthead-grid masthead-grid--contact">
           <div>
             {page.eyebrow && <Eyebrow>{page.eyebrow}</Eyebrow>}
             <h1 className="editorial-display max-w-[13ch]">{page.title}</h1>
@@ -72,11 +73,8 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         </div>
       </section>
 
-      <section className="wrap section-pad grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
-        <div>
-          <Eyebrow>Questions</Eyebrow>
-          <h2 className="type-title">Good to know before we talk.</h2>
-        </div>
+      <section className="wrap section-pad section-split">
+        <EditableSectionHead page={page} id="questions" defaults={pageSections.contact.questions} className="mb-0" />
         <ContactFaq />
       </section>
     </>

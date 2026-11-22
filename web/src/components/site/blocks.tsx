@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { PageCopy, Stat } from '@/content/types'
+import type { SectionCopy } from '@/content/page-sections'
 import { cn } from '@/lib/utils'
 
 export function Eyebrow({ children, tone = 'magenta', className }: { children: React.ReactNode; tone?: 'magenta' | 'light'; className?: string }) {
@@ -19,26 +20,54 @@ export function Eyebrow({ children, tone = 'magenta', className }: { children: R
   )
 }
 
-export function PageHero({ copy, children }: { copy: PageCopy; children?: React.ReactNode }) {
+export function PageHero({ copy, children, artwork = 'groove' }: { copy: PageCopy; children?: React.ReactNode; artwork?: 'groove' | 'echo' | 'press' }) {
   return (
     <section className="page-masthead border-b border-border bg-warm">
-      <div className={cn('wrap grid items-center gap-8 py-[clamp(42px,6vw,88px)]', copy.image && 'lg:grid-cols-[1.1fr_1fr] lg:gap-12')}>
+      <div className="wrap masthead-grid">
         <div>
           {copy.eyebrow && <Eyebrow>{copy.eyebrow}</Eyebrow>}
           <h1 className="editorial-display max-w-[18ch]">{copy.title}</h1>
           {copy.lede && <p className="mt-6 max-w-[58ch] text-lg leading-relaxed">{copy.lede}</p>}
           {children}
         </div>
-        {copy.image && (
+        {copy.image ? (
           <figure>
-            <div className="relative aspect-[4/3] overflow-hidden border-l-4 border-magenta bg-night-2">
+            <div className="relative aspect-[4/3] overflow-hidden masthead-photo bg-night-2">
               <Image src={copy.image.src} alt={copy.image.alt} fill sizes="(min-width: 1024px) 44vw, 90vw" className="object-cover" />
             </div>
             {(copy.image.caption || copy.image.credit) && <figcaption className="mt-2 text-sm">{[copy.image.caption, copy.image.credit].filter(Boolean).join(' · ')}</figcaption>}
           </figure>
+        ) : (
+          <div aria-hidden="true" className={`record-sleeve record-sleeve--${artwork}`}>
+            <span className="record-disc" /><span className="record-label" />
+          </div>
         )}
       </div>
     </section>
+  )
+}
+
+export function ReadingLayout({ back, chapters, children }: {
+  back: { href: string; label: string }
+  chapters: { id: string; title: string }[]
+  children: React.ReactNode
+}) {
+  return (
+    <article className="wrap section-pad reading-layout">
+      <aside className="reading-index">
+        <TextLink href={back.href}>{back.label}</TextLink>
+        {chapters.length > 0 && (
+          <nav aria-label="Article sections" className="mt-5 border-t border-ink">
+            <ul className="divide-y divide-border">
+              {chapters.map(({ id, title }) => (
+                <li key={id}><a href={`#${id}`} className="block py-2.5 text-sm font-semibold hover:text-magenta-dark">{title}</a></li>
+              ))}
+            </ul>
+          </nav>
+        )}
+      </aside>
+      <div className="min-w-0">{children}</div>
+    </article>
   )
 }
 
@@ -66,6 +95,24 @@ export function SectionHead({
       </div>
       {action}
     </div>
+  )
+}
+
+export function EditableSectionHead({
+  page,
+  id,
+  defaults,
+  ...props
+}: Omit<React.ComponentProps<typeof SectionHead>, keyof SectionCopy> & { page: PageCopy; id: string; defaults: SectionCopy }) {
+  const copy = page.sections?.[id]
+
+  return (
+    <SectionHead
+      eyebrow={copy?.eyebrow ?? defaults.eyebrow}
+      title={copy?.title?.trim() ? copy.title : defaults.title}
+      intro={copy?.intro ?? defaults.intro}
+      {...props}
+    />
   )
 }
 

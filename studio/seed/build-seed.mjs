@@ -8,6 +8,7 @@ import { randomUUID } from 'node:crypto'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const content = await import(join(here, '../../web/src/content/fallback.ts'))
+const { pageSections } = await import(join(here, '../../web/src/content/page-sections.ts'))
 const { insights } = await import(join(here, '../../web/src/content/insights.ts'))
 const { therapyAreas } = await import(join(here, '../../web/src/content/therapy-areas.ts'))
 
@@ -43,6 +44,7 @@ for (const [pageKey, { image, lineups, ...copy }] of Object.entries(content.page
     _id: `page-${pageKey}`,
     _type: 'pageCopy',
     ...copy,
+    sections: pageSections[pageKey],
     image: image && {
       _type: 'editorialImage',
       alt: image.alt,

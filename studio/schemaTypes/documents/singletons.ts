@@ -1,3 +1,4 @@
+import { pageSections, sectionLabels } from '../../../web/src/content/page-sections'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const siteSettings = defineType({
@@ -35,12 +36,27 @@ export const siteSettings = defineType({
   preview: { prepare: () => ({ title: 'Site settings' }) },
 })
 
+const sectionFields = Object.entries(pageSections).flatMap(([page, sections]) =>
+  Object.keys(sections).map((id) => defineField({
+    name: id,
+    title: sectionLabels[id as keyof typeof sectionLabels],
+    type: 'object',
+    hidden: ({ document }) => document?._id?.replace(/^drafts\./, '') !== `page-${page}`,
+    fields: [
+      defineField({ name: 'eyebrow', title: 'Label above the heading', type: 'string', validation: (rule) => rule.max(45) }),
+      defineField({ name: 'title', title: 'Heading', type: 'string', validation: (rule) => rule.max(95) }),
+      defineField({ name: 'intro', type: 'text', rows: 3, validation: (rule) => rule.max(340) }),
+    ],
+  })),
+)
+
 export const pageCopy = defineType({
   name: 'pageCopy',
   title: 'Page copy',
   type: 'document',
   groups: [
     { name: 'hero', title: 'Hero', default: true },
+    { name: 'sections', title: 'Page sections' },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
@@ -67,6 +83,15 @@ export const pageCopy = defineType({
           defineField({ name: 'caseStudy', title: 'Related case study', type: 'reference', to: [{ type: 'caseStudy' }] }),
         ],
       })],
+    }),
+    defineField({
+      name: 'sections',
+      title: 'Section headings and introductions',
+      description: 'Pages use their built-in copy when you leave these fields unset.',
+      type: 'object',
+      group: 'sections',
+      hidden: ({ document }) => !Object.hasOwn(pageSections, document?._id?.replace(/^(drafts\.)?page-/, '') ?? ''),
+      fields: sectionFields,
     }),
     defineField({ name: 'seoTitle', title: 'SEO title', type: 'string', group: 'seo', validation: (r) => r.max(65).warning('Search engines truncate long titles.') }),
     defineField({ name: 'seoDescription', title: 'SEO description', type: 'text', rows: 3, group: 'seo', validation: (r) => r.max(160).warning('Keep it under 160 characters.') }),

@@ -32,15 +32,17 @@ export function BriefLineup({ lineups, team, cases }: { lineups: Lineup[]; team:
                 <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm font-semibold text-magenta-soft">
                   {lineup.disciplines.map((discipline) => <li key={discipline}>{discipline}</li>)}
                 </ul>
-                <ul className="mt-7 grid grid-cols-3 gap-x-3 gap-y-5 sm:gap-x-5">
+                <ul className="mt-7 grid gap-x-4 gap-y-5 min-[440px]:grid-cols-3 sm:gap-x-5">
                   {people.map((person) => person && (
                     <li key={person.slug}>
-                      <Link href={`/about#person-${person.slug}`} className="group block w-full rounded-sm">
-                        <div className="relative aspect-square w-full max-w-32 overflow-hidden rounded-full bg-night-2 ring-1 ring-white/25 ring-offset-4 ring-offset-night transition-[box-shadow] group-hover:ring-magenta-soft group-focus-visible:ring-magenta-soft">
+                      <Link href={`/about#person-${person.slug}`} className="group flex w-full items-center gap-4 rounded-sm min-[440px]:block">
+                        <div className="relative aspect-square w-14 max-w-32 shrink-0 min-[440px]:w-full overflow-hidden rounded-full bg-night-2 ring-1 ring-white/25 ring-offset-4 ring-offset-night transition-[box-shadow] group-hover:ring-magenta-soft group-focus-visible:ring-magenta-soft">
                           {person.photo.alt && <Image src={person.photo.src} alt="" fill sizes="128px" className="object-cover object-[center_30%] grayscale motion-safe:transition-[filter,scale] motion-safe:group-hover:scale-105 group-hover:grayscale-0 group-focus-visible:grayscale-0" />}
                         </div>
-                        <span className="mt-3 block text-sm font-bold leading-snug text-white sm:text-base">{person.fullName}</span>
-                        <span className="mt-1 block text-xs leading-snug text-white/75 sm:text-sm">{person.role}</span>
+                        <div className="min-w-0 min-[440px]:mt-3">
+                          <span className="block text-sm font-bold leading-snug text-white sm:text-base">{person.fullName}</span>
+                          <span className="mt-1 block text-xs leading-snug text-white/75 sm:text-sm">{person.role}</span>
+                        </div>
                       </Link>
                     </li>
                   ))}

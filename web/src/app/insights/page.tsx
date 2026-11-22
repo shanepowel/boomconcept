@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-import { Eyebrow } from '@/components/site/blocks'
+import { Eyebrow, PageHero } from '@/components/site/blocks'
 import { InsightArt } from '@/components/site/insight-art'
 import { InsightFeature } from '@/components/site/insight-feature'
 import { insightTopics } from '@/content/insights'
@@ -20,15 +20,7 @@ export default async function InsightsPage({ searchParams }: { searchParams: Pro
 
   return (
     <>
-      <section className="page-masthead border-b border-border bg-warm">
-        <div className="wrap grid items-end gap-x-14 gap-y-4 py-[clamp(40px,5vw,64px)] md:grid-cols-[1.5fr_1fr]">
-          <div>
-            <Eyebrow>{copy.eyebrow || 'Insights'}</Eyebrow>
-            <h1 className="editorial-display max-w-[17ch] text-[clamp(2.65rem,5.6vw,5.2rem)]">{copy.title}</h1>
-          </div>
-          {copy.lede && <p className="max-w-[36ch] text-lg md:pb-1">{copy.lede}</p>}
-        </div>
-      </section>
+      <PageHero copy={copy} artwork="press" />
       <div className="wrap pt-7 pb-[clamp(64px,8vw,120px)]">
         <nav aria-label="Filter insights by topic" className="mb-8 flex flex-wrap gap-2 border-b border-border pb-4 text-sm font-bold">
           {['All', ...insightTopics].map((label) => {

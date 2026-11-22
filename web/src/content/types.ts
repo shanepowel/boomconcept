@@ -1,3 +1,5 @@
+import type { SectionCopy } from './page-sections'
+
 // Shapes the site renders. Sanity documents are mapped into these in src/lib/data.ts,
 // and src/content/fallback.ts provides the same shapes when Sanity is not configured.
 
@@ -10,6 +12,7 @@ export type PageCopy = {
   seoTitle?: string
   seoDescription?: string
   image?: Img
+  sections?: Record<string, Partial<SectionCopy>>
   lineups?: Lineup[]
 }
 

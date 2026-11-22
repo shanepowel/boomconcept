@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { CtaBand, PageHero, TextLink } from '@/components/site/blocks'
+import { CtaBand, PageHero, ReadingLayout, TextLink } from '@/components/site/blocks'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getInsights } from '@/lib/data'
 
@@ -20,16 +20,21 @@ export default async function InsightPage({ params }: Props) {
 
   const related = articles.filter((item) => item.slug !== slug).slice(0, 2)
 
+  const sections = article.sections.map((section, index) => ({ ...section, id: `section-${index + 1}` }))
+  const chapters = [
+    ...(article.example ? [{ id: 'compare', title: 'Compare the two versions' }] : []),
+    ...sections.map(({ id, heading }) => ({ id, title: heading })),
+  ]
+
   return (
     <>
-      <PageHero copy={{ eyebrow: article.topic, title: article.title, lede: article.summary, image: article.image }}>
+      <PageHero artwork="press" copy={{ eyebrow: article.topic, title: article.title, lede: article.summary, image: article.image }}>
         {article.byline && <p className="mt-5 font-semibold text-ink">{article.byline}</p>}
       </PageHero>
-      <article className="wrap section-pad grid items-start gap-8 lg:grid-cols-[1fr_2.3fr] lg:gap-12">
-        <div><TextLink href="/insights">All insights</TextLink></div>
+      <ReadingLayout back={{ href: '/insights', label: 'All insights' }} chapters={chapters}>
         <div className="max-w-[66ch] space-y-8">
           {article.example && (
-            <section className="border-t-4 border-magenta bg-warm p-[clamp(20px,4vw,40px)]">
+            <section id="compare" className="border-t-4 border-magenta bg-warm p-[clamp(20px,4vw,40px)]">
               <h2 className="text-2xl">Compare the two versions</h2>
               <Tabs defaultValue="original" className="mt-4">
                 <TabsList aria-label="Example versions">
@@ -42,15 +47,15 @@ export default async function InsightPage({ params }: Props) {
               <p className="mt-5 border-t border-border pt-4 text-sm">{article.example.note}</p>
             </section>
           )}
-          {article.sections.map((section) => (
-            <section key={section.heading} className="border-t border-border pt-6">
+          {sections.map((section) => (
+            <section id={section.id} key={section.id} className="border-t border-border pt-6">
               <h2 className="text-2xl">{section.heading}</h2>
               <p className="mt-3 text-lg leading-relaxed">{section.text}</p>
             </section>
           ))}
           {related.length > 0 && <aside aria-label="More insights" className="grid gap-3 border-t border-ink pt-6">{related.map((item) => <TextLink key={item.slug} href={`/insights/${encodeURIComponent(item.slug)}`}>{item.title}</TextLink>)}</aside>}
         </div>
-      </article>
+      </ReadingLayout>
       <CtaBand title="Have a brief we can help with?" body="Tell us what you need people to understand or do differently." />
     </>
   )

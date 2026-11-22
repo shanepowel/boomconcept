@@ -1,7 +1,9 @@
+import { BrandMoments } from '@/components/site/brand-moments'
+import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink, Tags } from '@/components/site/blocks'
+import { CtaBand, Eyebrow, PageHero, EditableSectionHead, SectionHead, TextLink, Tags } from '@/components/site/blocks'
 import { SubNav } from '@/components/site/sub-nav'
 import { Button } from '@/components/ui/button'
 import { capabilities, disciplines, getBrandMoments, getPage, getSettings, processSteps } from '@/lib/data'
@@ -33,8 +35,8 @@ export default async function ServicesPage() {
 
       {/* Disciplines */}
       {disciplines.map((d, i) => (
-        <section key={d.id} id={d.id} className={i % 2 === 1 ? 'scroll-mt-36 bg-warm' : 'scroll-mt-36'}>
-          <div className="wrap section-pad grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
+        <section key={d.id} id={d.id} className={i % 2 === 1 ? 'lg:scroll-mt-14 bg-warm' : 'lg:scroll-mt-14'}>
+          <div className="wrap section-pad section-split">
             <div>
               <span aria-hidden className="mb-4 block h-0.5 w-12 bg-magenta" />
               <h2 className="mt-2 text-[clamp(2.4rem,5vw,4rem)] leading-none tracking-[-0.045em]">{d.name}</h2>
@@ -66,7 +68,7 @@ export default async function ServicesPage() {
 
       {/* Supporting capabilities */}
       <section className="wrap py-[clamp(56px,7vw,96px)]">
-        <SectionHead eyebrow="Behind every discipline" title="The skills behind the work." className="mb-10" />
+        <EditableSectionHead page={page} id="capabilities" defaults={pageSections.services.capabilities} className="mb-10" />
         <ul className="grid gap-x-8 md:grid-cols-3">
           {capabilities.map((c) => (
             <li key={c.title} className="border-t border-ink py-5">
@@ -78,7 +80,7 @@ export default async function ServicesPage() {
       </section>
 
       {/* Veeva */}
-      <section className="bg-night text-[#d9d6de]">
+      <section id="veeva" className="bg-night text-[#d9d6de]">
         <div className="wrap section-pad grid items-center gap-10 md:grid-cols-[7fr_5fr]">
           <SectionHead
             tone="light"
@@ -98,36 +100,19 @@ export default async function ServicesPage() {
       </section>
 
       {/* Brand moments */}
-      <section id="moments" className="wrap section-pad scroll-mt-36">
+      <section id="moments" className="wrap section-pad lg:scroll-mt-14">
         <SectionHead
           eyebrow="When to call us"
           title="Find the moment that feels familiar."
-          intro="Clients usually bring us in at one of five moments. We've been through each of them many times."
+          intro="Pick the stage your brand is at to see where we can help."
         />
-        <ol className="border-t-2 border-ink">
-          {moments.map((m, i) => (
-            <li key={m.title} className="grid gap-x-[clamp(20px,3vw,48px)] gap-y-3 border-b border-border py-[clamp(26px,3vw,38px)] md:grid-cols-[72px_4fr_6fr]">
-              <span className="text-[15px] font-bold text-magenta">{String(i + 1).padStart(2, '0')}</span>
-              <h3 className="text-[clamp(1.3rem,2vw,1.65rem)] leading-tight">
-                <span className="mb-1.5 block text-[13px] font-bold tracking-[0.12em] text-[#5e5e5e] uppercase">{m.stage}</span>
-                {m.title}
-              </h3>
-              <div>
-                <p>{m.body}</p>
-                <Tags items={m.tags} />
-              </div>
-            </li>
-          ))}
-        </ol>
+        <BrandMoments moments={moments} />
       </section>
 
       {/* How we work */}
-      <section id="how-we-work" className="scroll-mt-36 bg-warm">
+      <section id="how-we-work" className="lg:scroll-mt-14 bg-warm">
         <div className="wrap section-pad">
-          <SectionHead
-            eyebrow="How we work"
-            title="Plan for approval from day one."
-            intro="We agree who signs off, how quality checks work and where your SOPs fit before production starts. You can see what’s in review, what’s due next and how the work is tracking against the budget."
+          <EditableSectionHead page={page} id="delivery" defaults={pageSections.services.delivery}
           />
           <ol className="grid gap-6 md:grid-cols-5">
             {processSteps.map((s, i) => (
@@ -147,8 +132,8 @@ export default async function ServicesPage() {
       </section>
 
       {/* Procurement */}
-      <section id="procurement" className="scroll-mt-36 bg-night text-[#d9d6de]">
-        <div className="wrap section-pad grid gap-10 md:grid-cols-[7fr_5fr] md:items-center">
+      <section id="procurement" className="lg:scroll-mt-14 bg-night text-[#d9d6de]">
+        <div className="wrap section-pad grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center">
           <div>
             <Eyebrow tone="light">For procurement teams</Eyebrow>
             <h2 className="type-title text-white">Ready for your supplier checks.</h2>
@@ -179,7 +164,7 @@ export default async function ServicesPage() {
               </li>
             </ul>
           </div>
-          <div className="rounded-xl border border-[#2e2e2e] bg-night-2 p-7">
+          <div className="min-w-0 rounded-xl border border-[#2e2e2e] bg-night-2 p-4 sm:p-7">
             <dl className="space-y-3 text-[15px]">
               {[
                 ['UK company', `${settings.name} Limited`],
@@ -189,15 +174,15 @@ export default async function ServicesPage() {
                 ['Danish company', `${settings.danishEntity.name}, CVR ${settings.danishEntity.cvr}`],
                 ['Founded', '2018'],
               ].map(([k, v], i, all) => (
-                <div key={k} className={i < all.length - 1 ? 'flex justify-between gap-4 border-b border-[#2e2e2e] pb-3' : 'flex justify-between gap-4'}>
+                <div key={k} className={i < all.length - 1 ? 'grid gap-1 border-b border-[#2e2e2e] pb-3 sm:grid-cols-[2fr_3fr] sm:gap-4' : 'grid gap-1 sm:grid-cols-[2fr_3fr] sm:gap-4'}>
                   <dt>{k}</dt>
-                  <dd className="max-w-[60%] text-right font-semibold text-white">{v}</dd>
+                  <dd className="min-w-0 font-semibold break-words text-white sm:text-right">{v}</dd>
                 </div>
               ))}
             </dl>
-            <Button asChild variant="magenta" size="xl" className="mt-6 w-full">
+            <Button asChild variant="magenta" size="xl" className="mt-6 h-auto min-h-12 w-full px-3 py-2 text-center whitespace-normal">
               <Link href="/contact?topic=procurement">
-                Request our supplier pack <ArrowUpRight aria-hidden />
+                Request supplier pack <ArrowUpRight aria-hidden />
               </Link>
             </Button>
           </div>

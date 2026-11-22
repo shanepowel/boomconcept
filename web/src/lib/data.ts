@@ -80,6 +80,7 @@ export async function getPage(key: PageKey, opts: { stega?: boolean } = {}): Pro
     seoTitle: data.seoTitle || base.seoTitle,
     seoDescription: data.seoDescription || base.seoDescription,
     image: toImage(data.image) ?? base.image,
+    sections: data.sections,
     lineups: data.lineups?.map((lineup) => ({
       ...lineup,
       disciplines: lineup.disciplines ?? [],

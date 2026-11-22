@@ -1,3 +1,4 @@
+import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -5,7 +6,7 @@ import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { WorkplaceBadges } from '@/components/site/badges'
 import { InsightFeature } from '@/components/site/insight-feature'
 import { BriefLineup } from '@/components/site/brief-lineup'
-import { CtaBand, Eyebrow, SectionHead, Stats, TextLink } from '@/components/site/blocks'
+import { CtaBand, Eyebrow, EditableSectionHead, Stats, TextLink } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
 import { disciplines, getCaseStudies, getInsights, getPage, getSettings, getTeam, workplace } from '@/lib/data'
 
@@ -22,7 +23,7 @@ export default async function HomePage() {
   return (
     <>
       <section className="bg-warm">
-        <div className="wrap grid items-center gap-x-12 gap-y-8 pt-[clamp(40px,6vw,88px)] pb-[clamp(36px,5vw,72px)] lg:grid-cols-[1fr_1.12fr]">
+        <div className="wrap masthead-grid masthead-grid--home">
           <div>
             <Eyebrow>{page.eyebrow || 'Independent healthcare communications'}</Eyebrow>
             <h1 className="editorial-display max-w-[15ch] lg:text-[clamp(3rem,6.4vw,6.2rem)]">{page.title}</h1>
@@ -36,7 +37,7 @@ export default async function HomePage() {
           </div>
           {page.image && (
             <figure className="relative min-w-0">
-              <div className="relative aspect-[4/3] overflow-hidden border-l-4 border-magenta bg-night-2">
+              <div className="relative aspect-[4/3] masthead-photo overflow-hidden bg-night-2">
                 <Image src={page.image.src} alt={page.image.alt} fill preload sizes="(min-width: 1360px) 610px, (min-width: 1024px) 48vw, 90vw" className="object-cover" />
               </div>
               {(page.image.caption || page.image.credit) && <figcaption className="mt-2 text-sm text-body">{page.image.caption}{page.image.caption && page.image.credit ? ' · ' : ''}{page.image.credit}</figcaption>}
@@ -45,12 +46,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className="border-y border-border bg-white">
-        <div className="wrap flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-4 text-sm">
-          <p className="font-semibold text-ink">{settings.teamSize} specialists in insight, strategy, science and creative</p>
-          <p>{settings.offices.map(({ city }) => city).join(' · ')}</p>
-        </div>
-      </div>
+      <nav aria-label="BOOM! credentials" className="border-y border-border">
+        <ul className="wrap credentials-grid">
+          {[
+            { href: '/about#band', title: 'Independent & award-winning', detail: `${settings.teamSize} specialists, one team` },
+            { href: '/services#veeva', title: 'Veeva partner', detail: 'Multichannel and Vault Content' },
+            { href: '/careers#culture', title: workplace.lists[1].rank + ' in the UK', detail: 'Best Workplaces 2026 (Small)' },
+            { href: '/about#offices', title: 'Our studios', detail: settings.offices.map(({ city }) => city).join(' · ') },
+          ].map(({ href, title, detail }) => (
+            <li key={href}><Link className="group" href={href}>
+              <span className="flex items-center justify-between gap-2 font-bold text-ink">{title}<ArrowUpRight className="size-4 shrink-0 text-magenta-dark" aria-hidden /></span>
+              <span className="mt-1 block text-sm">{detail}</span>
+            </Link></li>
+          ))}
+        </ul>
+      </nav>
 
       {featured && (
         <section aria-labelledby="featured-work" className="wrap section-pad">
@@ -72,7 +82,7 @@ export default async function HomePage() {
       <BriefLineup lineups={page.lineups ?? []} team={team} cases={cases} />
 
       <section className="wrap section-pad">
-        <SectionHead eyebrow="Services" title="One team from first question to final approval." action={<TextLink href="/services">Explore our services</TextLink>} />
+        <EditableSectionHead page={page} id="services" defaults={pageSections.home.services} action={<TextLink href="/services">Explore our services</TextLink>} />
         <ul className="grid border-t border-ink md:grid-cols-3">
           {disciplines.map((discipline) => (
             <li key={discipline.id} className="group/discipline border-b border-border md:border-r md:last:border-r-0">
@@ -96,7 +106,7 @@ export default async function HomePage() {
       {latest && (
         <section className="bg-ink text-white">
           <div className="wrap section-pad">
-            <SectionHead tone="light" title="What we’re thinking about" action={<TextLink href="/insights" light>Browse insights</TextLink>} />
+            <EditableSectionHead page={page} id="insights" defaults={pageSections.home.insights} tone="light" action={<TextLink href="/insights" light>Browse insights</TextLink>} />
             <div className="text-body"><InsightFeature article={latest} /></div>
           </div>
         </section>

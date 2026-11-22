@@ -8,7 +8,7 @@ export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
 }`)
 
 export const PAGE_QUERY = defineQuery(`*[_id == "page-" + $key][0]{
-  eyebrow, title, lede, seoTitle, seoDescription, image${imageFields},
+  eyebrow, title, lede, seoTitle, seoDescription, sections, image${imageFields},
   lineups[]{ "id": _key, title, approach, disciplines, "people": people[]->slug.current,
     "caseSlug": coalesce(caseStudy->slug.current, caseStudy->_id) }
 }`)

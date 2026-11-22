@@ -1,8 +1,10 @@
+import { SubNav } from '@/components/site/sub-nav'
+import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
-import { Eyebrow, PageHero, SectionHead, TextLink } from '@/components/site/blocks'
+import { Eyebrow, PageHero, EditableSectionHead, TextLink } from '@/components/site/blocks'
 import { WorkplaceBadges } from '@/components/site/badges'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
@@ -37,6 +39,13 @@ export default async function CareersPage() {
           <TextLink href="#life">Life at BOOM!</TextLink>
         </div>
       </PageHero>
+      <SubNav items={[
+        { id: 'join', label: 'Roles' },
+        { id: 'life', label: 'Working life' },
+        { id: 'culture', label: 'Culture' },
+        { id: 'benefits', label: 'Benefits' },
+        { id: 'questions', label: 'Applying' },
+      ]} />
 
       <section id="join" className="bg-night text-white">
         <div className="wrap grid gap-x-12 gap-y-6 py-[clamp(38px,6vw,76px)] lg:grid-cols-[0.85fr_1.15fr]">
@@ -66,7 +75,7 @@ export default async function CareersPage() {
       </section>
 
       <section id="life" className="wrap section-pad">
-        <SectionHead title="Good at your job. Generous with what you know." intro="That’s our version of a Wilbury. Here’s what it means when we work together." />
+        <EditableSectionHead page={page} id="workingLife" defaults={pageSections.careers.workingLife} />
         <ul className="grid gap-x-8 gap-y-5 md:grid-cols-3">
           {workingLife.map(({ title, body }) => (
             <li key={title} className="border-t border-ink pt-4">
@@ -78,9 +87,9 @@ export default async function CareersPage() {
         <div className="mt-7"><TextLink href="/about#band">Meet the people you could work with</TextLink></div>
       </section>
 
-      <section className="bg-warm">
+      <section id="culture" className="bg-warm">
         <div className="wrap section-pad">
-          <SectionHead title="Away from the brief." intro="A company birthday in Lisbon, a summer social in London and a day off for Star Wars Day. Here’s a look at life together outside the work." />
+          <EditableSectionHead page={page} id="culture" defaults={pageSections.careers.culture} />
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[workplace.photos[1], workplace.photos[3], workplace.photos[4]].map((photo) => (
               <li key={photo.src}>
@@ -102,7 +111,7 @@ export default async function CareersPage() {
         </div>
       </section>
 
-      <section className="wrap section-pad grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+      <section id="benefits" className="wrap section-pad section-split">
         <div><Eyebrow>Benefits</Eyebrow><h2 className="type-title">The good stuff.</h2></div>
         <ul className="grid gap-x-8 sm:grid-cols-2">
           {perks.map((perk) => (
@@ -114,8 +123,8 @@ export default async function CareersPage() {
         </ul>
       </section>
 
-      <section className="border-t border-border bg-warm">
-        <div className="wrap section-pad grid gap-7 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+      <section id="questions" className="border-t border-border bg-warm">
+        <div className="wrap section-pad section-split">
           <div>
             <h2 className="type-title">Before you apply.</h2>
             <div className="mt-5"><TextLink href={introduction}>Ask us a question</TextLink></div>

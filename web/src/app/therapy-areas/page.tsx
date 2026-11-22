@@ -1,5 +1,7 @@
+import { SubNav } from '@/components/site/sub-nav'
+import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
-import { CtaBand, Eyebrow, PageHero, SectionHead, Tags, TextLink } from '@/components/site/blocks'
+import { CtaBand, Eyebrow, PageHero, EditableSectionHead, Tags, TextLink } from '@/components/site/blocks'
 import { TherapyDirectory } from '@/components/site/therapy-directory'
 import { getCaseStudies, getPage, getSpecialistAreas, getTherapyAreas } from '@/lib/data'
 
@@ -13,29 +15,31 @@ export default async function TherapyAreasPage() {
 
   return (
     <>
-      <PageHero copy={page}>
+      <PageHero copy={page} artwork="press">
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
           <TextLink href="#therapy-directory">Search therapy areas</TextLink>
           <TextLink href="/contact?topic=credentials">Request credentials</TextLink>
         </div>
       </PageHero>
+      <SubNav items={[
+        { id: 'therapy-directory', label: 'Directory' },
+        { id: 'experience', label: 'Specialist experience' },
+        { id: 'across', label: 'Across therapy areas' },
+      ]} />
 
       {/* Directory */}
       <section id="therapy-directory" className="border-b border-border">
         <div className="wrap section-pad">
-          <SectionHead eyebrow="The full list" title="18 specialisms. 70+ therapy areas." intro="Search by condition, treatment or abbreviation." className="mb-0" />
+          <EditableSectionHead page={page} id="directory" defaults={pageSections.therapyAreas.directory} className="mb-0" />
           <TherapyDirectory areas={areas} />
         </div>
       </section>
 
       {/* Depth */}
-      <section className="bg-night text-[#d9d6de]">
+      <section id="experience" className="bg-night text-[#d9d6de]">
         <div className="wrap section-pad">
-          <SectionHead
+          <EditableSectionHead page={page} id="experience" defaults={pageSections.therapyAreas.experience}
             tone="light"
-            eyebrow="Where we go deepest"
-            title="Where we have the deepest experience."
-            intro="Start with what makes the brief difficult, then see what our team has worked on."
           />
           <div className="overflow-hidden rounded-xl border border-[#2e2e2e]">
             <div className="hidden grid-cols-[3fr_4fr_5fr] gap-6 border-b border-[#2e2e2e] bg-night-2 px-7 py-3 text-xs font-bold tracking-[0.12em] text-magenta-soft uppercase md:grid">
@@ -65,7 +69,7 @@ export default async function TherapyAreasPage() {
         </div>
       </section>
 
-      <section className="wrap section-pad grid gap-8 md:grid-cols-[1fr_1.2fr] md:gap-14">
+      <section id="across" className="wrap section-pad section-split">
         <div>
           <Eyebrow>Across therapy areas</Eyebrow>
           <h2 className="type-title">When the challenge crosses categories.</h2>

@@ -66,7 +66,7 @@ export function SiteHeader() {
               <MenuIcon />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[min(88vw,380px)]">
+          <SheetContent side="right" className="w-[min(88vw,380px)] overflow-y-auto overscroll-contain">
             <SheetHeader>
               <SheetTitle className="sr-only">Navigation</SheetTitle>
             </SheetHeader>

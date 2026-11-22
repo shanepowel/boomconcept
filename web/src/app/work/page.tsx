@@ -1,7 +1,9 @@
+import { SubNav } from '@/components/site/sub-nav'
+import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { ArrowDown } from 'lucide-react'
-import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink } from '@/components/site/blocks'
+import { CtaBand, Eyebrow, PageHero, EditableSectionHead, TextLink } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
 import { getCaseStudies, getPage } from '@/lib/data'
 
@@ -35,15 +37,20 @@ export default async function WorkPage() {
 
   return (
     <>
-      <PageHero copy={page}>
+      <PageHero copy={page} artwork="echo">
         <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
           <Button asChild variant="magenta" size="xl"><a href="#approach">See our approach <ArrowDown aria-hidden /></a></Button>
           {featured && <TextLink href="#case-studies">Browse case studies</TextLink>}
         </div>
       </PageHero>
+      {featured && <SubNav items={[
+        { id: 'approach', label: 'Our approach' },
+        { id: 'case-studies', label: 'Featured study' },
+        ...(otherCases.length ? [{ id: 'more-work', label: 'More work' }] : []),
+      ]} />}
 
       <section id="approach" className="wrap section-pad">
-        <SectionHead title="Before there’s anything to show, there’s a decision to make." intro="Here’s how we go from an open question to something a healthcare team can review, use and adapt." />
+        <EditableSectionHead page={page} id="approach" defaults={pageSections.work.approach} />
         <ol className="grid gap-x-7 gap-y-7 md:grid-cols-3">
           {decisions.map(({ title, body, output }, index) => (
             <li key={title} className="flex flex-col border-t border-ink pt-5">
@@ -86,8 +93,8 @@ export default async function WorkPage() {
       )}
 
       {otherCases.length > 0 && (
-        <section className="wrap section-pad">
-          <SectionHead title="Different briefs, different starting points." />
+        <section id="more-work" className="wrap section-pad">
+          <EditableSectionHead page={page} id="moreWork" defaults={pageSections.work.moreWork} />
           <div className="grid gap-7 md:grid-cols-2">
             {otherCases.map((study) => (
               <article key={study.slug} className="border-t border-ink pt-5">

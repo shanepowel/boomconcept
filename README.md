@@ -35,12 +35,13 @@ The site works straight away with no Sanity project. Until one is connected, eve
 | In the Studio | Where it shows |
 | --- | --- |
 | Site settings | Stats, offices, emails, company details and legal links |
-| Page copy (one per page) | Each page's eyebrow, headline, intro, hero photograph and SEO metadata. Pages: Home, Work, Services, Therapy areas, About, Careers, Contact |
+| Page copy (one per page) | Each page's eyebrow, headline, intro, hero photograph and SEO metadata. Pages: Home, Work, Services, Therapy areas, Insights, About, Careers, Contact |
 | Team | About page (the band), home page line-up, contact people (drag to reorder) |
+| Page copy → Page sections | Edit section labels, headings and introductions on the main pages. Layout and missing-field defaults live in code |
 | Home page copy → Example briefs | Line-up choices, approach, disciplines, linked team members and case study |
 | Insights | Topic, author, featured placement, article sections and optional first draft/revision example |
 | Case studies | Work index, individual case pages and related work. Set a slug and add approved media. Untick "Example only" once the story is approved |
-| Brand moments | Services page |
+| Brand moments | The stage selector on Services. Edit the stage name, headline, description and service tags. Reorder the documents to change the sequence. |
 | Specialist areas, therapy areas | Therapy areas page and home page |
 | Careers perks | Careers page |
 | Careers roles | Publish a role with Accepting applications enabled and an HTTPS application link to list it on Careers |
@@ -48,6 +49,12 @@ The site works straight away with no Sanity project. Until one is connected, eve
 Workplace awards, culture photos, the sustainability figures and the legal pages live in `web/src/content/fallback.ts` and `web/src/app/{terms,privacy,cookies,sustainability}`.
 
 Longer-form section copy (for example the service disciplines and the process steps) still lives in `web/src/content/fallback.ts`. Moving it into Sanity is the natural next step.
+
+## Shared page layouts
+
+Use `PageHero` for an interior masthead. A hero photograph from Page copy takes the artwork slot when supplied. Work, Services and Insights have individual record-sleeve treatments for pages without photography. Home and Contact use the same grid with room for the lead photograph and enquiry form.
+
+Use `SubNav` for long pages with distinct destinations. Each link uses the section’s HTML ID. Work stories and Insights articles use `ReadingLayout`, with a chapter index generated from the sections actually shown. Shared spacing and responsive grid rules live in `web/src/app/globals.css`.
 
 ## How it is built
 

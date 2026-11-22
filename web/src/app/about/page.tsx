@@ -1,6 +1,7 @@
+import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink } from '@/components/site/blocks'
+import { CtaBand, Eyebrow, PageHero, EditableSectionHead, SectionHead, TextLink } from '@/components/site/blocks'
 import { WorkplaceBadges } from '@/components/site/badges'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { SubNav } from '@/components/site/sub-nav'
@@ -49,11 +50,8 @@ export default async function AboutPage() {
       />
 
       {/* The band */}
-      <section id="band" className="wrap section-pad scroll-mt-36">
-        <SectionHead
-          eyebrow="The band"
-          title="The senior team, up close."
-          intro="We borrow from the Traveling Wilburys: bring good people together and give them room to do their best work. These are the people who lead the briefs."
+      <section id="band" className="wrap section-pad lg:scroll-mt-14">
+        <EditableSectionHead page={page} id="team" defaults={pageSections.about.team}
         />
         <ul className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {leaders.map((m) => (
@@ -74,7 +72,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Story */}
-      <section id="story" className="wrap section-pad scroll-mt-36">
+      <section id="story" className="wrap section-pad lg:scroll-mt-14">
         <div className="grid items-center gap-[clamp(40px,6vw,96px)] md:grid-cols-[7fr_5fr]">
           <div>
             <Eyebrow>Our story</Eyebrow>
@@ -115,7 +113,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Beliefs */}
-      <section id="beliefs" className="scroll-mt-36 bg-warm">
+      <section id="beliefs" className="lg:scroll-mt-14 bg-warm">
         <div className="wrap section-pad">
           <SectionHead
             eyebrow="What we believe"
@@ -136,7 +134,7 @@ export default async function AboutPage() {
       </section>
 
       {/* How we succeed + why BOOM! */}
-      <section id="why" className="wrap section-pad scroll-mt-36">
+      <section id="why" className="wrap section-pad lg:scroll-mt-14">
         <SectionHead eyebrow="How we succeed" title="Experience. Skill. Effort. Courage." intro="Four things we bring to every brief, and the reason clients stay." />
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {values.map((v) => (
@@ -228,7 +226,7 @@ export default async function AboutPage() {
             {teamMix.backgrounds[teamMix.backgrounds.length - 1].toLowerCase()}, so the people writing about the data understand it.
           </p>
         </div>
-        <div id="offices" className="wrap scroll-mt-36 pb-[clamp(64px,8vw,120px)]">
+        <div id="offices" className="wrap lg:scroll-mt-14 pb-[clamp(64px,8vw,120px)]">
           <OfficeStrip offices={settings.offices} />
         </div>
       </section>
