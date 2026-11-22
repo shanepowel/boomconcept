@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-import { CtaBand, Eyebrow, PageHero, SectionHead, Tags } from '@/components/site/blocks'
+import { CtaBand, Eyebrow, PageHero, SectionHead, TextLink, Tags } from '@/components/site/blocks'
 import { SubNav } from '@/components/site/sub-nav'
 import { Button } from '@/components/ui/button'
 import { capabilities, disciplines, getBrandMoments, getPage, getSettings, processSteps } from '@/lib/data'
@@ -17,10 +16,15 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <PageHero copy={page} />
+      <PageHero copy={page}>
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+          <TextLink href="#insights">Explore our services</TextLink>
+          <TextLink href="/therapy-areas">Find your therapy area</TextLink>
+        </div>
+      </PageHero>
       <SubNav
         items={[
-          ...disciplines.map((d) => ({ id: d.id, label: d.name, number: d.number })),
+          ...disciplines.map((d) => ({ id: d.id, label: d.name })),
           { id: 'moments', label: 'When to call us' },
           { id: 'how-we-work', label: 'How we work' },
           { id: 'procurement', label: 'Procurement' },
@@ -32,7 +36,7 @@ export default async function ServicesPage() {
         <section key={d.id} id={d.id} className={i % 2 === 1 ? 'scroll-mt-36 bg-warm' : 'scroll-mt-36'}>
           <div className="wrap section-pad grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
             <div>
-              <p className="text-sm font-bold tracking-wider text-magenta">{d.number}</p>
+              <span aria-hidden className="mb-4 block h-0.5 w-12 bg-magenta" />
               <h2 className="mt-2 text-[clamp(2.4rem,5vw,4rem)] leading-none tracking-[-0.045em]">{d.name}</h2>
               <p className="mt-6 text-xl text-ink">{d.heading}</p>
             </div>
@@ -53,12 +57,19 @@ export default async function ServicesPage() {
         </section>
       ))}
 
+      <section className="border-y border-border bg-magenta-tint">
+        <div className="wrap grid items-center gap-x-12 gap-y-4 py-9 md:grid-cols-[1.1fr_1fr]">
+          <h2 className="text-3xl text-pretty">What would this look like on your brief?</h2>
+          <div><TextLink href="/#lineup">See how we’d put a team together</TextLink></div>
+        </div>
+      </section>
+
       {/* Supporting capabilities */}
       <section className="wrap py-[clamp(56px,7vw,96px)]">
-        <SectionHead eyebrow="Behind every discipline" title="The skills that make it all work." className="mb-10" />
-        <ul className="grid gap-5 md:grid-cols-3">
+        <SectionHead eyebrow="Behind every discipline" title="The skills behind the work." className="mb-10" />
+        <ul className="grid gap-x-8 md:grid-cols-3">
           {capabilities.map((c) => (
-            <li key={c.title} className="rounded-2xl border border-border p-7">
+            <li key={c.title} className="border-t border-ink py-5">
               <h3 className="text-xl">{c.title}</h3>
               <p className="mt-2 text-[16px]">{c.body}</p>
             </li>
@@ -74,7 +85,7 @@ export default async function ServicesPage() {
             className="mb-0"
             eyebrow="Veeva partners"
             title="Built for how pharma actually works."
-            intro="We're Veeva Multichannel and Vault Content Partners. Content is built to run in your systems and through your approval process, not rebuilt at the last minute."
+            intro="We’re Veeva Multichannel and Vault Content Partners. We plan for your channels, review process and local approvals from the first brief."
           />
           <ul className="grid grid-cols-2 gap-3">
             {['CLM', 'Approved Email', 'PromoMats', 'Engage Meeting', 'Engage for Portals'].map((c) => (
@@ -90,7 +101,7 @@ export default async function ServicesPage() {
       <section id="moments" className="wrap section-pad scroll-mt-36">
         <SectionHead
           eyebrow="When to call us"
-          title="Wherever your brand is in its life."
+          title="Find the moment that feels familiar."
           intro="Clients usually bring us in at one of five moments. We've been through each of them many times."
         />
         <ol className="border-t-2 border-ink">
@@ -115,8 +126,8 @@ export default async function ServicesPage() {
         <div className="wrap section-pad">
           <SectionHead
             eyebrow="How we work"
-            title="Process underpins our performance."
-            intro="In a highly regulated industry, experience has taught us the value of process. Whether we're following your SOPs or bringing our own, a great idea only counts if it gets approved, on time and on budget."
+            title="Plan for approval from day one."
+            intro="We agree who signs off, how quality checks work and where your SOPs fit before production starts. You can see what’s in review, what’s due next and how the work is tracking against the budget."
           />
           <ol className="grid gap-6 md:grid-cols-5">
             {processSteps.map((s, i) => (
@@ -127,16 +138,13 @@ export default async function ServicesPage() {
               </li>
             ))}
           </ol>
-          <p className="mt-10 max-w-3xl text-lg">
+          <p className="mt-8 max-w-3xl">
             From Microsoft Teams to Miro, we&apos;re set up to work just as well remotely as face to face. Every day starts with a quick team call, and when getting together will move the work on,
             we&apos;re there: in {settings.offices.map((o) => o.city).join(', ')} or at your office.
           </p>
+          <div className="mt-5"><TextLink href="/work#approach">See the approach in practice</TextLink></div>
         </div>
       </section>
-
-      <div className="relative h-[clamp(220px,28vw,400px)] bg-night">
-        <Image src="/images/boom-process.webp" alt="" fill sizes="100vw" className="object-cover" />
-      </div>
 
       {/* Procurement */}
       <section id="procurement" className="scroll-mt-36 bg-night text-[#d9d6de]">

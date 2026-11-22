@@ -1,6 +1,6 @@
 import { defineQuery } from 'next-sanity'
 
-const imageFields = /* groq */ `{ asset, hotspot, crop, "alt": coalesce(alt, ""), "dimensions": asset->metadata.dimensions }`
+const imageFields = /* groq */ `{ asset, hotspot, crop, caption, credit, "alt": coalesce(alt, ""), "dimensions": asset->metadata.dimensions }`
 
 export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
   name, description, teamSize, proofPoints, stats[]{value, label}, offices[]{city, detail, address, "lat": location.lat, "lng": location.lng, timeZone},
@@ -8,11 +8,13 @@ export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
 }`)
 
 export const PAGE_QUERY = defineQuery(`*[_id == "page-" + $key][0]{
-  eyebrow, title, lede, seoTitle, seoDescription
+  eyebrow, title, lede, seoTitle, seoDescription, image${imageFields},
+  lineups[]{ "id": _key, title, approach, disciplines, "people": people[]->slug.current,
+    "caseSlug": coalesce(caseStudy->slug.current, caseStudy->_id) }
 }`)
 
 export const TEAM_QUERY = defineQuery(`*[_type == "teamMember"] | order(orderRank asc, name asc){
-  "slug": slug.current, name, fullName, role, discipline, bio, linkedinUrl, email,
+  "slug": slug.current, name, fullName, role, discipline, bio, linkedinUrl, email, phone,
   isFounder, showOnContact, photo${imageFields}
 }`)
 
@@ -29,7 +31,16 @@ export const SPECIALIST_AREAS_QUERY = defineQuery(`*[_type == "specialistArea"] 
 }`)
 
 export const CASE_STUDIES_QUERY = defineQuery(`*[_type == "caseStudy"] | order(orderRank asc){
-  title, therapyArea, challenge, audience, work, outcome, "isExample": coalesce(isExample, false)
+  "slug": coalesce(slug.current, _id), title, therapyArea, challenge, audience, work, outcome, image${imageFields}, "isExample": coalesce(isExample, true)
 }`)
 
 export const PERKS_QUERY = defineQuery(`*[_type == "perk"] | order(orderRank asc){ title, body }`)
+
+export const INSIGHTS_QUERY = defineQuery(`*[_type == "insight" && defined(slug.current)] | order(coalesce(featured, false) desc, _createdAt desc){
+  "slug": slug.current, title, summary, topic, byline, featured, image${imageFields},
+  sections[]{heading, text}, example{original, revision, note}
+}`)
+
+export const CAREERS_ROLES_QUERY = defineQuery(`*[_type == "careersRole" && open == true && defined(applicationUrl)] | order(_createdAt desc){
+  "id": _id, title, location, workingPattern, summary, applicationUrl
+}`)

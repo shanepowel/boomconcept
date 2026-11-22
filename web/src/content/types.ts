@@ -1,7 +1,7 @@
 // Shapes the site renders. Sanity documents are mapped into these in src/lib/data.ts,
 // and src/content/fallback.ts provides the same shapes when Sanity is not configured.
 
-export type Img = { src: string; alt: string; width?: number; height?: number }
+export type Img = { src: string; alt: string; width?: number; height?: number; caption?: string; credit?: string }
 
 export type PageCopy = {
   eyebrow?: string
@@ -9,9 +9,11 @@ export type PageCopy = {
   lede?: string
   seoTitle?: string
   seoDescription?: string
+  image?: Img
+  lineups?: Lineup[]
 }
 
-export type PageKey = 'home' | 'work' | 'services' | 'therapyAreas' | 'about' | 'careers' | 'contact'
+export type PageKey = 'home' | 'insights' | 'work' | 'services' | 'therapyAreas' | 'about' | 'careers' | 'contact'
 
 export type Stat = { value: string; label: string }
 export type Office = {
@@ -51,6 +53,7 @@ export type TeamMember = {
   photo: Img
   linkedinUrl?: string
   email?: string
+  phone?: string
   isFounder?: boolean
   showOnContact?: boolean
 }
@@ -58,7 +61,17 @@ export type TeamMember = {
 export type TherapyArea = { name: string; conditions: string; keywords: string[] }
 export type BrandMoment = { stage: string; title: string; body: string; proof?: string; tags: string[] }
 export type SpecialistArea = { name: string; challenge: string; experience: string }
+export type Lineup = {
+  id: string
+  title: string
+  approach: string
+  disciplines: string[]
+  people: string[]
+  caseSlug?: string
+}
 export type CaseStudy = {
+  slug: string
+  image?: Img
   title: string
   therapyArea: string
   challenge: string
@@ -68,3 +81,12 @@ export type CaseStudy = {
   isExample: boolean
 }
 export type Perk = { title: string; body: string }
+
+export type CareersRole = {
+  id: string
+  title: string
+  location: string
+  workingPattern?: string
+  summary: string
+  applicationUrl: string
+}

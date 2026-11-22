@@ -46,7 +46,7 @@ export function LegalPage({
             </Link>
           </p>
         </aside>
-        <div>
+        <div className="max-w-[68ch]">
           <div className="rounded-xl bg-warm p-6 text-[16px]">{intro}</div>
           <ol className="mt-10 space-y-10">
             {sections.map((s, i) => (

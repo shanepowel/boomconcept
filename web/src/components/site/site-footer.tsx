@@ -8,14 +8,15 @@ import { footerNav } from './nav'
 export function SiteFooter({ settings }: { settings: SiteSettings }) {
   return (
     <footer className="bg-night text-[15px] text-[#b9b5bf]">
-      <div className="wrap grid gap-10 pt-14 pb-10 md:grid-cols-[4fr_8fr]">
+      <div className="wrap grid gap-10 pt-14 pb-12 md:grid-cols-[4fr_8fr]">
         <div>
-          <Link href="/" className="inline-block rounded-lg bg-white px-4 py-3" aria-label="BOOM! Healthcare Communications home">
+          <Link href="/" className="inline-block bg-white px-4 py-2" aria-label="BOOM! Healthcare Communications home">
             <Image src="/images/boom-logo.png" alt="BOOM! Healthcare Communications" width={640} height={338} className="h-auto w-[124px]" />
           </Link>
           <p className="mt-5 max-w-xs">
-            Independent healthcare communications for pharma, biotech and medtech. {settings.offices.map((o) => o.city).join(' · ')}.
+            Independent healthcare communications for pharma, biotech and medtech.
           </p>
+          <p className="mt-2 text-sm font-semibold text-white">{settings.offices.map((office) => office.city).join(' · ')}</p>
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button asChild variant="magenta" size="xl">
               <Link href="/contact">

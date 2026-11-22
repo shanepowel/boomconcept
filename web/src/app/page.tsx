@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { WorkplaceBadges } from '@/components/site/badges'
+import { InsightFeature } from '@/components/site/insight-feature'
+import { BriefLineup } from '@/components/site/brief-lineup'
 import { CtaBand, Eyebrow, SectionHead, Stats, TextLink } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
-import { disciplines, getSpecialistAreas, getCaseStudies, getPage, getSettings, getTeam, beliefs } from '@/lib/data'
+import { disciplines, getCaseStudies, getInsights, getPage, getSettings, getTeam, workplace } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('home', { stega: false })
@@ -13,197 +15,107 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [page, settings, team, specialist, cases] = await Promise.all([getPage('home'), getSettings(), getTeam(), getSpecialistAreas(), getCaseStudies()])
+  const [page, settings, team, cases, insights] = await Promise.all([getPage('home'), getSettings(), getTeam(), getCaseStudies(), getInsights()])
+  const latest = insights.find((article) => article.featured) ?? insights[0]
+  const featured = cases.find((study) => !study.isExample) ?? cases[0]
 
   return (
     <>
-      {/* Hero */}
-      <section className="wrap py-[clamp(40px,6vw,88px)]">
-        <div className="grid items-center gap-[clamp(32px,5vw,72px)] md:grid-cols-2">
+      <section className="bg-warm">
+        <div className="wrap grid items-center gap-x-12 gap-y-8 pt-[clamp(40px,6vw,88px)] pb-[clamp(36px,5vw,72px)] lg:grid-cols-[1fr_1.12fr]">
           <div>
-            <h1 className="type-display">{page.title}</h1>
-            <p className="mt-6 max-w-[560px] text-[clamp(1.08rem,1.4vw,1.25rem)] leading-relaxed">{page.lede}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <Button asChild variant="brand" size="xl">
-                <Link href="/contact">
-                  Bring us a brief <ArrowUpRight aria-hidden />
-                </Link>
+            <Eyebrow>{page.eyebrow || 'Independent healthcare communications'}</Eyebrow>
+            <h1 className="editorial-display max-w-[15ch] lg:text-[clamp(3rem,6.4vw,6.2rem)]">{page.title}</h1>
+            <p className="mt-6 max-w-[44ch] text-lg leading-relaxed">{page.lede}</p>
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <Button asChild variant="magenta" size="xl">
+                <Link href="/contact">Bring us a brief <ArrowUpRight aria-hidden /></Link>
               </Button>
-              <TextLink href="/about#band">Meet the band</TextLink>
+              {Boolean(page.lineups?.length) && <a href="#lineup" className="inline-flex items-center gap-2 font-bold text-ink link-underline">Meet the line-up <ArrowDown className="size-4" aria-hidden /></a>}
             </div>
           </div>
-          <div className="relative aspect-[5/4] overflow-hidden rounded-xl bg-night">
-            <Image src="/images/boom-splash.webp" alt="" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-            <div className="absolute bottom-4 left-4 max-w-[80%] rounded-lg bg-night/85 px-5 py-4 text-sm text-white">
-              <strong className="block text-2xl tracking-tight">{settings.teamSize} specialists</strong>
-              One team across {settings.offices.map((o) => o.city).join(', ')}
-            </div>
-          </div>
+          {page.image && (
+            <figure className="relative min-w-0">
+              <div className="relative aspect-[4/3] overflow-hidden border-l-4 border-magenta bg-night-2">
+                <Image src={page.image.src} alt={page.image.alt} fill preload sizes="(min-width: 1360px) 610px, (min-width: 1024px) 48vw, 90vw" className="object-cover" />
+              </div>
+              {(page.image.caption || page.image.credit) && <figcaption className="mt-2 text-sm text-body">{page.image.caption}{page.image.caption && page.image.credit ? ' · ' : ''}{page.image.credit}</figcaption>}
+            </figure>
+          )}
         </div>
       </section>
 
-      {/* Proof bar */}
-      <section aria-label="Credentials" className="border-y border-border">
-        <ul className="wrap flex flex-wrap gap-x-8 gap-y-2 py-4 text-sm font-semibold text-ink">
-          {settings.proofPoints.map((point) => (
-            <li key={point} className="inline-flex items-center gap-2.5 before:size-[7px] before:rounded-full before:bg-magenta">
-              {point}
+      <div className="border-y border-border bg-white">
+        <div className="wrap flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-4 text-sm">
+          <p className="font-semibold text-ink">{settings.teamSize} specialists in insight, strategy, science and creative</p>
+          <p>{settings.offices.map(({ city }) => city).join(' · ')}</p>
+        </div>
+      </div>
+
+      {featured && (
+        <section aria-labelledby="featured-work" className="wrap section-pad">
+          <div className="grid gap-8 border-y border-ink py-8 lg:grid-cols-[1fr_2.2fr] lg:gap-12 lg:py-12">
+            <div>
+              <Eyebrow>{featured.isExample ? 'Illustrative case study' : 'Featured work'}</Eyebrow>
+              <p className="font-semibold text-ink">{featured.therapyArea}</p>
+            </div>
+            <div>
+              <h2 id="featured-work" className="type-title max-w-[22ch] text-pretty">{featured.title}</h2>
+              {featured.image && <Image src={featured.image.src} alt={featured.image.alt} width={1440} height={810} sizes="(min-width: 1024px) 62vw, 90vw" className="mt-5 aspect-video w-full object-cover" />}
+              <p className="mt-4 max-w-[60ch]">{featured.isExample ? featured.challenge : featured.outcome || featured.challenge}</p>
+              <div className="mt-5"><TextLink href={`/work/${encodeURIComponent(featured.slug)}`}>Read the case study</TextLink></div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <BriefLineup lineups={page.lineups ?? []} team={team} cases={cases} />
+
+      <section className="wrap section-pad">
+        <SectionHead eyebrow="Services" title="One team from first question to final approval." action={<TextLink href="/services">Explore our services</TextLink>} />
+        <ul className="grid border-t border-ink md:grid-cols-3">
+          {disciplines.map((discipline) => (
+            <li key={discipline.id} className="group/discipline border-b border-border md:border-r md:last:border-r-0">
+              <Link href={`/services#${discipline.id}`} className="group flex h-full flex-col gap-2 py-5 md:px-5 md:group-first/discipline:pl-0">
+                <span className="flex items-center justify-between gap-4 text-2xl font-bold text-ink group-hover:text-magenta-dark">{discipline.name}<ArrowUpRight className="size-5" aria-hidden /></span>
+                <span>{discipline.heading}</span>
+              </Link>
             </li>
           ))}
         </ul>
-      </section>
-
-      {/* What we do */}
-      <section className="wrap section-pad">
-        <SectionHead
-          eyebrow="Services"
-          title="From the first question to the final approved asset."
-          intro="One connected team for insight, strategy and communications, so nothing important gets lost in a handover."
-          action={<TextLink href="/services">Explore our services</TextLink>}
-        />
-        <div className="grid gap-5 md:grid-cols-3">
-          {disciplines.map((d) => (
-            <Link
-              key={d.id}
-              href={`/services#${d.id}`}
-              className="group flex flex-col gap-3 rounded-xl border border-border p-7 transition hover:-translate-y-1 hover:border-magenta"
-            >
-              <span className="text-sm font-bold tracking-wider text-magenta">{d.number}</span>
-              <h3 className="text-2xl">{d.name}</h3>
-              <p>{d.heading}</p>
-              <span className="mt-auto inline-flex items-center gap-2 pt-3 font-bold text-ink">
-                Find out more <ArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="bg-night text-[#d9d6de]">
-        <div className="wrap py-[clamp(56px,7vw,96px)]">
-          <SectionHead tone="light" eyebrow="Experience" title="We've been here before." intro="Collective experience at global, regional and local level, including emerging markets." />
-          <Stats stats={settings.stats} dark />
-        </div>
-      </section>
-
-      {/* Therapy areas teaser */}
-      <section className="wrap section-pad">
-        <div className="grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
+        <div className="mt-10"><Stats stats={settings.stats} /></div>
+        <div className="mt-4 grid items-start gap-x-10 gap-y-4 border-t border-border pt-7 md:grid-cols-[1fr_1.2fr]">
+          <h3 className="text-2xl text-pretty">Working with a lean team? So are many of our clients.</h3>
           <div>
-            <Eyebrow>Therapy areas</Eyebrow>
-            <h2 className="type-title">We know the science. And the people it affects.</h2>
-            <p className="mt-4">More than 70 therapy areas, from blockbuster classes to rare diseases with a few hundred patients. This is where our experience runs deepest.</p>
-            <div className="mt-7">
-              <TextLink href="/therapy-areas">See all therapy areas</TextLink>
-            </div>
+            <p className="max-w-[54ch]">We work alongside small and mid-sized brand teams, bringing in the specialists you need as the brief develops. We can help shape a global story, adapt it for a region or get it working in a single market.</p>
+            <div className="mt-4"><TextLink href="/about#why">How we work with clients</TextLink></div>
           </div>
-          <ul className="border-t-2 border-ink">
-            {specialist.map((a) => (
-              <li key={a.name} className="grid gap-1 border-b border-border py-5 sm:grid-cols-[220px_1fr] sm:gap-6">
-                <h3 className="text-xl">{a.name}</h3>
-                <p className="text-[15px]">{a.experience}</p>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
-      {/* Selected work */}
+      {latest && (
+        <section className="bg-ink text-white">
+          <div className="wrap section-pad">
+            <SectionHead tone="light" title="What we’re thinking about" action={<TextLink href="/insights" light>Browse insights</TextLink>} />
+            <div className="text-body"><InsightFeature article={latest} /></div>
+          </div>
+        </section>
+      )}
+
       <section className="bg-warm">
-        <div className="wrap section-pad">
-          <SectionHead eyebrow="Work" title="Work that moved things on." action={<TextLink href="/work">See the work</TextLink>} />
-          <div className="grid gap-5 md:grid-cols-3">
-            {cases.slice(0, 3).map((c, i) => (
-              <Link key={c.title} href="/work" className="group overflow-hidden rounded-xl bg-white transition hover:-translate-y-1">
-                <div
-                  className={
-                    ['bg-burst', 'bg-[linear-gradient(135deg,#111_0%,#5b2a86_60%,#d90070_100%)]', 'bg-[linear-gradient(135deg,#19b5d6_0%,#5b2a86_55%,#111_100%)]'][i % 3] +
-                    ' flex h-40 items-end p-5'
-                  }
-                >
-                  <span className="text-lg font-semibold text-white">{c.therapyArea}</span>
-                </div>
-                <div className="p-6">
-                  {c.isExample ? <p className="mb-2 text-xs font-bold tracking-wider text-violet uppercase">Example case study</p> : null}
-                  <h3 className="text-xl">{c.title}</h3>
-                  <p className="mt-2 text-[15px]">{c.challenge}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The band */}
-      <section className="wrap section-pad">
-        <div className="grid items-center gap-[clamp(32px,6vw,96px)] md:grid-cols-[6fr_6fr]">
+        <div className="wrap section-pad grid items-center gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          <Image src="/images/culture/summer-social-london.webp" alt="BOOM! colleagues at the London summer social" width={1000} height={750} sizes="(min-width: 1024px) 48vw, 90vw" className="aspect-[4/3] w-full object-cover" />
           <div>
-            <Eyebrow>The band</Eyebrow>
-            <h2 className="type-title">Senior people. On your work.</h2>
-            <p className="mt-4">
-              Our founder spent a decade inside Novartis before moving agency-side. Our leaders have run agencies, written the science and launched cell therapies. And they stay close to the work.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-6">
-              <TextLink href="/about#band">Meet the band</TextLink>
-              <TextLink href="/careers">Join the band</TextLink>
-            </div>
+            <Eyebrow>Life at BOOM!</Eyebrow>
+            <h2 className="type-title text-pretty">{workplace.headline.boom} of our people say it’s a great place to work.</h2>
+            <p className="mt-4 max-w-[47ch]">Ranked {workplace.lists[1].rank} in the UK’s Best Workplaces 2026 (Small).</p>
+            <div className="mt-5"><WorkplaceBadges size="sm" /></div>
+            <div className="mt-5"><TextLink href="/careers">See what it’s like here</TextLink></div>
           </div>
-          <ul className="grid grid-cols-4 gap-3 sm:gap-4">
-            {team.map((m) => (
-              <li key={m.slug}>
-                <Image src={m.photo.src} alt={m.photo.alt} width={240} height={240} className="aspect-square w-full rounded-full object-cover ring-4 ring-white" />
-                <p className="mt-2 text-center text-sm font-semibold text-ink">{m.name}</p>
-              </li>
-            ))}
-            <li className="flex aspect-square items-center justify-center rounded-full bg-magenta p-2 text-center text-sm leading-tight font-bold text-white">
-              +{Number(settings.teamSize) - team.length} more
-            </li>
-          </ul>
         </div>
       </section>
 
-      {/* Beliefs */}
-      <section className="bg-warm">
-        <div className="wrap section-pad">
-          <SectionHead
-            eyebrow="What we believe"
-            title="We believe in achieving TOGETHER."
-            intro="Creativity and chemistry win pitches. It's the everyday that makes a partnership."
-            action={<TextLink href="/about#beliefs">What we believe</TextLink>}
-          />
-          <ol className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
-            {beliefs.map((b, i) => (
-              <li key={b.title} className="bg-white p-6">
-                <span className="text-sm font-bold text-magenta">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className="mt-3 text-lg leading-snug">{b.title}</h3>
-                <p className="mt-2 text-[15px]">{b.short}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* Great place to work */}
-      <section className="wrap py-[clamp(56px,7vw,96px)]">
-        <div className="grid items-center gap-10 rounded-2xl border border-border p-[clamp(24px,4vw,48px)] lg:grid-cols-[5fr_7fr]">
-          <div>
-            <Eyebrow>Proud to be a great place to work</Eyebrow>
-            <h2 className="type-title">
-              96<span className="text-magenta">%</span> of our people say it&apos;s a great place to work.
-            </h2>
-            <p className="mt-4">
-              Against 54% at a typical UK company. Happy teams do better work, and clients notice. We aim to be the place our people would hate to leave.
-            </p>
-            <div className="mt-6">
-              <TextLink href="/careers">Life at BOOM!</TextLink>
-            </div>
-          </div>
-          <WorkplaceBadges className="justify-start lg:justify-end" />
-        </div>
-      </section>
-
-      <CtaBand title="We aim to be the agency you'd hate to lose." body="That starts with one conversation. Tell us what you're working on." />
+      <CtaBand title="What are you working on?" body="Tell us who you need to reach and what you want them to do differently." />
     </>
   )
 }

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -9,7 +10,7 @@ export function Eyebrow({ children, tone = 'magenta', className }: { children: R
     <p
       className={cn(
         'mb-4 inline-flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.14em] before:h-0.5 before:w-5 before:bg-current',
-        tone === 'magenta' ? 'text-magenta' : 'text-magenta-soft',
+        tone === 'magenta' ? 'text-magenta-dark' : 'text-magenta-soft',
         className,
       )}
     >
@@ -20,16 +21,22 @@ export function Eyebrow({ children, tone = 'magenta', className }: { children: R
 
 export function PageHero({ copy, children }: { copy: PageCopy; children?: React.ReactNode }) {
   return (
-    <section className="relative isolate overflow-hidden bg-night text-[#d6d2db]">
-      <div
-        aria-hidden
-        className="absolute inset-y-0 right-0 -z-10 w-full bg-[url('/images/boom-splash.webp')] bg-cover bg-center opacity-35 md:w-[55%] md:opacity-90 md:[mask-image:linear-gradient(90deg,transparent,#000_45%)]"
-      />
-      <div className="wrap py-[clamp(64px,9vw,128px)]">
-        {copy.eyebrow ? <Eyebrow tone="light">{copy.eyebrow}</Eyebrow> : null}
-        <h1 className="max-w-[820px] type-display text-white">{copy.title}</h1>
-        {copy.lede ? <p className="mt-6 max-w-[640px] text-[clamp(1.08rem,1.4vw,1.25rem)] leading-relaxed text-[#d6d2db]">{copy.lede}</p> : null}
-        {children}
+    <section className="page-masthead border-b border-border bg-warm">
+      <div className={cn('wrap grid items-center gap-8 py-[clamp(42px,6vw,88px)]', copy.image && 'lg:grid-cols-[1.1fr_1fr] lg:gap-12')}>
+        <div>
+          {copy.eyebrow && <Eyebrow>{copy.eyebrow}</Eyebrow>}
+          <h1 className="editorial-display max-w-[18ch]">{copy.title}</h1>
+          {copy.lede && <p className="mt-6 max-w-[58ch] text-lg leading-relaxed">{copy.lede}</p>}
+          {children}
+        </div>
+        {copy.image && (
+          <figure>
+            <div className="relative aspect-[4/3] overflow-hidden border-l-4 border-magenta bg-night-2">
+              <Image src={copy.image.src} alt={copy.image.alt} fill sizes="(min-width: 1024px) 44vw, 90vw" className="object-cover" />
+            </div>
+            {(copy.image.caption || copy.image.credit) && <figcaption className="mt-2 text-sm">{[copy.image.caption, copy.image.credit].filter(Boolean).join(' · ')}</figcaption>}
+          </figure>
+        )}
       </div>
     </section>
   )
@@ -64,7 +71,7 @@ export function SectionHead({
 
 export function TextLink({ href, children, light }: { href: string; children: React.ReactNode; light?: boolean }) {
   return (
-    <Link href={href} className={cn('group inline-flex items-center gap-2 font-bold link-underline hover:text-magenta', light ? 'text-white' : 'text-ink')}>
+    <Link href={href} className={cn('group inline-flex items-center gap-2 font-bold link-underline hover:text-magenta', light ? 'text-white hover:text-magenta-soft' : 'text-ink')}>
       {children}
       <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
     </Link>
@@ -101,7 +108,7 @@ export function Stats({ stats, dark }: { stats: Stat[]; dark?: boolean }) {
 
 export function CtaBand({ title, body, href = '/contact', label = 'Start a conversation' }: { title: string; body: string; href?: string; label?: string }) {
   return (
-    <section className="bg-magenta text-white">
+    <section className="bg-magenta-dark text-white">
       <div className="wrap grid items-center gap-x-16 gap-y-6 py-[clamp(56px,7vw,96px)] md:grid-cols-[7fr_5fr]">
         <h2 className="type-title text-white">{title}</h2>
         <div>

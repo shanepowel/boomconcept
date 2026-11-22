@@ -24,6 +24,7 @@ export const teamMember = defineType({
     }),
     defineField({ name: 'linkedinUrl', title: 'LinkedIn URL', type: 'url' }),
     defineField({ name: 'email', type: 'string', validation: (r) => r.email() }),
+    defineField({ name: 'phone', title: 'Public contact phone', type: 'string' }),
     defineField({ name: 'isFounder', title: 'Founder', type: 'boolean', description: 'Featured at the top of the team page.', initialValue: false }),
     defineField({ name: 'showOnContact', title: 'Show on contact page', type: 'boolean', initialValue: false }),
   ],
@@ -38,6 +39,8 @@ export const caseStudy = defineType({
   fields: [
     orderRankField({ type: 'caseStudy' }),
     defineField({ name: 'title', type: 'string', validation: (r) => r.required() }),
+    defineField({ name: 'slug', type: 'slug', options: { source: 'title' }, validation: (rule) => rule.required() }),
+    defineField({ name: 'image', title: 'Approved case study image', type: 'editorialImage' }),
     defineField({ name: 'therapyArea', title: 'Therapy area', type: 'string' }),
     defineField({ name: 'challenge', type: 'text', rows: 3 }),
     defineField({ name: 'audience', title: 'The people', type: 'text', rows: 2 }),
@@ -101,4 +104,63 @@ export const perk = defineType({
     defineField({ name: 'body', type: 'string' }),
   ],
   preview: { select: { title: 'title', subtitle: 'body' } },
+})
+
+export const insight = defineType({
+  name: 'insight',
+  title: 'Insight',
+  type: 'document',
+  fields: [
+    defineField({ name: 'title', type: 'string', validation: (rule) => rule.required().max(95) }),
+    defineField({ name: 'slug', type: 'slug', options: { source: 'title' }, validation: (rule) => rule.required() }),
+    defineField({ name: 'summary', type: 'text', rows: 3, validation: (rule) => rule.required().max(240) }),
+    defineField({
+      name: 'topic',
+      type: 'string',
+      options: { list: ['Science', 'Strategy', 'Technology'] },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({ name: 'byline', type: 'string', description: 'Add an author only after they have approved the piece.' }),
+    defineField({ name: 'featured', type: 'boolean', initialValue: false }),
+    defineField({ name: 'image', type: 'editorialImage' }),
+    defineField({
+      name: 'sections',
+      type: 'array',
+      validation: (rule) => rule.required().min(1),
+      of: [defineArrayMember({
+        name: 'insightSection',
+        type: 'object',
+        fields: [
+          defineField({ name: 'heading', type: 'string', validation: (rule) => rule.required() }),
+          defineField({ name: 'text', type: 'text', rows: 5, validation: (rule) => rule.required() }),
+        ],
+      })],
+    }),
+    defineField({
+      name: 'example',
+      title: 'Interactive example',
+      type: 'object',
+      fields: [
+        defineField({ name: 'original', title: 'First draft', type: 'text', validation: (rule) => rule.required() }),
+        defineField({ name: 'revision', title: 'Revised claim', type: 'text', validation: (rule) => rule.required() }),
+        defineField({ name: 'note', title: 'Context', type: 'text', validation: (rule) => rule.required() }),
+      ],
+    }),
+  ],
+  preview: { select: { title: 'title', subtitle: 'topic', media: 'image' } },
+})
+
+export const careersRole = defineType({
+  name: 'careersRole',
+  title: 'Careers role',
+  type: 'document',
+  fields: [
+    defineField({ name: 'title', type: 'string', validation: (rule) => rule.required().max(90) }),
+    defineField({ name: 'location', type: 'string', validation: (rule) => rule.required() }),
+    defineField({ name: 'workingPattern', type: 'string' }),
+    defineField({ name: 'summary', type: 'text', rows: 3, validation: (rule) => rule.required().max(320) }),
+    defineField({ name: 'applicationUrl', title: 'Link to role and application', type: 'url', validation: (rule) => rule.required().uri({ scheme: ['https'] }) }),
+    defineField({ name: 'open', title: 'Accepting applications', type: 'boolean', initialValue: false }),
+  ],
+  preview: { select: { title: 'title', subtitle: 'location' } },
 })

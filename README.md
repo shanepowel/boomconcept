@@ -28,19 +28,22 @@ The site works straight away with no Sanity project. Until one is connected, eve
 3. Load the current content into the dataset: `cd studio && npm run seed`. This builds `seed/seed.ndjson` from the site's fallback content, including the team photos, and imports it.
 4. Allow the site to talk to the API: `npx sanity cors add http://localhost:3000 --credentials` (and later the production URL).
 5. Run the Studio: `npm run dev:studio` (http://localhost:3333). Deploy it with `cd studio && npx sanity deploy`.
-6. For live preview and draft mode, create a Viewer token in sanity.io/manage and set `SANITY_API_READ_TOKEN` in `web/.env.local`.
+6. For live preview and draft mode, create a Viewer token in sanity.io/manage and set `SANITY_API_READ_TOKEN` in `web/.env.local`. Set `NEXT_PUBLIC_SANITY_STUDIO_URL` to the Studio URL and `SANITY_STUDIO_PREVIEW_ORIGIN` to the frontend origin, then open Presentation in Studio. Use matching hostnames in the preview origin and CORS settings.
 
 ### What editors can change
 
 | In the Studio | Where it shows |
 | --- | --- |
-| Site settings | Proof points, stats, team size, offices, emails, company details, legal links |
-| Page copy (one per page) | Each page's eyebrow, headline, intro and SEO title and description. Pages: Home, Work, Services, Therapy areas, About, Careers, Contact |
+| Site settings | Stats, offices, emails, company details and legal links |
+| Page copy (one per page) | Each page's eyebrow, headline, intro, hero photograph and SEO metadata. Pages: Home, Work, Services, Therapy areas, About, Careers, Contact |
 | Team | About page (the band), home page line-up, contact people (drag to reorder) |
-| Case studies | Work page and home page. Untick "Example only" once a story is real and approved |
+| Home page copy → Example briefs | Line-up choices, approach, disciplines, linked team members and case study |
+| Insights | Topic, author, featured placement, article sections and optional first draft/revision example |
+| Case studies | Work index, individual case pages and related work. Set a slug and add approved media. Untick "Example only" once the story is approved |
 | Brand moments | Services page |
 | Specialist areas, therapy areas | Therapy areas page and home page |
 | Careers perks | Careers page |
+| Careers roles | Publish a role with Accepting applications enabled and an HTTPS application link to list it on Careers |
 
 Workplace awards, culture photos, the sustainability figures and the legal pages live in `web/src/content/fallback.ts` and `web/src/app/{terms,privacy,cookies,sustainability}`.
 
@@ -48,7 +51,7 @@ Longer-form section copy (for example the service disciplines and the process st
 
 ## How it is built
 
-- **Components:** shadcn/ui (Radix) in `web/src/components/ui`, themed to the BOOM! brand in `web/src/app/globals.css` (black type, magenta `#D90070` from the logo, the colour-burst gradient). Site-level building blocks are in `web/src/components/site`.
+- **Components:** shadcn/ui (Radix) in `web/src/components/ui`, themed to the BOOM! brand in `web/src/app/globals.css` (black type, magenta `#D90070` from the logo, the colour-burst gradient). Site-level building blocks are in `web/src/components/site`. Run `./node_modules/.bin/shadcn info` from `web/` for installed components and registry configuration.
 - **Data:** `web/src/lib/data.ts` reads from Sanity through `next-sanity` (Live Content API) and falls back to local content if Sanity is not configured or a document is missing.
 - **Content model:** `studio/schemaTypes`. Singletons (Site settings and Page copy) are locked to fixed IDs in `studio/structure`.
 - **Contact form:** for the concept it opens a pre-filled email to the enquiries address. Replace it with a server action (for example Resend) for launch.

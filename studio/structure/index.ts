@@ -6,6 +6,7 @@ export const SINGLETON_TYPES = new Set(['siteSettings', 'pageCopy'])
 export const PAGE_KEYS = [
   { key: 'home', title: 'Home' },
   { key: 'work', title: 'Work' },
+  { key: 'insights', title: 'Insights' },
   { key: 'services', title: 'Services' },
   { key: 'therapyAreas', title: 'Therapy areas' },
   { key: 'about', title: 'About' },
@@ -44,10 +45,12 @@ export const structure: StructureResolver = (S, context) =>
       S.divider(),
       orderableDocumentListDeskItem({ type: 'teamMember', title: 'Team', S, context }),
       orderableDocumentListDeskItem({ type: 'caseStudy', title: 'Case studies', S, context }),
+      S.documentTypeListItem('insight').title('Insights'),
       S.divider(),
       orderableDocumentListDeskItem({ type: 'brandMoment', title: 'Brand moments', S, context }),
       orderableDocumentListDeskItem({ type: 'specialistArea', title: 'Specialist areas', S, context }),
       S.documentTypeListItem('therapyArea').title('Therapy areas'),
       S.divider(),
+      S.documentTypeListItem('careersRole').title('Careers roles'),
       orderableDocumentListDeskItem({ type: 'perk', title: 'Careers perks', S, context }),
     ])

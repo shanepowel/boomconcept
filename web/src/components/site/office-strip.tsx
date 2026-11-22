@@ -20,13 +20,14 @@ function useNow() {
 }
 
 function localTime(now: Date, timeZone: string) {
-  const parts = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', weekday: 'short', hour12: false, timeZone }).formatToParts(now)
-  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? ''
-  const minutes = Number(get('hour')) * 60 + Number(get('minute'))
-  const weekday = !['Sat', 'Sun'].includes(get('weekday'))
-  const label = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone }).format(now)
-  // Core hours from BOOM!'s job advert: 8.45am to 5.30pm.
-  return { label, daytime: minutes >= 7 * 60 && minutes < 19 * 60, open: weekday && minutes >= 8 * 60 + 45 && minutes < 17 * 60 + 30 }
+  try {
+    const formatter = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone })
+    const hour = Number(formatter.formatToParts(now).find((part) => part.type === 'hour')?.value)
+    return { label: formatter.format(now), daytime: hour >= 7 && hour < 19 }
+  } catch (error) {
+    if (error instanceof RangeError) return null
+    throw error
+  }
 }
 
 export function OfficeStrip({ offices, tone = 'dark' }: { offices: Office[]; tone?: 'dark' | 'light' }) {
@@ -61,7 +62,6 @@ export function OfficeStrip({ offices, tone = 'dark' }: { offices: Office[]; ton
                   <>
                     {time.daytime ? <Sun className="size-4" aria-hidden /> : <Moon className="size-4" aria-hidden />}
                     {time.label} local time
-                    <span className={dark ? 'text-[#a9a5b0]' : 'text-[#5e5e5e]'}>· {time.open ? 'office hours' : 'out of hours'}</span>
                   </>
                 ) : null}
               </p>

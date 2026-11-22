@@ -1,9 +1,13 @@
 import 'server-only'
+import { stegaClean } from 'next-sanity'
+import { insights, type Insight } from '@/content/insights'
 import * as fallback from '@/content/fallback'
 import { therapyAreas as fallbackTherapyAreas } from '@/content/therapy-areas'
 import type {
   BrandMoment,
   CaseStudy,
+  CareersRole,
+  Img,
   PageCopy,
   PageKey,
   Perk,
@@ -18,6 +22,8 @@ import { sanityFetch } from '@/sanity/live'
 import {
   BRAND_MOMENTS_QUERY,
   CASE_STUDIES_QUERY,
+  CAREERS_ROLES_QUERY,
+  INSIGHTS_QUERY,
   PAGE_QUERY,
   PERKS_QUERY,
   SETTINGS_QUERY,
@@ -56,8 +62,15 @@ export async function getSettings(opts: { stega?: boolean } = {}): Promise<SiteS
   ) as SiteSettings
 }
 
+type SanityImage = Parameters<typeof urlFor>[0] & { asset?: unknown; alt?: string; caption?: string; credit?: string }
+
+function toImage(image?: SanityImage): Img | undefined {
+  if (!image?.asset) return undefined
+  return { src: urlFor(image).width(1440).url(), alt: image.alt || '', caption: image.caption, credit: image.credit }
+}
+
 export async function getPage(key: PageKey, opts: { stega?: boolean } = {}): Promise<PageCopy> {
-  const data = await fromSanity<Partial<PageCopy> | null>(PAGE_QUERY, { key }, opts)
+  const data = await fromSanity<(Partial<Omit<PageCopy, 'image'>> & { image?: SanityImage }) | null>(PAGE_QUERY, { key }, opts)
   const base = fallback.pages[key]
   if (!data) return base
   return {
@@ -66,6 +79,13 @@ export async function getPage(key: PageKey, opts: { stega?: boolean } = {}): Pro
     lede: data.lede || base.lede,
     seoTitle: data.seoTitle || base.seoTitle,
     seoDescription: data.seoDescription || base.seoDescription,
+    image: toImage(data.image) ?? base.image,
+    lineups: data.lineups?.map((lineup) => ({
+      ...lineup,
+      disciplines: lineup.disciplines ?? [],
+      people: stegaClean(lineup.people ?? []).filter(Boolean),
+      caseSlug: lineup.caseSlug ? stegaClean(lineup.caseSlug) : undefined,
+    })) ?? base.lineups,
   }
 }
 
@@ -78,6 +98,8 @@ export async function getTeam(): Promise<TeamMember[]> {
   if (!hasItems(data)) return fallback.team
   return data.map((member) => ({
     ...member,
+    slug: stegaClean(member.slug),
+    phone: member.phone ? stegaClean(member.phone) : undefined,
     photo: member.photo?.asset
       ? {
           src: urlFor(member.photo as never).width(900).height(900).fit('crop').url(),
@@ -104,9 +126,9 @@ export async function getSpecialistAreas(): Promise<SpecialistArea[]> {
   return hasItems(data) ? data : fallback.specialistAreas
 }
 
-export async function getCaseStudies(): Promise<CaseStudy[]> {
-  const data = await fromSanity<CaseStudy[]>(CASE_STUDIES_QUERY)
-  return hasItems(data) ? data : fallback.caseStudies
+export async function getCaseStudies(opts: { stega?: boolean } = {}): Promise<CaseStudy[]> {
+  const data = await fromSanity<(Omit<CaseStudy, 'image'> & { image?: SanityImage })[]>(CASE_STUDIES_QUERY, {}, opts)
+  return hasItems(data) ? data.map((study) => ({ ...study, slug: stegaClean(study.slug), image: toImage(study.image) })) : fallback.caseStudies
 }
 
 export async function getPerks(): Promise<Perk[]> {
@@ -115,3 +137,23 @@ export async function getPerks(): Promise<Perk[]> {
 }
 
 export const { audiences, values, beliefs, capabilities, bestFit, processSteps, disciplines, workplace, glassdoor, people2025, sustainability, teamMix } = fallback
+
+export async function getInsights(opts: { stega?: boolean } = {}): Promise<Insight[]> {
+  const data = await fromSanity<(Omit<Insight, 'image'> & { image?: SanityImage })[]>(INSIGHTS_QUERY, {}, opts)
+  return hasItems(data) ? data.map((article) => ({
+    ...article,
+    slug: stegaClean(article.slug),
+    topic: stegaClean(article.topic),
+    sections: article.sections ?? [],
+    image: toImage(article.image),
+  })) : insights
+}
+
+export async function getCareersRoles(): Promise<CareersRole[]> {
+  const data = await fromSanity<CareersRole[]>(CAREERS_ROLES_QUERY)
+  return (data ?? []).flatMap((role) => {
+    const applicationUrl = stegaClean(role.applicationUrl)
+    const parsed = URL.parse(applicationUrl)
+    return parsed?.protocol === 'https:' ? [{ ...role, applicationUrl: parsed.href }] : []
+  })
+}

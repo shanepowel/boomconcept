@@ -1,108 +1,52 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { contactTopics, type ContactTopic } from '@/content/contact-topics'
 
-export const topics = [
-  { value: 'brief', label: 'A new brief or project' },
-  { value: 'credentials', label: 'Request our credentials' },
-  { value: 'procurement', label: 'Procurement and supplier information' },
-  { value: 'careers', label: 'Careers' },
-  { value: 'other', label: 'Something else' },
-] as const
+export function ContactForm({ email, topic }: { email: string; topic: ContactTopic }) {
+  const { prompt, subject } = contactTopics[topic]
+  const [draft, setDraft] = useState<string | null>(null)
 
-type Topic = (typeof topics)[number]['value']
-
-export function ContactForm({ email, initialTopic }: { email: string; initialTopic?: string }) {
-  const startTopic = (topics.find((t) => t.value === initialTopic)?.value ?? 'brief') as Topic
-  const [topic, setTopic] = useState<Topic>(startTopic)
-  const [sent, setSent] = useState<{ name: string; href: string } | null>(null)
-
-  // Concept build: no form backend yet, so the form opens a pre-filled email to BOOM!.
-  // Swap this for a server action (for example with Resend) when the site goes live.
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    const label = topics.find((t) => t.value === topic)?.label ?? 'Enquiry'
-    const subject = `${label}: ${data.get('name')}${data.get('company') ? `, ${data.get('company')}` : ''}`
-    const body = [
-      String(data.get('message') || ''),
-      '',
-      `Name: ${data.get('name')}`,
-      `Organisation: ${data.get('company') || '-'}`,
-      `Email: ${data.get('email')}`,
-      `Phone: ${data.get('phone') || '-'}`,
-    ].join('\n')
-    const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setSent({ name: String(data.get('name') || '').split(' ')[0], href })
+    const name = String(data.get('name') ?? '').trim()
+    const organisation = String(data.get('company') ?? '').trim()
+    const senderEmail = String(data.get('email') ?? '').trim()
+    const message = String(data.get('message') ?? '').trim()
+    const body = [message, '', name, organisation, senderEmail].filter((line, i) => line || i === 1).join('\r\n')
+    const href = `mailto:${email}?subject=${encodeURIComponent(`${subject}: ${name}`)}&body=${encodeURIComponent(body)}`
+    setDraft(href)
     window.location.href = href
-  }
-
-  if (sent) {
-    return (
-      <div role="status" className="rounded-xl bg-magenta-tint p-7 text-ink">
-        <p className="text-2xl font-semibold tracking-tight">Thanks{sent.name ? `, ${sent.name}` : ''}. Your message is ready to go.</p>
-        <p className="mt-3">
-          Your email app should have opened with everything filled in. Hit send and the right person from the band will be in touch. If nothing opened,{' '}
-          <a href={sent.href} className="font-bold underline decoration-magenta underline-offset-4">
-            try again
-          </a>{' '}
-          or email{' '}
-          <a href={`mailto:${email}`} className="font-bold underline decoration-magenta underline-offset-4">
-            {email}
-          </a>
-          .
-        </p>
-        <Button type="button" variant="outlineBrand" size="lg" className="mt-6 h-10 px-4 font-bold" onClick={() => setSent(null)}>
-          Start another message
-        </Button>
-      </div>
-    )
   }
 
   return (
     <form onSubmit={onSubmit} className="grid gap-5">
-      <div className="grid gap-2">
-        <Label htmlFor="topic" className="text-[15px] text-ink">
-          What can we help with?
-        </Label>
-        <Select value={topic} onValueChange={(v) => setTopic(v as Topic)}>
-          <SelectTrigger id="topic" className="h-12 w-full bg-white text-base">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {topics.map((t) => (
-              <SelectItem key={t.value} value={t.value}>
-                {t.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
       <div className="grid gap-5 sm:grid-cols-2">
         <Field id="name" label="Your name" required autoComplete="name" />
-        <Field id="company" label="Organisation" autoComplete="organization" />
-        <Field id="email" label="Email" type="email" required autoComplete="email" />
-        <Field id="phone" label="Phone (optional)" type="tel" autoComplete="tel" />
+        <Field id="email" label="Your email" type="email" required autoComplete="email" />
       </div>
+      {topic !== 'careers' && <Field id="company" label="Organisation (optional)" autoComplete="organization" />}
       <div className="grid gap-2">
-        <Label htmlFor="message" className="text-[15px] text-ink">
-          {topic === 'careers' ? 'Tell us about you and why BOOM! appeals' : 'Tell us about the challenge'}
-        </Label>
-        <Textarea id="message" name="message" required className="min-h-40 bg-white text-base" />
+        <Label htmlFor="message" className="text-[15px] text-ink">Your message</Label>
+        <p id="message-hint" className="text-sm text-body">{prompt}</p>
+        <Textarea id="message" name="message" required aria-describedby="message-hint" className="min-h-32 bg-white text-base" />
       </div>
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <Button type="submit" variant="brand" size="xl">
-          Send <ArrowUpRight aria-hidden />
-        </Button>
-        <p className="text-sm text-[#5e5e5e]">This opens your email app with your message ready to send to {email}.</p>
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+        <Button type="submit" variant="brand" size="xl">Open email draft <ArrowUpRight aria-hidden /></Button>
+        <a href={`mailto:${email}`} className="inline-flex items-center gap-2 text-sm font-semibold text-ink link-underline"><Mail className="size-4" aria-hidden /> Email us directly</a>
       </div>
+      <p className="text-sm text-body">Your email app opens with the draft. You can review it before you send.</p>
+      {draft && (
+        <p role="status" className="border-l-2 border-magenta bg-warm p-4 text-sm">
+          If your email app didn’t open, <a href={draft} className="font-bold text-ink link-underline">try opening the draft again</a>.
+        </p>
+      )}
     </form>
   )
 }
@@ -110,17 +54,8 @@ export function ContactForm({ email, initialTopic }: { email: string; initialTop
 function Field({ id, label, type = 'text', required, autoComplete }: { id: string; label: string; type?: string; required?: boolean; autoComplete?: string }) {
   return (
     <div className="grid gap-2">
-      <Label htmlFor={id} className="text-[15px] text-ink">
-        {label}
-      </Label>
+      <Label htmlFor={id} className="text-[15px] text-ink">{label}</Label>
       <Input id={id} name={id} type={type} required={required} autoComplete={autoComplete} className="h-12 bg-white text-base" />
     </div>
   )
-}
-
-/** Reads ?topic= so links like /contact?topic=careers preselect the right route. */
-export function ContactFormWithTopic({ email }: { email: string }) {
-  const params = useSearchParams()
-  const topic = params.get('topic') ?? undefined
-  return <ContactForm key={topic} email={email} initialTopic={topic} />
 }

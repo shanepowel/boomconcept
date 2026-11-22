@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { CtaBand, Eyebrow, PageHero, SectionHead, Stats, Tags, TextLink } from '@/components/site/blocks'
+import { CtaBand, Eyebrow, PageHero, SectionHead, Tags, TextLink } from '@/components/site/blocks'
 import { TherapyDirectory } from '@/components/site/therapy-directory'
-import { audiences, getPage, getSettings, getSpecialistAreas, getTherapyAreas } from '@/lib/data'
+import { getCaseStudies, getPage, getSpecialistAreas, getTherapyAreas } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('therapyAreas', { stega: false })
@@ -9,14 +9,23 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function TherapyAreasPage() {
-  const [page, settings, specialist, areas] = await Promise.all([getPage('therapyAreas'), getSettings(), getSpecialistAreas(), getTherapyAreas()])
+  const [page, specialist, areas, cases] = await Promise.all([getPage('therapyAreas'), getSpecialistAreas(), getTherapyAreas(), getCaseStudies()])
 
   return (
     <>
-      <PageHero copy={page} />
+      <PageHero copy={page}>
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+          <TextLink href="#therapy-directory">Search therapy areas</TextLink>
+          <TextLink href="/contact?topic=credentials">Request credentials</TextLink>
+        </div>
+      </PageHero>
 
-      <section className="wrap pt-10 pb-[clamp(48px,6vw,88px)]">
-        <Stats stats={settings.stats} />
+      {/* Directory */}
+      <section id="therapy-directory" className="border-b border-border">
+        <div className="wrap section-pad">
+          <SectionHead eyebrow="The full list" title="18 specialisms. 70+ therapy areas." intro="Search by condition, treatment or abbreviation." className="mb-0" />
+          <TherapyDirectory areas={areas} />
+        </div>
       </section>
 
       {/* Depth */}
@@ -25,8 +34,8 @@ export default async function TherapyAreasPage() {
           <SectionHead
             tone="light"
             eyebrow="Where we go deepest"
-            title="The harder the science, the more we enjoy it."
-            intro="This is where our experience runs deepest. Each area has its own language, its own specialists and its own reasons why a message lands or doesn't."
+            title="Where we have the deepest experience."
+            intro="Start with what makes the brief difficult, then see what our team has worked on."
           />
           <div className="overflow-hidden rounded-xl border border-[#2e2e2e]">
             <div className="hidden grid-cols-[3fr_4fr_5fr] gap-6 border-b border-[#2e2e2e] bg-night-2 px-7 py-3 text-xs font-bold tracking-[0.12em] text-magenta-soft uppercase md:grid">
@@ -56,37 +65,26 @@ export default async function TherapyAreasPage() {
         </div>
       </section>
 
-      {/* Audiences + global */}
-      <section className="wrap section-pad grid gap-[clamp(32px,6vw,96px)] md:grid-cols-2">
+      <section className="wrap section-pad grid gap-8 md:grid-cols-[1fr_1.2fr] md:gap-14">
         <div>
-          <Eyebrow>Who we talk to</Eyebrow>
-          <h2 className="type-title">We know who’s on the other side of the message.</h2>
-          <ul className="mt-8">
-            {audiences.map((a) => (
-              <li key={a.title} className="relative border-b border-border py-4 pl-8 before:absolute before:top-[1.6rem] before:left-0 before:h-0.5 before:w-4 before:bg-magenta">
-                <strong className="text-ink">{a.title}.</strong> {a.body}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="rounded-xl bg-warm p-[clamp(28px,4vw,48px)] md:self-start">
-          <Eyebrow>Global, regional, local</Eyebrow>
-          <h2 className="type-title">One idea. Many markets.</h2>
-          <p className="mt-4">
-            We work at global, regional and local level, including emerging markets. With teams in the UK and Copenhagen, we know how a global idea needs to change to work in a local
-            market, and how to keep it approved along the way.
-          </p>
-          <h3 className="mt-8 text-[13px] font-bold tracking-[0.14em] text-ink uppercase">Specialist knowledge</h3>
+          <Eyebrow>Across therapy areas</Eyebrow>
+          <h2 className="type-title">When the challenge crosses categories.</h2>
+          <p className="mt-4">Some briefs need experience of a particular market change or treatment pathway. We bring that perspective into the team alongside therapy-area knowledge.</p>
           <Tags items={['Rare disease', 'Biosimilars', 'Brand substitution', 'Generics', 'Multi-indication therapies']} />
         </div>
-      </section>
-
-      {/* Directory */}
-      <section className="bg-warm">
-        <div className="wrap section-pad">
-          <SectionHead eyebrow="The full list" title="18 specialisms. 70+ therapy areas." intro="Search by condition, treatment or abbreviation." className="mb-0" />
-          <TherapyDirectory areas={areas} />
-        </div>
+        {cases.length > 0 && (
+          <div className="border-t border-ink pt-5">
+            <h3 className="text-2xl">See how we’d approach a brief.</h3>
+            <ul className="mt-3 divide-y divide-border">
+              {cases.slice(0, 3).map((study) => (
+                <li key={study.slug} className="py-3">
+                  <p className="text-sm">{study.therapyArea}{study.isExample && ' · Illustrative case study'}</p>
+                  <TextLink href={`/work/${encodeURIComponent(study.slug)}`}>{study.title}</TextLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
       <CtaBand title="Got a brief in one of these areas?" body="Tell us the challenge. We'll put the right people around it." />

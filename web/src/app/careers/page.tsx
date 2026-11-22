@@ -1,199 +1,135 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
-import { CtaBand, Eyebrow, PageHero, SectionHead } from '@/components/site/blocks'
-import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { Eyebrow, PageHero, SectionHead, TextLink } from '@/components/site/blocks'
 import { WorkplaceBadges } from '@/components/site/badges'
-import { getPage, getPerks, getSettings, glassdoor, people2025, workplace } from '@/lib/data'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
+import { getCareersRoles, getPage, getPerks, getSettings, workplace } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('careers', { stega: false })
   return { title: page.seoTitle || 'Careers', description: page.seoDescription }
 }
 
-const dayToDay = [
-  { title: 'Every day starts at 8.45', body: 'A quick team call to catch up and get aligned. Then you get on with it.' },
-  { title: 'Hybrid by design', body: 'Work from home and from our offices, with face-to-face time when it moves the work on.' },
-  { title: 'Flexible where it counts', body: 'Core hours of 8.45 to 5.30, flexibility when life needs it, and shorter days considered for the right person.' },
-  { title: 'Real variety', body: 'Strategy, research, science, creative, digital, project management and client services all have a part to play.' },
+const workingLife = [
+  { title: 'Work across disciplines', body: 'A brief might bring a researcher, a medical writer and a creative together. You get to see how other people think and where your part changes the result.' },
+  { title: 'Make time together count', body: 'We work remotely and face to face. Teams use the office, working sessions and client meetings for the conversations that are better in the room.' },
+  { title: 'Be good company', body: 'Ask the question everyone is thinking, share what you know and give people credit for good work. That’s what being a Wilbury looks like on an ordinary day.' },
+]
+
+const questions = [
+  { title: 'Where are you based?', body: 'Our teams work across London, Bournemouth and Copenhagen. A vacancy will explain where the role is based and how often you’ll need to be there.' },
+  { title: 'What should I include in an introduction?', body: 'Tell us what you do, what kind of work you want to do next and why BOOM! caught your eye. A link to work you can share is welcome.' },
+  { title: 'Can I ask about working arrangements or interview adjustments?', body: 'Yes. Raise it with the careers contact so you can discuss what the role needs and what would help you take part.' },
 ]
 
 export default async function CareersPage() {
-  const [page, perks, settings] = await Promise.all([getPage('careers'), getPerks(), getSettings()])
+  const [page, perks, settings, roles] = await Promise.all([getPage('careers'), getPerks(), getSettings({ stega: false }), getCareersRoles()])
+  const introduction = '/contact?topic=careers#form'
+
   return (
     <>
       <PageHero copy={page}>
-        <div className="mt-8">
-          <Button asChild variant="magenta" size="xl">
-            <a href="#join">
-              Join the band <ArrowUpRight aria-hidden />
-            </a>
-          </Button>
+        <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Button asChild variant="magenta" size="xl"><a href="#join">Explore open roles <ArrowDown aria-hidden /></a></Button>
+          <TextLink href="#life">Life at BOOM!</TextLink>
         </div>
       </PageHero>
 
-      <section className="wrap section-pad grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
-        <div>
-          <Eyebrow>What a Wilbury is</Eyebrow>
-          <h2 className="type-title">Brilliant at the job. Great to work with.</h2>
-        </div>
-        <div className="space-y-5 text-lg">
-          <p>
-            A Wilbury has the skill and the confidence to do the job really well, and the potential to become world-class with the right experience and support.
-          </p>
-          <p>
-            They&apos;re proactive and curious, they solve problems, they have a good sense of humour, and they&apos;d rather win TOGETHER than alone. We&apos;re proud of the team we&apos;ve built, and we&apos;re still growing.
-          </p>
-        </div>
-      </section>
-
-      {/* Great Place To Work */}
-      <section className="bg-night text-[#d9d6de]">
-        <div className="wrap section-pad">
-          <div className="grid items-end gap-10 md:grid-cols-[7fr_5fr]">
-            <SectionHead
-              tone="light"
-              className="mb-0"
-              eyebrow="Don't just take our word for it"
-              title="96% of the team say it's a great place to work."
-              intro={`That's against ${workplace.headline.typical} at a typical UK company, from the independent Great Place To Work® survey of our team.`}
-            />
-            <p className="text-[clamp(4.5rem,11vw,9rem)] leading-none font-semibold tracking-[-0.06em] text-white">
-              96<span className="text-magenta">%</span>
-            </p>
+      <section id="join" className="bg-night text-white">
+        <div className="wrap grid gap-x-12 gap-y-6 py-[clamp(38px,6vw,76px)] lg:grid-cols-[0.85fr_1.15fr]">
+          <div>
+            <Eyebrow tone="light">Careers at BOOM!</Eyebrow>
+            <h2 className="type-title text-white">Find your next role.</h2>
           </div>
-          <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[#2e2e2e] bg-[#2e2e2e] sm:grid-cols-2 lg:grid-cols-4">
-            {workplace.stats.map((st) => (
-              <li key={st.label} className="bg-night-2 p-6">
-                <p className="text-3xl font-semibold tracking-tight text-white">{st.value}</p>
-                <p className="mt-2 text-[15px]">{st.label}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-12 grid gap-10 lg:grid-cols-[7fr_5fr]">
-            <div>
-              <h3 className="text-[13px] font-bold tracking-[0.14em] text-white uppercase">Five UK Best Workplaces™ lists in 2026</h3>
-              <WorkplaceBadges showRanks dark className="mt-5" />
-              <a href={workplace.source} className="mt-4 inline-block text-sm font-bold text-white link-underline [text-underline-offset:4px]">
-                See our Great Place To Work® profile
-              </a>
+          <div className="border-t border-white/25 pt-5">
+            {roles.length > 0 ? (
+              <ul className="divide-y divide-white/20">
+                {roles.map((role) => (
+                  <li key={role.id} className="pb-5 not-first:pt-5">
+                    <h3 className="text-xl text-white">{role.title}</h3>
+                    <p className="mt-1 text-sm font-semibold text-magenta-soft">{[role.location, role.workingPattern].filter(Boolean).join(' · ')}</p>
+                    <p className="mt-3 text-white/80">{role.summary}</p>
+                    <a href={role.applicationUrl} className="mt-3 inline-flex items-center gap-2 font-bold text-white link-underline">View role and apply <span className="sr-only">for {role.title}</span><ArrowUpRight className="size-4" aria-hidden /></a>
+                  </li>
+                ))}
+              </ul>
+            ) : <p className="max-w-[50ch] text-white/85">There are no vacancies listed on this page. If you’re interested in working here, tell us what you do and what you’d like to do next.</p>}
+            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <Button asChild variant="light" size="xl"><Link href={introduction}>Introduce yourself <ArrowUpRight aria-hidden /></Link></Button>
+              <a href={settings.linkedinUrl} className="text-sm font-bold text-white link-underline">Follow BOOM! for vacancies</a>
             </div>
-            <figure className="rounded-2xl bg-night-2 p-7">
-              <p className="text-sm font-semibold text-magenta-soft">
-                Glassdoor · {glassdoor.rating} out of 5 from {glassdoor.reviews} reviews
-              </p>
-              <blockquote className="mt-4 text-[clamp(1.3rem,2vw,1.6rem)] leading-snug font-medium text-white">&ldquo;{glassdoor.quote}&rdquo;</blockquote>
-              <figcaption className="mt-4 text-[15px]">{glassdoor.attribution}</figcaption>
-              <a href={glassdoor.url} className="mt-5 inline-block text-sm font-bold text-white link-underline [text-underline-offset:4px]">
-                Read the reviews
-              </a>
-            </figure>
           </div>
         </div>
       </section>
 
-      {/* Culture gallery */}
-      <section className="wrap section-pad">
-        <SectionHead
-          eyebrow="Life outside the brief"
-          title="We celebrate TOGETHER, too."
-          intro="Star Wars Day, socials in London, and a five-year birthday conference in Lisbon. Every person in our survey said we celebrate special events, and we meant it."
-        />
-        <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
-          {workplace.photos.map((ph, i) => (
-            <li key={ph.src} className={i === 0 ? 'relative col-span-2 overflow-hidden rounded-2xl md:row-span-2' : 'relative overflow-hidden rounded-2xl'}>
-              <figure className="group h-full">
-                <Image
-                  src={ph.src}
-                  alt={ph.caption}
-                  width={1000}
-                  height={750}
-                  sizes={i === 0 ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 50vw'}
-                  className="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/85 to-transparent p-3 pt-10 text-[13px] leading-snug text-white sm:text-sm">
-                  {ph.caption}
-                </figcaption>
-              </figure>
+      <section id="life" className="wrap section-pad">
+        <SectionHead title="Good at your job. Generous with what you know." intro="That’s our version of a Wilbury. Here’s what it means when we work together." />
+        <ul className="grid gap-x-8 gap-y-5 md:grid-cols-3">
+          {workingLife.map(({ title, body }) => (
+            <li key={title} className="border-t border-ink pt-4">
+              <h3 className="text-xl">{title}</h3>
+              <p className="mt-2">{body}</p>
             </li>
           ))}
         </ul>
-        <p className="mt-3 text-xs text-[#5e5e5e]">Photos: BOOM!&apos;s Great Place To Work® profile.</p>
-
-        <dl className="mt-[clamp(48px,6vw,80px)] grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {people2025.map((m) => (
-            <div key={m.label} className="bg-white p-6">
-              <dt className="sr-only">{m.label}</dt>
-              <dd>
-                <span className="block text-4xl font-semibold tracking-tight text-ink">{m.value}</span>
-                <span className="mt-2 block text-[15px]">{m.label} (2025)</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-3 text-xs text-[#5e5e5e]">
-          From our{' '}
-          <Link href="/sustainability" className="underline">
-            2026 sustainability report
-          </Link>
-          .
-        </p>
+        <div className="mt-7"><TextLink href="/about#band">Meet the people you could work with</TextLink></div>
       </section>
 
       <section className="bg-warm">
         <div className="wrap section-pad">
-          <SectionHead
-            eyebrow="Life at BOOM!"
-            title="People at the heart. The journey should be enjoyable."
-            intro="Teamwork, trust and the right support to grow. We win TOGETHER, we lose TOGETHER, and most importantly we do it TOGETHER."
-          />
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {dayToDay.map((d) => (
-              <div key={d.title} className="border-t-2 border-ink pt-5">
-                <h3 className="text-xl leading-tight">{d.title}</h3>
-                <p className="mt-3 text-[16px]">{d.body}</p>
-              </div>
+          <SectionHead title="Away from the brief." intro="A company birthday in Lisbon, a summer social in London and a day off for Star Wars Day. Here’s a look at life together outside the work." />
+          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[workplace.photos[1], workplace.photos[3], workplace.photos[4]].map((photo) => (
+              <li key={photo.src}>
+                <figure>
+                  <Image src={photo.src} alt="" width={1000} height={750} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw" className="aspect-[4/3] w-full object-cover" />
+                  <figcaption className="mt-2 text-sm">{photo.caption}</figcaption>
+                </figure>
+              </li>
             ))}
+          </ul>
+          <div className="mt-10 grid gap-6 border-t border-ink pt-6 md:grid-cols-2 md:items-center">
+            <div>
+              <h3 className="text-2xl">{workplace.headline.boom} said BOOM! is a great place to work.</h3>
+              <p className="mt-2">From the Great Place To Work® employee survey.</p>
+              <a href={workplace.source} className="mt-3 inline-block text-sm font-bold text-ink link-underline">See the survey and rankings</a>
+            </div>
+            <WorkplaceBadges size="sm" />
           </div>
         </div>
       </section>
 
-      <section className="wrap section-pad">
-        <SectionHead eyebrow="The perks" title="The small print we're proud of." />
-        <ul className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {perks.map((p) => (
-            <li key={p.title} className="bg-white p-7">
-              <h3 className="text-xl">{p.title}</h3>
-              <p className="mt-2 text-[16px]">{p.body}</p>
+      <section className="wrap section-pad grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+        <div><Eyebrow>Benefits</Eyebrow><h2 className="type-title">The good stuff.</h2></div>
+        <ul className="grid gap-x-8 sm:grid-cols-2">
+          {perks.map((perk) => (
+            <li key={perk.title} className="border-t border-border py-4">
+              <h3 className="text-lg">{perk.title}</h3>
+              <p className="mt-1 text-[15px]">{perk.body}</p>
             </li>
           ))}
         </ul>
       </section>
 
-      <section id="join" className="bg-night text-[#d9d6de]">
-        <div className="wrap section-pad grid gap-10 md:grid-cols-[7fr_5fr] md:items-center">
-          <SectionHead
-            tone="light"
-            className="mb-0"
-            eyebrow="Open roles"
-            title="Join the band."
-            intro="We don't have an open role listed right now, but we're always happy to meet a Wilbury. Tell us what you do and why BOOM! appeals."
-          />
-          <div className="flex flex-col gap-4">
-            <Button asChild variant="magenta" size="xl">
-              <Link href="/contact?topic=careers">
-                Get in touch <ArrowUpRight aria-hidden />
-              </Link>
-            </Button>
-            <a href={settings.linkedinUrl} className="font-bold text-white link-underline">
-              Follow BOOM! on LinkedIn for new roles
-            </a>
+      <section className="border-t border-border bg-warm">
+        <div className="wrap section-pad grid gap-7 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+          <div>
+            <h2 className="type-title">Before you apply.</h2>
+            <div className="mt-5"><TextLink href={introduction}>Ask us a question</TextLink></div>
           </div>
+          <Accordion type="single" collapsible className="border-t border-ink">
+            {questions.map(({ title, body }) => (
+              <AccordionItem value={title} key={title}>
+                <AccordionTrigger className="py-4 text-base font-semibold">{title}</AccordionTrigger>
+                <AccordionContent className="pb-4 text-base">{body}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
-
-      <CtaBand title="Want to see who you'd be working with?" body="Meet the people behind the work." href="/about#band" label="Meet the band" />
     </>
   )
 }

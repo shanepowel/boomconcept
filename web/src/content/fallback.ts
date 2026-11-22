@@ -55,48 +55,95 @@ export const settings: SiteSettings = {
 
 export const pages: Record<PageKey, PageCopy> = {
   home: {
-    title: 'Healthcare communications, played by the right band.',
-    lede: "We're an independent team of 65 specialists in insight, strategy, science and creative. For every brief, we bring together the right people to help pharma, biotech and medtech teams build brands, educate audiences and drive advocacy.",
+    title: 'The right people for the hard briefs.',
+    image: {
+      src: '/images/culture/five-years-lisbon.webp',
+      alt: 'BOOM! colleagues together in Lisbon',
+      caption: 'The BOOM! team in Lisbon',
+    },
+    lineups: [
+      {
+        id: 'launch',
+        title: 'Launch in a crowded category',
+        approach: 'We’d start by asking clinicians what the established options still leave unresolved. That gives medical, marketing and field teams a reason to tell the same launch story.',
+        disciplines: ['Insight', 'Brand strategy', 'Multichannel launch'],
+        people: ['cory', 'amie', 'kim'],
+        caseSlug: 'launch-in-a-crowded-class',
+      },
+      {
+        id: 'science',
+        title: 'Make complex science clear',
+        approach: 'We’d start with the decision someone has to make. Then we’d work back through the evidence to find what a clinician needs to know and what a patient needs to understand.',
+        disciplines: ['Scientific strategy', 'Medical writing', 'Patient communications'],
+        people: ['ali', 'david', 'kim'],
+        caseSlug: 'support-that-fits-real-lives',
+      },
+      {
+        id: 'markets',
+        title: 'Make a global story work locally',
+        approach: 'We’d bring local teams in early to see which claims, language and channels travel. They’d get a shared story with room to make it useful in their market.',
+        disciplines: ['Global strategy', 'Market adaptation', 'Delivery'],
+        people: ['viv', 'amie', 'laura'],
+        caseSlug: 'a-new-lease-of-life',
+      },
+    ],
+    lede: 'We help pharma, biotech and medtech teams build brands, educate clinicians and patients, and support advocacy. We bring research, scientific strategy and creative together for the hard briefs.',
     seoTitle: 'BOOM! Healthcare Communications | The right band for every brief',
     seoDescription:
       'Independent healthcare communications agency. 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams.',
   },
+  insights: {
+    eyebrow: 'Insights',
+    title: 'Good questions change the work.',
+    lede: 'Working notes on science, strategy and technology for people who make healthcare communications.',
+    seoDescription: 'Practical perspectives on scientific storytelling, launch strategy and technology from BOOM! Healthcare Communications.',
+  },
   work: {
     eyebrow: 'Work',
-    title: 'Proof, not promises.',
-    lede: "A few of the briefs we're proud of: the problem, the people it had to reach, what we made and what changed.",
+    title: 'Inside the brief.',
+    lede: "Explore the questions we ask, the people we listen to and the decisions that shape the work.",
     seoDescription: 'Selected healthcare communications work by BOOM!, from launches to patient support.',
   },
   services: {
     eyebrow: 'Services',
-    title: 'Insight, strategy and communications. Joined up.',
-    lede: 'Three disciplines, one team, from the first question to the final approved asset. The insight that shapes your strategy is still there in the finished work, because the same people carry it through.',
+    title: 'From a better question to better work.',
+    lede: 'We use research to understand what matters to clinicians, patients and advocates. Then we turn that understanding into positioning, claims and campaigns, with the same team carrying the work through to approval.',
     seoDescription:
       'Insights, strategy and communications for pharma, biotech and medtech brands, with Veeva-built content and a process designed for regulated work.',
   },
   therapyAreas: {
     eyebrow: 'Therapy areas',
-    title: 'We know the science. And the people it affects.',
-    lede: "More than 70 therapy areas across 300+ brands. Some of our experience runs especially deep, and it shows in the questions we ask before we write a word.",
+    title: 'The science is personal.',
+    lede: "We’ve worked across more than 70 therapy areas. Explore where our experience runs deepest, from treatment decisions in a busy clinic to the daily realities of living with a rare condition.",
     seoDescription:
       'Healthcare communications experience across 70+ therapy areas, with particular depth in oncology, haematology, immunology, neurology, rare disease and medical devices.',
   },
   about: {
     eyebrow: 'About BOOM!',
-    title: 'Pharma roots. Agency thinking. One band.',
-    lede: 'Founded in 2018 by a former Novartis marketer, independent ever since, and built around one idea: put the right people around every brief, then stay close to the work.',
+    title: 'Meet the people who do the work.',
+    image: {
+      src: '/images/culture/five-year-conference.webp',
+      alt: 'BOOM! colleagues at the five-year company conference',
+      caption: 'BOOM! at five years',
+    },
+    lede: 'Cory Inglis founded BOOM! after a decade at Novartis and years leading agencies. We’re independent, and we build each team around the brief. The senior specialists you meet at the start stay involved through delivery.',
     seoDescription: "BOOM!'s story, values and leadership team: pharma-side experience, scientific depth and creative leadership.",
   },
   careers: {
     eyebrow: 'Careers',
     title: 'Are you a Wilbury?',
-    lede: 'Bob Dylan and Tom Petty used to play a game. They would name someone famous and ask: "Are they a Wilbury?" Did they have that extra something? We still ask the same question about everyone who joins BOOM!.',
+    image: {
+      src: '/images/culture/lisbon-coach.webp',
+      alt: 'BOOM! colleagues heading out together in Lisbon',
+      caption: 'Out together in Lisbon',
+    },
+    lede: 'Bob Dylan and Tom Petty used to ask whether someone was a Wilbury. We borrowed the question. To us it means being very good at what you do and making the people around you better.',
     seoDescription: 'Careers at BOOM! Healthcare Communications: no timesheets, your birthday off, Star Wars Day and a team that wins TOGETHER.',
   },
   contact: {
     eyebrow: 'Contact',
     title: "Let's talk about what's next.",
-    lede: 'Bring us the challenge, the half-formed idea or the tricky question. Tell us a little about it and the right person will come back to you.',
+    lede: 'Tell us what you’re working on, who it needs to reach and where you’re stuck. A few lines are enough to get a conversation started.',
     seoDescription: 'Contact BOOM! Healthcare Communications in London, Bournemouth and Copenhagen.',
   },
 }
@@ -112,6 +159,7 @@ export const team: TeamMember[] = [
     photo: { src: '/images/team/cory.webp', alt: 'Cory Inglis, Founder and CEO of BOOM!', width: 750, height: 750 },
     linkedinUrl: 'https://www.linkedin.com/in/cory-inglis-0a40ab6/',
     email: 'cory@boom-cc.com',
+    phone: '+44 7917 660874',
     isFounder: true,
     showOnContact: true,
   },
@@ -125,6 +173,7 @@ export const team: TeamMember[] = [
     photo: { src: '/images/team/viv.webp', alt: 'Viv Howells, Managing Director', width: 750, height: 750 },
     linkedinUrl: 'https://www.linkedin.com/in/vivien-howells-34515390/',
     email: 'viv@boom-cc.com',
+    phone: '+45 3158 5363',
     showOnContact: true,
   },
   {
@@ -251,30 +300,33 @@ export const audiences = [
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: 'launch-in-a-crowded-class',
     title: 'A second-line launch in a crowded class',
     therapyArea: 'Oncology',
     challenge: 'A new therapy entering a class with three established competitors and very similar headline data.',
     audience: 'Haematologists and specialist nurses in five European markets.',
     work: 'Advisory boards to find the unmet need competitors had missed, a positioning built around it and a multichannel launch campaign built in Veeva.',
-    outcome: 'One story shared by marketing, medical and sales, approved first time in every launch market.',
+    outcome: 'A shared story that marketing, medical and sales can adapt for approval in each launch market.',
     isExample: true,
   },
   {
+    slug: 'a-new-lease-of-life',
     title: 'A new lease of life for an established brand',
     therapyArea: 'Immunology',
     challenge: 'A trusted brand losing share to newer options despite strong long-term evidence.',
     audience: 'Gastroenterologists and IBD nurses.',
     work: 'Research into why prescribers were switching, a refreshed value story and a peer-to-peer programme led by respected clinicians.',
-    outcome: 'A clear reason to keep talking about the brand, and a programme the client rolled out to further markets.',
+    outcome: 'A clear reason to keep talking about the brand and a programme designed to expand into further markets.',
     isExample: true,
   },
   {
+    slug: 'support-that-fits-real-lives',
     title: 'Support that fits real lives',
     therapyArea: 'Rare disease',
     challenge: 'Patients on a complex treatment regimen were dropping off in the first months.',
     audience: 'Patients, carers and the small group of specialist centres that treat them.',
     work: 'Interviews with patients and carers, then a support programme and counselling tools built around the moments people found hardest.',
-    outcome: 'Materials that specialist nurses chose to use in clinic, and a programme designed to grow with the patient community.',
+    outcome: 'Materials specialist nurses can use in clinic and a programme designed to grow with the patient community.',
     isExample: true,
   },
 ]
@@ -334,7 +386,7 @@ export const capabilities = [
 
 /** Who BOOM! says it works best with (boom-cc.com, home page). */
 export const bestFit = [
-  'Small to mid-sized brand teams, or teams running lean, who want a genuine partner rather than a supplier',
+  'Small and mid-sized brand teams that need senior specialists to work alongside them',
   'Challenging projects, where a broad mix of experience gets to the heart of the issue quickly',
   'Global, regional and local teams, including emerging markets',
 ]

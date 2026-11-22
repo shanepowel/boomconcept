@@ -1,5 +1,5 @@
-import { brandMoment, caseStudy, perk, specialistArea, teamMember, therapyArea } from './documents/collections'
+import { brandMoment, careersRole, caseStudy, insight, perk, specialistArea, teamMember, therapyArea } from './documents/collections'
 import { pageCopy, siteSettings } from './documents/singletons'
-import { legalLink, office, stat } from './objects'
+import { editorialImage, legalLink, office, stat } from './objects'
 
-export const schemaTypes = [siteSettings, pageCopy, teamMember, caseStudy, brandMoment, specialistArea, therapyArea, perk, stat, office, legalLink]
+export const schemaTypes = [siteSettings, pageCopy, teamMember, caseStudy, insight, brandMoment, specialistArea, therapyArea, perk, careersRole, editorialImage, stat, office, legalLink]

@@ -41,3 +41,15 @@ export const legalLink = defineType({
   ],
   preview: { select: { title: 'label', subtitle: 'href' } },
 })
+
+export const editorialImage = defineType({
+  name: 'editorialImage',
+  title: 'Editorial image',
+  type: 'image',
+  options: { hotspot: true },
+  fields: [
+    defineField({ name: 'alt', type: 'string', title: 'Alternative text', validation: (rule) => rule.required() }),
+    defineField({ name: 'caption', type: 'string' }),
+    defineField({ name: 'credit', type: 'string' }),
+  ],
+})

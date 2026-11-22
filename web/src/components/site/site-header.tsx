@@ -31,7 +31,7 @@ export function SiteHeader() {
 
   return (
     <header className={cn('sticky top-0 z-40 border-b bg-white/95 backdrop-blur transition-[box-shadow,border-color] duration-200', scrolled ? 'border-transparent shadow-[0_6px_24px_-12px_rgba(17,17,17,0.25)]' : 'border-border')}>
-      <div className="wrap flex h-20 items-center justify-between gap-6">
+      <div className="wrap flex h-[76px] items-center justify-between gap-6">
         <Link href="/" className="shrink-0" aria-label="BOOM! Healthcare Communications home">
           <Image src="/images/boom-logo.png" alt="BOOM! Healthcare Communications" width={640} height={338} priority className="h-auto w-[116px] sm:w-[128px]" />
         </Link>
@@ -45,8 +45,8 @@ export function SiteHeader() {
                 href={item.href}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'relative whitespace-nowrap py-2 text-ink transition-colors hover:text-magenta',
-                  active && 'after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-magenta',
+                  'relative whitespace-nowrap py-2 text-ink transition-colors hover:text-magenta-dark',
+                  active && 'after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-magenta-dark',
                 )}
               >
                 {item.label}
@@ -62,7 +62,7 @@ export function SiteHeader() {
 
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon-lg" className="rounded-full lg:hidden" aria-label="Open navigation">
+            <Button variant="outline" size="icon-lg" className="size-11 rounded-full lg:hidden" aria-label="Open navigation">
               <MenuIcon />
             </Button>
           </SheetTrigger>

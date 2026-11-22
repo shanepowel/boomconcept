@@ -8,6 +8,7 @@ import { randomUUID } from 'node:crypto'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const content = await import(join(here, '../../web/src/content/fallback.ts'))
+const { insights } = await import(join(here, '../../web/src/content/insights.ts'))
 const { therapyAreas } = await import(join(here, '../../web/src/content/therapy-areas.ts'))
 
 const key = () => randomUUID().slice(0, 12)
@@ -35,13 +36,33 @@ docs.push({
   legal: s.legal.map((x) => ({ _key: key(), _type: 'legalLink', ...x })),
 })
 
-for (const [pageKey, copy] of Object.entries(content.pages)) {
-  docs.push({ _id: `page-${pageKey}`, _type: 'pageCopy', ...copy })
+const reference = (id) => ({ _type: 'reference', _ref: id })
+
+for (const [pageKey, { image, lineups, ...copy }] of Object.entries(content.pages)) {
+  docs.push({
+    _id: `page-${pageKey}`,
+    _type: 'pageCopy',
+    ...copy,
+    image: image && {
+      _type: 'editorialImage',
+      alt: image.alt,
+      caption: image.caption,
+      _sanityAsset: `image@file://../../web/public${image.src}`,
+    },
+    lineups: lineups?.map(({ id, people, caseSlug, ...lineup }) => ({
+      _key: id,
+      _type: 'briefLineup',
+      ...lineup,
+      people: people.map((slug) => ({ _key: slug, ...reference(`team-${slug}`) })),
+      caseStudy: caseSlug && reference(`case-${caseSlug}`),
+    })),
+  })
 }
 
 content.team.forEach((m, i) => {
   const file = m.photo.src.split('/').pop()
   docs.push({
+    _id: `team-${m.slug}`,
     _type: 'teamMember',
     orderRank: rank(i),
     fullName: m.fullName,
@@ -53,12 +74,40 @@ content.team.forEach((m, i) => {
     photo: { _type: 'image', alt: m.photo.alt, _sanityAsset: `image@file://./images/${file}` },
     linkedinUrl: m.linkedinUrl,
     email: m.email,
+    phone: m.phone,
     isFounder: Boolean(m.isFounder),
     showOnContact: Boolean(m.showOnContact),
   })
 })
 
-content.caseStudies.forEach((c, i) => docs.push({ _type: 'caseStudy', orderRank: rank(i), ...c }))
+content.caseStudies.forEach(({ slug, image, ...study }, i) => docs.push({
+  _id: `case-${slug}`,
+  _type: 'caseStudy',
+  orderRank: rank(i),
+  ...study,
+  slug: { _type: 'slug', current: slug },
+  image: image && {
+    _type: 'editorialImage',
+    alt: image.alt,
+    caption: image.caption,
+    credit: image.credit,
+    _sanityAsset: `image@file://../../web/public${image.src}`,
+  },
+}))
+insights.forEach(({ slug, image, sections, ...article }) => docs.push({
+  _id: `insight-${slug}`,
+  _type: 'insight',
+  ...article,
+  slug: { _type: 'slug', current: slug },
+  image: image && {
+    _type: 'editorialImage',
+    alt: image.alt,
+    caption: image.caption,
+    credit: image.credit,
+    _sanityAsset: `image@file://../../web/public${image.src}`,
+  },
+  sections: sections.map((section, i) => ({ _key: `section-${i + 1}`, _type: 'insightSection', ...section })),
+}))
 content.brandMoments.forEach((m, i) => docs.push({ _type: 'brandMoment', orderRank: rank(i), ...m }))
 content.specialistAreas.forEach((a, i) => docs.push({ _type: 'specialistArea', orderRank: rank(i), ...a }))
 content.perks.forEach((p, i) => docs.push({ _type: 'perk', orderRank: rank(i), ...p }))

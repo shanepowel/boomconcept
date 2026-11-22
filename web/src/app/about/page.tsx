@@ -36,23 +36,42 @@ export default async function AboutPage() {
   return (
     <>
       <PageHero copy={page}>
-        <ul className="mt-10 flex" aria-label="The leadership team">
-          {team.map((m) => (
-            <li key={m.slug} className="-ml-3 first:ml-0">
-              <Image src={m.photo.src} alt={m.photo.alt} width={184} height={184} className="size-[clamp(56px,7vw,88px)] rounded-full border-4 border-night object-cover" />
-            </li>
-          ))}
-        </ul>
+        <div className="mt-6"><TextLink href="#band">Meet the band</TextLink></div>
       </PageHero>
       <SubNav
         items={[
+          { id: 'band', label: 'The band' },
           { id: 'story', label: 'Our story' },
           { id: 'beliefs', label: 'What we believe' },
           { id: 'why', label: 'Why BOOM!' },
-          { id: 'band', label: 'The band' },
           { id: 'offices', label: 'Where we are' },
         ]}
       />
+
+      {/* The band */}
+      <section id="band" className="wrap section-pad scroll-mt-36">
+        <SectionHead
+          eyebrow="The band"
+          title="The senior team, up close."
+          intro="We borrow from the Traveling Wilburys: bring good people together and give them room to do their best work. These are the people who lead the briefs."
+        />
+        <ul className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {leaders.map((m) => (
+            <li key={m.slug} id={`person-${m.slug}`} className="flex flex-col border-t border-ink pt-6">
+              <Image src={m.photo.src} alt={m.photo.alt} width={600} height={630} sizes="144px" className="aspect-square w-36 rounded-full bg-warm object-cover object-[center_25%]" />
+              <p className="mt-5 text-xs font-bold tracking-[0.12em] text-magenta uppercase">{m.discipline}</p>
+              <h3 className="mt-1.5 text-2xl">{m.fullName}</h3>
+              <p className="text-[15px] font-semibold text-ink">{m.role}</p>
+              <p className="mt-3 text-[16px]">{m.bio}</p>
+              {m.linkedinUrl ? (
+                <a href={m.linkedinUrl} className="mt-4 text-sm font-bold text-ink link-underline">
+                  LinkedIn
+                </a>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {/* Story */}
       <section id="story" className="wrap section-pad scroll-mt-36">
@@ -67,10 +86,9 @@ export default async function AboutPage() {
               </a>
             ) : null}
           </div>
-          <figure className="mx-auto w-full max-w-[420px]">
+          <figure id={`person-${founder.slug}`} className="mx-auto w-full max-w-[420px]">
             <div className="relative">
-              <div aria-hidden className="absolute inset-0 translate-x-[-14px] translate-y-[14px] rounded-xl bg-burst" />
-              <Image src={founder.photo.src} alt={founder.photo.alt} width={750} height={750} className="relative aspect-square w-full rounded-xl object-cover" />
+              <Image src={founder.photo.src} alt={founder.photo.alt} width={750} height={750} className="relative aspect-square w-full object-cover" />
             </div>
             <figcaption className="mt-8 font-bold text-ink">
               {founder.fullName}
@@ -166,31 +184,6 @@ export default async function AboutPage() {
             </ul>
           </div>
         </div>
-      </section>
-
-      {/* The band */}
-      <section id="band" className="wrap section-pad scroll-mt-36">
-        <SectionHead
-          eyebrow="The band"
-          title="Great alone. Better TOGETHER."
-          intro="The Traveling Wilburys were five musicians who could each fill a stadium, and who made something better together. That's how we build teams: senior specialists, brought together around your brief."
-        />
-        <ul className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {leaders.map((m) => (
-            <li key={m.slug} className="flex flex-col">
-              <Image src={m.photo.src} alt={m.photo.alt} width={600} height={630} className="aspect-[4/4.2] w-full rounded-xl bg-warm object-cover object-[center_25%]" />
-              <p className="mt-5 text-xs font-bold tracking-[0.12em] text-magenta uppercase">{m.discipline}</p>
-              <h3 className="mt-1.5 text-2xl">{m.name}</h3>
-              <p className="text-[15px] font-semibold text-ink">{m.role}</p>
-              <p className="mt-3 text-[16px]">{m.bio}</p>
-              {m.linkedinUrl ? (
-                <a href={m.linkedinUrl} className="mt-4 text-sm font-bold text-ink link-underline">
-                  LinkedIn
-                </a>
-              ) : null}
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section className="bg-night text-[#d9d6de]">

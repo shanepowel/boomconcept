@@ -2,6 +2,7 @@ export const mainNav = [
   { href: '/work', label: 'Work' },
   { href: '/services', label: 'Services' },
   { href: '/therapy-areas', label: 'Therapy areas' },
+  { href: '/insights', label: 'Insights' },
   { href: '/about', label: 'About' },
   { href: '/careers', label: 'Careers' },
 ] as const
@@ -14,6 +15,7 @@ export const footerNav = [
       { href: '/services#how-we-work', label: 'How we work' },
       { href: '/therapy-areas', label: 'Therapy areas' },
       { href: '/work', label: 'Work' },
+      { href: '/insights', label: 'Insights' },
     ],
   },
   {
