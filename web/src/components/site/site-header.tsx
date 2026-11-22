@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { MenuIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
@@ -16,8 +16,20 @@ function isActive(pathname: string, href: string) {
 
 export function SiteHeader() {
   const pathname = usePathname()
+  const previousPathname = useRef(pathname)
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+
+  useLayoutEffect(() => {
+    if (previousPathname.current === pathname) return
+    previousPathname.current = pathname
+
+    // Let the router finish its scroll handling and preserve explicit anchor destinations.
+    const frame = window.requestAnimationFrame(() => {
+      if (!window.location.hash) window.scrollTo({ top: 0, behavior: 'instant' })
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [pathname])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
