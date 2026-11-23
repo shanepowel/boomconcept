@@ -231,12 +231,14 @@ export const team: TeamMember[] = [
 export const brandMoments: BrandMoment[] = [
   {
     stage: 'Before launch',
+    caseSlug: 'launch-in-a-crowded-class',
     title: 'Shape the story',
     body: 'The decisions made before launch set the course for years. We help you understand the market, test the idea with the people who matter and land the positioning and core claims that everything else will build on.',
     tags: ['Insights', 'Advisory boards', 'Positioning', 'Core claims'],
   },
   {
     stage: 'Launch',
+    caseSlug: 'launch-in-a-crowded-class',
     title: 'Make the first impression count',
     body: "You only get one launch. We've worked on more than 50, including complex cell therapy launches, so we know where the time goes and where the approval risks sit.",
     proof: '50+ launches',
@@ -244,18 +246,21 @@ export const brandMoments: BrandMoment[] = [
   },
   {
     stage: 'Growth',
+    caseSlug: 'a-new-lease-of-life',
     title: 'Find new reasons to talk',
     body: 'New indications, new audiences, new data. We help brands keep the story fresh without losing what made it work.',
     tags: ['Multi-indication therapies', 'Peer-to-peer', 'Case studies', 'Evidence generation'],
   },
   {
     stage: 'Under pressure',
+    caseSlug: 'a-new-lease-of-life',
     title: "Defend what you've built",
     body: "A competitor launches. A biosimilar arrives. Exclusivity ends. We've helped brands through all three, and given some twenty-year-old brands a new lease of life along the way.",
     tags: ['Biosimilars', 'Brand substitution', 'Generics', 'Value propositions'],
   },
   {
     stage: 'Living with it',
+    caseSlug: 'support-that-fits-real-lives',
     title: 'Support patients beyond the prescription',
     body: "The work doesn't stop at the prescription. We create support programmes and tools that help people understand their treatment and stay on it.",
     tags: ['Patient support programmes', 'Counselling tools', 'Adherence'],
@@ -301,7 +306,7 @@ export const audiences = [
 export const caseStudies: CaseStudy[] = [
   {
     slug: 'launch-in-a-crowded-class',
-    title: 'A second-line launch in a crowded class',
+    title: 'Second-line oncology launch and Veeva multichannel strategy',
     therapyArea: 'Oncology',
     challenge: 'A new therapy entering a class with three established competitors and very similar headline data.',
     audience: 'Haematologists and specialist nurses in five European markets.',
@@ -311,7 +316,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'a-new-lease-of-life',
-    title: 'A new lease of life for an established brand',
+    title: 'Immunology brand repositioning and HCP education in IBD',
     therapyArea: 'Immunology',
     challenge: 'A trusted brand losing share to newer options despite strong long-term evidence.',
     audience: 'Gastroenterologists and IBD nurses.',
@@ -321,7 +326,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'support-that-fits-real-lives',
-    title: 'Support that fits real lives',
+    title: 'Rare disease patient support and treatment adherence',
     therapyArea: 'Rare disease',
     challenge: 'Patients on a complex treatment regimen were dropping off in the first months.',
     audience: 'Patients, carers and the small group of specialist centres that treat them.',

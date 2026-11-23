@@ -45,11 +45,16 @@ for (const [pageKey, { image, lineups, ...copy }] of Object.entries(content.page
     _type: 'pageCopy',
     ...copy,
     sections: pageSections[pageKey],
+    servicesCopy: pageKey === 'services' ? {
+      disciplines: content.disciplines.map(({number: _number, ...item}) => ({ ...item, _key: item.id })),
+      capabilities: content.capabilities.map((item) => ({ ...item, _key: key() })),
+      processSteps: content.processSteps.map((item) => ({ ...item, _key: key() })),
+    } : undefined,
     image: image && {
       _type: 'editorialImage',
       alt: image.alt,
       caption: image.caption,
-      _sanityAsset: `image@file://../../web/public${image.src}`,
+      _sanityAsset: `image@file://./../../web/public${image.src}`,
     },
     lineups: lineups?.map(({ id, people, caseSlug, ...lineup }) => ({
       _key: id,
@@ -93,7 +98,7 @@ content.caseStudies.forEach(({ slug, image, ...study }, i) => docs.push({
     alt: image.alt,
     caption: image.caption,
     credit: image.credit,
-    _sanityAsset: `image@file://../../web/public${image.src}`,
+    _sanityAsset: `image@file://./../../web/public${image.src}`,
   },
 }))
 insights.forEach(({ slug, image, sections, ...article }) => docs.push({
@@ -106,11 +111,11 @@ insights.forEach(({ slug, image, sections, ...article }) => docs.push({
     alt: image.alt,
     caption: image.caption,
     credit: image.credit,
-    _sanityAsset: `image@file://../../web/public${image.src}`,
+    _sanityAsset: `image@file://./../../web/public${image.src}`,
   },
   sections: sections.map((section, i) => ({ _key: `section-${i + 1}`, _type: 'insightSection', ...section })),
 }))
-content.brandMoments.forEach((m, i) => docs.push({ _type: 'brandMoment', orderRank: rank(i), ...m }))
+content.brandMoments.forEach(({caseSlug, ...moment}, i) => docs.push({ _id: `brand-moment-${i + 1}`, _type: 'brandMoment', orderRank: rank(i), ...moment, caseStudy: caseSlug && reference(`case-${caseSlug}`) }))
 content.specialistAreas.forEach((a, i) => docs.push({ _type: 'specialistArea', orderRank: rank(i), ...a }))
 content.perks.forEach((p, i) => docs.push({ _type: 'perk', orderRank: rank(i), ...p }))
 therapyAreas.forEach((t) => docs.push({ _type: 'therapyArea', ...t }))

@@ -5,7 +5,14 @@ import type { SectionCopy } from './page-sections'
 
 export type Img = { src: string; alt: string; width?: number; height?: number; caption?: string; credit?: string }
 
+export type ServicesCopy = {
+  disciplines?: { id: string; name: string; heading: string; body: string; questions: string[]; services: string[] }[]
+  capabilities?: { title: string; body: string }[]
+  processSteps?: { title: string; body: string }[]
+}
+
 export type PageCopy = {
+  servicesCopy?: ServicesCopy
   eyebrow?: string
   title: string
   lede?: string
@@ -62,7 +69,7 @@ export type TeamMember = {
 }
 
 export type TherapyArea = { name: string; conditions: string; keywords: string[] }
-export type BrandMoment = { stage: string; title: string; body: string; proof?: string; tags: string[] }
+export type BrandMoment = { stage: string; title: string; body: string; proof?: string; tags: string[]; caseSlug?: string }
 export type SpecialistArea = { name: string; challenge: string; experience: string }
 export type Lineup = {
   id: string

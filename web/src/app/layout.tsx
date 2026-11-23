@@ -16,6 +16,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.boom-cc.com'
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings({ stega: false })
   return {
+    robots: process.env.ENQUIRY_DEMO_MODE === 'true' ? { index: false, follow: false } : undefined,
     metadataBase: new URL(siteUrl),
     title: { default: settings.name, template: `%s | ${settings.name}` },
     description: settings.description,

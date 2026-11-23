@@ -8,7 +8,7 @@ import { InsightFeature } from '@/components/site/insight-feature'
 import { BriefLineup } from '@/components/site/brief-lineup'
 import { CtaBand, Eyebrow, EditableSectionHead, Stats, TextLink } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
-import { disciplines, getCaseStudies, getInsights, getPage, getSettings, getTeam, workplace } from '@/lib/data'
+import { disciplines as defaultDisciplines, getCaseStudies, getInsights, getPage, getSettings, getTeam, workplace } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('home', { stega: false })
@@ -16,7 +16,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [page, settings, team, cases, insights] = await Promise.all([getPage('home'), getSettings(), getTeam(), getCaseStudies(), getInsights()])
+  const [page, settings, team, cases, insights, servicesPage] = await Promise.all([getPage('home'), getSettings(), getTeam(), getCaseStudies(), getInsights(), getPage('services')])
+  const disciplines = servicesPage.servicesCopy?.disciplines ?? defaultDisciplines
   const latest = insights.find((article) => article.featured) ?? insights[0]
   const featured = cases.find((study) => !study.isExample) ?? cases[0]
 

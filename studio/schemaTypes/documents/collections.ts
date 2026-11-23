@@ -74,6 +74,7 @@ export const brandMoment = defineType({
     defineField({ name: 'title', type: 'string', validation: (r) => r.required() }),
     defineField({ name: 'body', type: 'text', rows: 4 }),
     defineField({ name: 'proof', type: 'string' }),
+    defineField({ name: 'caseStudy', title: 'Related project', type: 'reference', to: [{ type: 'caseStudy' }] }),
     tags,
   ],
   preview: { select: { title: 'title', subtitle: 'stage' } },

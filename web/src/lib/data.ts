@@ -81,6 +81,7 @@ export async function getPage(key: PageKey, opts: { stega?: boolean } = {}): Pro
     seoDescription: data.seoDescription || base.seoDescription,
     image: toImage(data.image) ?? base.image,
     sections: data.sections,
+    servicesCopy: data.servicesCopy ?? undefined,
     lineups: data.lineups?.map((lineup) => ({
       ...lineup,
       disciplines: lineup.disciplines ?? [],
@@ -119,7 +120,7 @@ export async function getTherapyAreas(): Promise<TherapyArea[]> {
 
 export async function getBrandMoments(): Promise<BrandMoment[]> {
   const data = await fromSanity<BrandMoment[]>(BRAND_MOMENTS_QUERY)
-  return hasItems(data) ? data : fallback.brandMoments
+  return hasItems(data) ? data.map((moment) => ({ ...moment, stage: stegaClean(moment.stage), caseSlug: moment.caseSlug ? stegaClean(moment.caseSlug) : undefined })) : fallback.brandMoments
 }
 
 export async function getSpecialistAreas(): Promise<SpecialistArea[]> {

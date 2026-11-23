@@ -47,7 +47,9 @@ export function BriefLineup({ lineups, team, cases }: { lineups: Lineup[]; team:
                     </li>
                   ))}
                 </ul>
-                {study && <div className="mt-7"><TextLink href={`/work/${encodeURIComponent(study.slug)}`} light>{study.isExample ? 'See an illustrative case study' : 'See related work'}</TextLink></div>}
+                <div className="mt-7 flex flex-wrap gap-5"><TextLink href={`/contact?lineup=${encodeURIComponent(lineup.id)}#form`} light>Discuss a brief like this</TextLink>
+                {study && <><TextLink href={`/work/${encodeURIComponent(study.slug)}`} light>{study.isExample ? 'See an illustrative case study' : 'See related work'}</TextLink></>}
+                </div>
               </TabsContent>
             )
           })}

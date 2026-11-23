@@ -65,6 +65,34 @@ export const pageCopy = defineType({
     defineField({ name: 'lede', title: 'Intro', type: 'text', rows: 4, group: 'hero', validation: (r) => r.max(420) }),
     defineField({ name: 'image', title: 'Hero photograph', type: 'editorialImage', group: 'hero' }),
     defineField({
+      name: 'servicesCopy',
+      title: 'Services detail',
+      type: 'object',
+      group: 'sections',
+      hidden: ({ document }) => document?._id?.replace(/^drafts\./, '') !== 'page-services',
+      fields: [
+        defineField({
+          name: 'disciplines', type: 'array',
+          of: [defineArrayMember({ type: 'object', fields: [
+            defineField({ name: 'id', title: 'Section URL ID', type: 'string', readOnly: true }),
+            defineField({ name: 'name', type: 'string' }),
+            defineField({ name: 'heading', type: 'string' }),
+            defineField({ name: 'body', type: 'text' }),
+            defineField({ name: 'questions', type: 'array', of: [defineArrayMember({ type: 'string' })] }),
+            defineField({ name: 'services', type: 'array', of: [defineArrayMember({ type: 'string' })] }),
+          ], preview: { select: { title: 'name' } } })],
+          options: { disableActions: ['add', 'remove', 'duplicate'] },
+        }),
+        ...(['capabilities', 'processSteps'] as const).map((name) => defineField({
+          name, type: 'array',
+          of: [defineArrayMember({ type: 'object', fields: [
+            defineField({ name: 'title', type: 'string' }),
+            defineField({ name: 'body', type: 'text' }),
+          ] })],
+        })),
+      ],
+    }),
+    defineField({
       name: 'lineups',
       title: 'Example briefs',
       type: 'array',

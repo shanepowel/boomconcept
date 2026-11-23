@@ -8,7 +8,7 @@ export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
 }`)
 
 export const PAGE_QUERY = defineQuery(`*[_id == "page-" + $key][0]{
-  eyebrow, title, lede, seoTitle, seoDescription, sections, image${imageFields},
+  eyebrow, title, lede, seoTitle, seoDescription, sections, servicesCopy, image${imageFields},
   lineups[]{ "id": _key, title, approach, disciplines, "people": people[]->slug.current,
     "caseSlug": coalesce(caseStudy->slug.current, caseStudy->_id) }
 }`)
@@ -23,7 +23,7 @@ export const THERAPY_AREAS_QUERY = defineQuery(`*[_type == "therapyArea"] | orde
 }`)
 
 export const BRAND_MOMENTS_QUERY = defineQuery(`*[_type == "brandMoment"] | order(orderRank asc){
-  stage, title, body, proof, "tags": coalesce(tags, [])
+  stage, title, body, proof, "caseSlug": caseStudy->slug.current, "tags": coalesce(tags, [])
 }`)
 
 export const SPECIALIST_AREAS_QUERY = defineQuery(`*[_type == "specialistArea"] | order(orderRank asc){

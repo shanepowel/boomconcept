@@ -6,7 +6,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { CtaBand, Eyebrow, PageHero, EditableSectionHead, SectionHead, TextLink, Tags } from '@/components/site/blocks'
 import { SubNav } from '@/components/site/sub-nav'
 import { Button } from '@/components/ui/button'
-import { capabilities, disciplines, getBrandMoments, getPage, getSettings, processSteps } from '@/lib/data'
+import { capabilities as defaultCapabilities, disciplines as defaultDisciplines, getBrandMoments, getCaseStudies, getPage, getSettings, processSteps as defaultProcessSteps } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('services', { stega: false })
@@ -14,7 +14,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ServicesPage() {
-  const [page, moments, settings] = await Promise.all([getPage('services'), getBrandMoments(), getSettings()])
+  const [page, moments, settings, cases] = await Promise.all([getPage('services'), getBrandMoments(), getSettings(), getCaseStudies()])
+
+  const { disciplines = defaultDisciplines, capabilities = defaultCapabilities, processSteps = defaultProcessSteps } = page.servicesCopy ?? {}
 
   return (
     <>
@@ -106,7 +108,7 @@ export default async function ServicesPage() {
           title="Find the moment that feels familiar."
           intro="Pick the stage your brand is at to see where we can help."
         />
-        <BrandMoments moments={moments} />
+        <BrandMoments moments={moments} cases={cases} />
       </section>
 
       {/* How we work */}

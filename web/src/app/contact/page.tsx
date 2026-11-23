@@ -8,6 +8,7 @@ import { EditableSectionHead, Eyebrow } from '@/components/site/blocks'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { Button } from '@/components/ui/button'
 import { contactTopics, getContactTopic } from '@/content/contact-topics'
+import { getEnquiryContext } from '@/lib/enquiry-context'
 import { getPage, getSettings, getTeam } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -15,10 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: page.seoTitle || 'Contact', description: page.seoDescription }
 }
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ topic?: string | string[] }> }) {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ topic?: string | string[]; stage?: string; lineup?: string }> }) {
   const [page, settings, team, params] = await Promise.all([getPage('contact'), getSettings({ stega: false }), getTeam(), searchParams])
   const contacts = team.filter((person) => person.showOnContact)
   const topic = getContactTopic(params.topic)
+  const context = topic === 'brief' ? await getEnquiryContext(params.stage, params.lineup) : undefined
   const recipient = topic === 'careers' ? settings.careersEmail : settings.enquiriesEmail
 
   return (
@@ -60,7 +62,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
               ))}
             </nav>
             <h2 className="mt-6 mb-5 text-2xl">{contactTopics[topic].heading}</h2>
-            <ContactForm key={topic} topic={topic} email={recipient} />
+            <ContactForm key={topic} topic={topic} email={recipient} context={context} />
           </div>
         </div>
       </section>
