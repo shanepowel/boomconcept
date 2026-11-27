@@ -9,16 +9,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-dm-sans), Arial, sans-serif;
   --font-heading: var(--font-dm-sans), Arial, sans-serif;
-  --color-ink: #111111;
-  --color-body: #3d3d3d;
-  --color-magenta: #d90070;
-  --color-magenta-dark: #b0005a;
-  --color-magenta-soft: #ff5aa8;
-  --color-magenta-tint: #fbe6f1;
-  --color-violet: #5b2a86;
-  --color-warm: #f6f3ef;
-  --color-night: #0e0d12;
-  --color-night-2: #19171f;
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-magenta: var(--magenta);
+  --color-magenta-dark: var(--magenta-dark);
+  --color-magenta-soft: var(--magenta-soft);
+  --color-magenta-tint: var(--magenta-tint);
+  --color-violet: var(--violet);
+  --color-warm: var(--warm);
+  --color-night: var(--night);
+  --color-night-2: var(--night-2);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -58,38 +58,49 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #111111;
-  --card: #ffffff;
-  --card-foreground: #111111;
-  --popover: #ffffff;
-  --popover-foreground: #111111;
-  --primary: #111111;
-  --primary-foreground: #ffffff;
-  --secondary: #f6f3ef;
-  --secondary-foreground: #111111;
-  --muted: #f6f3ef;
-  --muted-foreground: #5e5e5e;
-  --accent: #fbe6f1;
-  --accent-foreground: #111111;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.1776 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1776 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1776 0 0);
+  --primary: oklch(0.1776 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9654 0.0062 75.406);
+  --secondary-foreground: oklch(0.1776 0 0);
+  --muted: oklch(0.9654 0.0062 75.406);
+  --muted-foreground: oklch(0.4819 0 0);
+  --accent: oklch(0.9449 0.027 344.633);
+  --accent-foreground: oklch(0.1776 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e3e0dc;
-  --input: #c9c5c0;
-  --ring: #d90070;
-  --chart-1: #d90070;
-  --chart-2: #8a2bb8;
-  --chart-3: #19b5d6;
-  --chart-4: #5b2a86;
-  --chart-5: #111111;
+  --border: oklch(0.9079 0.0063 75.403);
+  --input: oklch(0.8252 0.0082 73.731);
+  --ring: oklch(0.5726 0.2316 0.995);
+  --chart-1: oklch(0.5726 0.2316 0.995);
+  --chart-2: oklch(0.5004 0.2117 311.719);
+  --chart-3: oklch(0.7146 0.1244 217.669);
+  --chart-4: oklch(0.4003 0.1483 305.024);
+  --chart-5: oklch(0.1776 0 0);
   --radius: 0.625rem;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #111111;
-  --sidebar-primary: #111111;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f6f3ef;
-  --sidebar-accent-foreground: #111111;
-  --sidebar-border: #e3e0dc;
-  --sidebar-ring: #d90070;
+  --control-height-xl: 3rem;
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.1776 0 0);
+  --sidebar-primary: oklch(0.1776 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9654 0.0062 75.406);
+  --sidebar-accent-foreground: oklch(0.1776 0 0);
+  --sidebar-border: oklch(0.9079 0.0063 75.403);
+  --sidebar-ring: oklch(0.5726 0.2316 0.995);
+  --ink: oklch(0.1776 0 0);
+  --body: oklch(0.36 0 0);
+  --magenta: oklch(0.5726 0.2316 0.995);
+  --magenta-dark: oklch(0.4898 0.1982 0.833);
+  --magenta-soft: oklch(0.7075 0.2117 354.71);
+  --magenta-tint: oklch(0.9449 0.027 344.633);
+  --violet: oklch(0.4003 0.1483 305.024);
+  --warm: oklch(0.9654 0.0062 75.406);
+  --night: oklch(0.1627 0.0105 294.37);
+  --night-2: oklch(0.2106 0.0159 296.468);
 }
 
 .dark {
@@ -124,6 +135,16 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --ink: oklch(0.1776 0 0);
+  --body: oklch(0.36 0 0);
+  --magenta: oklch(0.5726 0.2316 0.995);
+  --magenta-dark: oklch(0.4898 0.1982 0.833);
+  --magenta-soft: oklch(0.7075 0.2117 354.71);
+  --magenta-tint: oklch(0.9449 0.027 344.633);
+  --violet: oklch(0.4003 0.1483 305.024);
+  --warm: oklch(0.9654 0.0062 75.406);
+  --night: oklch(0.1627 0.0105 294.37);
+  --night-2: oklch(0.2106 0.0159 296.468);
 }
 
 @layer base {

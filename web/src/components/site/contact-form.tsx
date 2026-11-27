@@ -67,7 +67,7 @@ function Field({ values, id, label, type = 'text', required, autoComplete }: { v
   return (
     <div className="grid gap-2">
       <Label htmlFor={id} className="text-[15px] text-ink">{label}</Label>
-      <Input id={id} name={id} value={values[id] ?? ''} type={type} required={required} autoComplete={autoComplete} className="h-12 bg-white text-base" />
+      <Input id={id} name={id} value={values[id] ?? ''} type={type} required={required} autoComplete={autoComplete} className="h-(--control-height-xl) bg-white text-base" />
     </div>
   )
 }
