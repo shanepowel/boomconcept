@@ -81,6 +81,7 @@ export async function getPage(key: PageKey, opts: { stega?: boolean } = {}): Pro
     seoDescription: data.seoDescription || base.seoDescription,
     image: toImage(data.image) ?? base.image,
     sections: data.sections,
+    editorialLists: data.editorialLists ?? undefined,
     servicesCopy: data.servicesCopy ?? undefined,
     lineups: data.lineups?.map((lineup) => ({
       ...lineup,
@@ -138,7 +139,7 @@ export async function getPerks(): Promise<Perk[]> {
   return hasItems(data) ? data : fallback.perks
 }
 
-export const { audiences, values, beliefs, capabilities, bestFit, processSteps, disciplines, workplace, glassdoor, people2025, sustainability, teamMix } = fallback
+export const { audiences, capabilities, processSteps, disciplines, workplace, glassdoor, people2025, sustainability, teamMix } = fallback
 
 export async function getInsights(opts: { stega?: boolean } = {}): Promise<Insight[]> {
   const data = await fromSanity<(Omit<Insight, 'image'> & { image?: SanityImage })[]>(INSIGHTS_QUERY, {}, opts)

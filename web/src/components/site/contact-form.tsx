@@ -17,11 +17,13 @@ const feedback: Record<string, string> = {
   error: 'We couldn’t send your enquiry. Try again or email us directly.',
 }
 
-export function ContactForm({ email, topic, context }: { email: string; topic: ContactTopic; context?: { label: string; href: string } }) {
+export function ContactForm({ email, topic, context, demo }: { demo: boolean; email: string; topic: ContactTopic; context?: { label: string; href: string } }) {
   const { prompt } = contactTopics[topic]
   const [status, action, pending] = useActionState(submitEnquiry, '')
   const [values, setValues] = useState<Record<string, string>>({})
-  const contextFields = new URLSearchParams(context?.href)
+  const [includeContext, setIncludeContext] = useState(true)
+  const selectedContext = includeContext ? context : undefined
+  const contextFields = new URLSearchParams(selectedContext?.href)
 
   return (
     <form action={action} onChange={(event) => {
@@ -31,7 +33,15 @@ export function ContactForm({ email, topic, context }: { email: string; topic: C
       }
     }} className="grid gap-5">
       <input type="hidden" name="topic" value={topic} />
-      {context && <p className="border-l-2 border-magenta bg-warm p-4 text-sm">Brief context: <strong>{context.label}</strong></p>}
+      {demo && <p className="text-sm text-body">Demo form. Use sample details to try it.</p>}
+      {context && (
+        <div className="flex flex-wrap items-center justify-between gap-x-3 border-l-2 border-magenta bg-warm px-4 py-2 text-sm">
+          <p>{selectedContext ? <>Brief context: <strong>{selectedContext.label}</strong></> : 'Brief context removed.'}</p>
+          <Button type="button" variant="ghost" className="min-h-11 px-2" onClick={() => setIncludeContext((current) => !current)}>
+            {selectedContext ? 'Remove context' : 'Restore context'}
+          </Button>
+        </div>
+      )}
       {[...contextFields].map(([key, value]) => <input key={key} type="hidden" name={key} value={value} />)}
       <input name="website" aria-hidden="true" tabIndex={-1} autoComplete="off" className="hidden" />
       <div className="grid gap-5 sm:grid-cols-2">
@@ -45,7 +55,7 @@ export function ContactForm({ email, topic, context }: { email: string; topic: C
         <Textarea id="message" name="message" value={values.message ?? ''} required maxLength={5000} aria-describedby="message-hint" className="min-h-32 bg-white text-base" />
       </div>
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-        <Button type="submit" variant="brand" size="xl" disabled={pending || status === 'sent'}>{pending ? 'Sending…' : 'Send enquiry'} <ArrowUpRight aria-hidden /></Button>
+        <Button type="submit" variant="brand" size="xl" disabled={pending || status === 'sent'}>{pending ? 'Submitting…' : demo ? 'Submit demo enquiry' : 'Send enquiry'} <ArrowUpRight aria-hidden /></Button>
         <a href={`mailto:${email}`} className="inline-flex items-center gap-2 text-sm font-semibold text-ink link-underline"><Mail className="size-4" aria-hidden /> Email us directly</a>
       </div>
       {status && <p role="status" className="border-l-2 border-magenta bg-warm p-4 text-sm">{feedback[status]}</p>}

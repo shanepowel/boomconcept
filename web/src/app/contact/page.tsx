@@ -31,6 +31,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             {page.eyebrow && <Eyebrow>{page.eyebrow}</Eyebrow>}
             <h1 className="editorial-display max-w-[13ch]">{page.title}</h1>
             {page.lede && <p className="mt-5 max-w-[44ch] text-lg leading-relaxed">{page.lede}</p>}
+            <Button asChild variant="outlineBrand" className="mt-5 lg:hidden"><a href="#form">Go to the enquiry form</a></Button>
             {contacts.length > 0 && (
               <div className="mt-8 border-t border-ink pt-5">
                 <h2 className="text-lg">Prefer to talk directly?</h2>
@@ -54,15 +55,16 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
           </div>
 
           <div id="form" className="scroll-mt-28 border-t-4 border-magenta bg-white p-[clamp(18px,3.6vw,44px)]">
-            <nav aria-label="Enquiry topic" className="flex flex-wrap gap-2 border-b border-border pb-5">
+            <p className="mb-3 text-sm font-semibold text-ink" id="enquiry-topic-label">What can we help with?</p>
+            <nav aria-labelledby="enquiry-topic-label" className="flex flex-wrap gap-2 border-b border-border pb-5">
               {Object.entries(contactTopics).map(([value, { label }]) => (
-                <Button key={value} asChild variant={value === topic ? 'brand' : 'outline'} className="h-10 rounded-full px-4">
+                <Button key={value} asChild variant={value === topic ? 'brand' : 'outline'} className="h-11 rounded-full px-4">
                   <Link href={`/contact?topic=${value}#form`} aria-current={value === topic ? 'page' : undefined}>{label}</Link>
                 </Button>
               ))}
             </nav>
             <h2 className="mt-6 mb-5 text-2xl">{contactTopics[topic].heading}</h2>
-            <ContactForm key={topic} topic={topic} email={recipient} context={context} />
+            <ContactForm key={topic} topic={topic} email={recipient} context={context} demo={process.env.ENQUIRY_DEMO_MODE === 'true'} />
           </div>
         </div>
       </section>

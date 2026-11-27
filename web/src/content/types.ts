@@ -12,6 +12,7 @@ export type ServicesCopy = {
 }
 
 export type PageCopy = {
+  editorialLists?: import('./editorial-lists').EditorialLists
   servicesCopy?: ServicesCopy
   eyebrow?: string
   title: string

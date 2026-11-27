@@ -346,42 +346,6 @@ export const perks: Perk[] = [
 ]
 
 /** How BOOM! says it succeeds (boom-cc.com, How we do it). */
-export const values = [
-  { title: 'Experience', body: "300+ brands, more than 50 launches and over 1,000 projects. We've learned what works, and what doesn't." },
-  { title: 'Skill', body: 'Client services, project management, strategy, research, science, creative and digital, all under one roof.' },
-  { title: 'Effort', body: 'The perfect mix of inspiration and perspiration. We know when to think and when to act.' },
-  { title: 'Courage', body: 'The confidence to stand up and speak, and the good sense to sit down and listen.' },
-]
-
-/** What BOOM! believes (boom-cc.com, What we believe), in a warmer voice. */
-export const beliefs = [
-  {
-    title: 'Achieving together',
-    short: 'Working with us should be the easy part.',
-    body: 'We give our clients 100% support to do the best job they can: building brands, educating audiences, driving advocacy, and growing their own careers through the success of the work.',
-  },
-  {
-    title: 'People at the heart',
-    short: 'The journey should be enjoyable.',
-    body: 'Teamwork, alignment with our clients and real experience come first. Good work is hard enough without making the process miserable, so we make it enjoyable.',
-  },
-  {
-    title: 'Pride in everything we do',
-    short: 'Craft and creativity, all the way through.',
-    body: 'We strive for excellence in the craft, the creative and the science, and we tell its story with the same care, from the big idea to the last reference.',
-  },
-  {
-    title: 'Process underpins performance',
-    short: 'Consistency builds trust.',
-    body: 'Tried-and-trusted ways of working mean everyone knows what is next and what is needed, so the team can spend its energy on the work, not the admin.',
-  },
-  {
-    title: 'Results, the right way',
-    short: 'The juice has to be worth the squeeze.',
-    body: 'We challenge beliefs and change behaviour to win market share, always in the right way, and always checking that the effort is worth the result.',
-  },
-]
-
 /** The skills that sit behind all three disciplines (boom-cc.com, How we do it). */
 export const capabilities = [
   { title: 'Science and medical writing', body: 'Scientists and medical writers who get the data right first time, and know what will survive review.' },
@@ -390,12 +354,6 @@ export const capabilities = [
 ]
 
 /** Who BOOM! says it works best with (boom-cc.com, home page). */
-export const bestFit = [
-  'Small and mid-sized brand teams that need senior specialists to work alongside them',
-  'Challenging projects, where a broad mix of experience gets to the heart of the issue quickly',
-  'Global, regional and local teams, including emerging markets',
-]
-
 export const processSteps = [
   { title: 'Get to the heart of it', body: 'Agree the challenge, the audience and what success looks like, before anyone opens a laptop.' },
   { title: 'Make a clear plan', body: 'A proper briefing, then owners, timings, account rhythm and budget tracking, set from day one.' },

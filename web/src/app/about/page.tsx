@@ -1,3 +1,4 @@
+import { getEditorialLists } from '@/content/editorial-lists'
 import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
@@ -5,32 +6,16 @@ import { CtaBand, Eyebrow, PageHero, EditableSectionHead, SectionHead, TextLink 
 import { WorkplaceBadges } from '@/components/site/badges'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { SubNav } from '@/components/site/sub-nav'
-import { beliefs, bestFit, getPage, getSettings, getTeam, teamMix, values, workplace, glassdoor } from '@/lib/data'
+import { getPage, getSettings, getTeam, teamMix, workplace, glassdoor } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('about', { stega: false })
   return { title: page.seoTitle || 'About', description: page.seoDescription }
 }
 
-const milestones = [
-  { year: 'Before', text: 'Cory spends his first ten years at Novartis, in sales, market access, research and marketing.' },
-  { year: '2005', text: 'He moves agency-side, leading research, digital, medical communications and creative agencies.' },
-  { year: '2018', text: 'BOOM! Healthcare Communications is founded in December.' },
-  { year: '2022', text: 'BOOM! opens in Copenhagen with a Danish company, BOOM! Healthcare Communications ApS.' },
-  { year: '2025', text: 'Certified a Great Place To Work®, and the whole team heads to Lisbon for the company conference.' },
-  { year: '2026', text: 'Five UK Best Workplaces™ lists, including #18 for Women and #23 overall for small companies.' },
-]
-
-const why = [
-  { title: 'Independent', body: "Your work matters more to us. It's personal." },
-  { title: 'Healthcare experts', body: 'Everyone here is a healthcare communications specialist, so quality is built in.' },
-  { title: 'The right band', body: 'We build the team around your needs, and bring in specific expertise whenever it helps.' },
-  { title: 'Genuine partnership', body: 'Long-term relationships that grow, built on the everyday, not just the pitch.' },
-  { title: 'Process with purpose', body: 'Process underpins our performance, because consistency builds trust.' },
-]
-
 export default async function AboutPage() {
   const [page, team, settings] = await Promise.all([getPage('about'), getTeam(), getSettings()])
+  const lists = getEditorialLists('about', page.editorialLists)
   const founder = team.find((m) => m.isFounder) ?? team[0]
   const leaders = team.filter((m) => m !== founder)
 
@@ -102,7 +87,7 @@ export default async function AboutPage() {
           The story so far
         </h2>
         <ol className="mt-6 grid gap-0 border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-6">
-          {milestones.map((m) => (
+          {lists.milestones.map((m) => (
             <li key={m.year} className="relative border-b border-border py-5 pr-5 lg:border-b-0 lg:border-l lg:pl-5 lg:first:border-l-0 lg:first:pl-0">
               <span aria-hidden className="absolute -top-[7px] left-0 size-3 rounded-full bg-magenta lg:left-5 lg:first:left-0" />
               <p className="text-2xl font-semibold tracking-tight text-ink">{m.year}</p>
@@ -121,7 +106,7 @@ export default async function AboutPage() {
             intro="Creativity and chemistry win pitches. It's the everyday that produces great results and long partnerships, so that's where our beliefs live."
           />
           <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {beliefs.map((b, i) => (
+            {lists.beliefs.map((b, i) => (
               <li key={b.title} className={i === 0 ? 'flex flex-col rounded-2xl bg-night p-7 text-[#d6d2db] lg:row-span-2' : 'flex flex-col rounded-2xl bg-white p-7'}>
                 <span className="text-sm font-bold text-magenta">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className={i === 0 ? 'mt-3 text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight text-white' : 'mt-3 text-xl'}>{b.title}</h3>
@@ -137,7 +122,7 @@ export default async function AboutPage() {
       <section id="why" className="wrap section-pad lg:scroll-mt-14">
         <SectionHead eyebrow="How we succeed" title="Experience. Skill. Effort. Courage." intro="Four things we bring to every brief, and the reason clients stay." />
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((v) => (
+          {lists.values.map((v) => (
             <div key={v.title}>
               <h3 className="text-[clamp(1.5rem,2.4vw,2rem)] tracking-[-0.04em] after:mt-4 after:block after:h-[3px] after:w-9 after:bg-burst">{v.title}</h3>
               <p className="mt-4">{v.body}</p>
@@ -164,7 +149,7 @@ export default async function AboutPage() {
           </div>
           <div>
             <ol className="border-t-2 border-ink">
-              {why.map((w, i) => (
+              {lists.differentiators.map((w, i) => (
                 <li key={w.title} className="grid grid-cols-[48px_1fr] gap-x-4 border-b border-border py-5 sm:grid-cols-[48px_200px_1fr]">
                   <span className="text-sm font-bold text-magenta">{String(i + 1).padStart(2, '0')}</span>
                   <h4 className="text-lg font-semibold text-ink">{w.title}</h4>
@@ -174,9 +159,9 @@ export default async function AboutPage() {
             </ol>
             <h4 className="mt-10 text-[13px] font-bold tracking-[0.14em] text-ink uppercase">Who we work best with</h4>
             <ul className="mt-3 space-y-2">
-              {bestFit.map((f) => (
-                <li key={f} className="relative pl-7 before:absolute before:top-[0.8rem] before:left-0 before:h-0.5 before:w-4 before:bg-magenta">
-                  {f}
+              {lists.bestFit.map((f) => (
+                <li key={f.body} className="relative pl-7 before:absolute before:top-[0.8rem] before:left-0 before:h-0.5 before:w-4 before:bg-magenta">
+                  {f.body}
                 </li>
               ))}
             </ul>

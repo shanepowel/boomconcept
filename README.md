@@ -75,3 +75,14 @@ Content is based on boom-cc.com and BOOM!'s published Finance Coordinator job ad
 ## Export the demo CMS
 
 With Studio configured for `zg5uzp4f`, run `npx sanity dataset export demo boom-demo.tar.gz` from `studio/`. The archive contains the documents and uploaded images. In the destination project, configure Studio with the new project ID, then run `npx sanity dataset import boom-demo.tar.gz --dataset production` into an empty dataset. Deploy the Studio schema from this repository and set the website's Sanity project and dataset variables to the destination.
+
+### Add editorial fields to an existing dataset
+
+The Work approach, About timeline, beliefs and positioning, and Careers working-life cards and FAQs are in **Page copy → [page] → Page sections → Editorial content**. To backfill an existing dataset, confirm the Studio environment points at the intended project and dataset, then run this from `studio/`:
+
+```sh
+npx sanity exec migrations/seed-editorial-lists.mjs --with-user-token
+npx sanity exec migrations/seed-editorial-lists.mjs --with-user-token -- --apply
+```
+
+The first command is a dry run. The second fills missing fields on existing documents and drafts without replacing previously edited content. Deploy the updated Studio schema so editors can see the fields.

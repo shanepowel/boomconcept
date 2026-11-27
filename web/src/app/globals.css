@@ -359,7 +359,10 @@
   .credentials-grid li:nth-child(even) { border-left: 1px solid var(--color-border); }
 }
 @media (min-width: 64rem) {
-  .masthead-grid--home { grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); }
+  .masthead-grid--home {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    padding-block: clamp(2rem, 3.5vw, 3.75rem);
+  }
   .credentials-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
   .credentials-grid li + li { border-top: 0; border-left: 1px solid var(--color-border); }
 }

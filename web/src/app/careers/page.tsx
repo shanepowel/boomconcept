@@ -1,3 +1,4 @@
+import { getEditorialLists } from '@/content/editorial-lists'
 import { SubNav } from '@/components/site/sub-nav'
 import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
@@ -15,20 +16,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: page.seoTitle || 'Careers', description: page.seoDescription }
 }
 
-const workingLife = [
-  { title: 'Work across disciplines', body: 'A brief might bring a researcher, a medical writer and a creative together. You get to see how other people think and where your part changes the result.' },
-  { title: 'Make time together count', body: 'We work remotely and face to face. Teams use the office, working sessions and client meetings for the conversations that are better in the room.' },
-  { title: 'Be good company', body: 'Ask the question everyone is thinking, share what you know and give people credit for good work. That’s what being a Wilbury looks like on an ordinary day.' },
-]
-
-const questions = [
-  { title: 'Where are you based?', body: 'Our teams work across London, Bournemouth and Copenhagen. A vacancy will explain where the role is based and how often you’ll need to be there.' },
-  { title: 'What should I include in an introduction?', body: 'Tell us what you do, what kind of work you want to do next and why BOOM! caught your eye. A link to work you can share is welcome.' },
-  { title: 'Can I ask about working arrangements or interview adjustments?', body: 'Yes. Raise it with the careers contact so you can discuss what the role needs and what would help you take part.' },
-]
-
 export default async function CareersPage() {
   const [page, perks, settings, roles] = await Promise.all([getPage('careers'), getPerks(), getSettings({ stega: false }), getCareersRoles()])
+  const lists = getEditorialLists('careers', page.editorialLists)
   const introduction = '/contact?topic=careers#form'
 
   return (
@@ -77,7 +67,7 @@ export default async function CareersPage() {
       <section id="life" className="wrap section-pad">
         <EditableSectionHead page={page} id="workingLife" defaults={pageSections.careers.workingLife} />
         <ul className="grid gap-x-8 gap-y-5 md:grid-cols-3">
-          {workingLife.map(({ title, body }) => (
+          {lists.workingLife.map(({ title, body }) => (
             <li key={title} className="border-t border-ink pt-4">
               <h3 className="text-xl">{title}</h3>
               <p className="mt-2">{body}</p>
@@ -130,7 +120,7 @@ export default async function CareersPage() {
             <div className="mt-5"><TextLink href={introduction}>Ask us a question</TextLink></div>
           </div>
           <Accordion type="single" collapsible className="border-t border-ink">
-            {questions.map(({ title, body }) => (
+            {lists.applicationQuestions.map(({ title, body }) => (
               <AccordionItem value={title} key={title}>
                 <AccordionTrigger className="py-4 text-base font-semibold">{title}</AccordionTrigger>
                 <AccordionContent className="pb-4 text-base">{body}</AccordionContent>

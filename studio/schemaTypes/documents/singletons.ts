@@ -1,3 +1,4 @@
+import { editorialLists } from './editorial-lists'
 import { pageSections, sectionLabels } from '../../../web/src/content/page-sections'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
@@ -60,6 +61,7 @@ export const pageCopy = defineType({
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
+    editorialLists,
     defineField({ name: 'eyebrow', type: 'string', group: 'hero', description: 'Small label above the headline.' }),
     defineField({ name: 'title', title: 'Headline', type: 'string', group: 'hero', validation: (r) => r.required().max(90) }),
     defineField({ name: 'lede', title: 'Intro', type: 'text', rows: 4, group: 'hero', validation: (r) => r.max(420) }),

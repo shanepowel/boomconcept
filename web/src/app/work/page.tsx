@@ -1,3 +1,4 @@
+import { getEditorialLists } from '@/content/editorial-lists'
 import { SubNav } from '@/components/site/sub-nav'
 import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
@@ -12,26 +13,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: page.seoTitle || 'Work', description: page.seoDescription }
 }
 
-const decisions = [
-  {
-    title: 'Agree on the decision that matters.',
-    body: 'Start with who needs to do something differently. If the brief is to build awareness, ask what the audience needs to understand or decide after they’ve seen the work.',
-    output: 'A brief with a named audience and a clear objective',
-  },
-  {
-    title: 'Look for what’s getting in the way.',
-    body: 'Read the evidence and listen to the people closest to the problem. Bring the researcher, strategist and scientific lead together early, while the brief can still change.',
-    output: 'A positioning and evidence base the team can test',
-  },
-  {
-    title: 'Make the work and plan how it travels.',
-    body: 'Develop the core story, then decide what belongs in each channel. Agree the claims, owners and review steps before production so local teams know what they can adapt.',
-    output: 'A channel plan, review-ready materials and a handover',
-  },
-]
-
 export default async function WorkPage() {
   const [page, cases] = await Promise.all([getPage('work'), getCaseStudies()])
+  const lists = getEditorialLists('work', page.editorialLists)
   const featured = cases.find((study) => !study.isExample) ?? cases[0]
   const otherCases = cases.filter((study) => study !== featured)
 
@@ -52,7 +36,7 @@ export default async function WorkPage() {
       <section id="approach" className="wrap section-pad">
         <EditableSectionHead page={page} id="approach" defaults={pageSections.work.approach} />
         <ol className="grid gap-x-7 gap-y-7 md:grid-cols-3">
-          {decisions.map(({ title, body, output }, index) => (
+          {lists.approachSteps.map(({ title, body, output }, index) => (
             <li key={title} className="flex flex-col border-t border-ink pt-5">
               <p className="mb-3 text-sm font-bold text-magenta-dark">Step {index + 1}</p>
               <h3 className="text-2xl text-pretty">{title}</h3>
