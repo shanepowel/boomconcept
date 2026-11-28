@@ -481,3 +481,32 @@ li:hover > .value-word::before { opacity: 0.55; transform: scale(1.05); }
     radial-gradient(closest-side at 20% 20%, #1fa8e0, transparent),
     radial-gradient(closest-side at 85% 70%, #e8333c, transparent),
     radial-gradient(closest-side at 20% 85%, #ff5fae, transparent); }
+
+/* The dust after the bang: a still colour cloud used away from the home page,
+   so the animated burst stays special to the home hero. */
+.cloud-art {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--night);
+  background-image:
+    radial-gradient(circle at 50% 52%, rgba(255, 255, 255, 0.55), transparent 9%),
+    radial-gradient(closest-side at 42% 40%, rgba(255, 95, 174, 0.85), transparent),
+    radial-gradient(closest-side at 63% 58%, rgba(122, 47, 181, 0.9), transparent),
+    radial-gradient(closest-side at 70% 32%, rgba(31, 168, 224, 0.7), transparent),
+    radial-gradient(closest-side at 32% 68%, rgba(232, 51, 60, 0.6), transparent);
+  background-size: 100% 100%, 70% 80%, 75% 85%, 55% 65%, 55% 60%;
+  background-repeat: no-repeat;
+  background-position: center, 20% 20%, 80% 80%, 90% 10%, 10% 90%;
+}
+.cloud-art--echo { background-position: center, 75% 25%, 25% 75%, 15% 15%, 85% 85%; }
+.cloud-art--press { background-position: center, 50% 10%, 50% 90%, 10% 50%, 90% 50%; }
+
+.cta-cloud {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 30% 70% at 96% 40%, rgba(255, 95, 174, 0.45), transparent 70%),
+    radial-gradient(ellipse 28% 60% at 88% 85%, rgba(122, 47, 181, 0.55), transparent 70%),
+    radial-gradient(ellipse 22% 45% at 80% 10%, rgba(31, 168, 224, 0.35), transparent 70%);
+}
