@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SiteSettings } from '@/content/types'
 import { footerNav } from './nav'
@@ -20,7 +20,7 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button asChild variant="magenta" size="xl">
               <Link href="/contact">
-                Start a conversation <ArrowUpRight aria-hidden />
+                Start a conversation <ArrowRight aria-hidden />
               </Link>
             </Button>
             <a href={settings.linkedinUrl} className="font-semibold text-white link-underline">

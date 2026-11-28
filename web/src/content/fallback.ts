@@ -55,7 +55,7 @@ export const settings: SiteSettings = {
 
 export const pages: Record<PageKey, PageCopy> = {
   home: {
-    title: 'The right people for the hard briefs.',
+    title: 'The right band for every brief.',
     image: {
       src: '/images/culture/five-years-lisbon.webp',
       alt: 'BOOM! colleagues together in Lisbon',
@@ -87,7 +87,7 @@ export const pages: Record<PageKey, PageCopy> = {
         caseSlug: 'a-new-lease-of-life',
       },
     ],
-    lede: 'We help pharma, biotech and medtech teams build brands, educate clinicians and patients, and support advocacy. We bring research, scientific strategy and creative together for the hard briefs.',
+    lede: 'BOOM! is an independent healthcare communications agency for pharma, biotech and medtech. We pick the players for each brief, from researchers and medical writers to creatives and Veeva specialists, and the senior people you meet on day one stay with the work through to approval.',
     seoTitle: 'BOOM! Healthcare Communications | The right band for every brief',
     seoDescription:
       'Independent healthcare communications agency. 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams.',

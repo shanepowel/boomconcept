@@ -2,7 +2,7 @@ import { BrandMoments } from '@/components/site/brand-moments'
 import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { CtaBand, Eyebrow, PageHero, EditableSectionHead, SectionHead, TextLink, Tags } from '@/components/site/blocks'
 import { SubNav } from '@/components/site/sub-nav'
 import { Button } from '@/components/ui/button'
@@ -184,7 +184,7 @@ export default async function ServicesPage() {
             </dl>
             <Button asChild variant="magenta" size="xl" className="mt-6 h-auto min-h-12 w-full px-3 py-2 text-center whitespace-normal">
               <Link href="/contact?topic=procurement">
-                Request supplier pack <ArrowUpRight aria-hidden />
+                Request supplier pack <ArrowRight aria-hidden />
               </Link>
             </Button>
           </div>

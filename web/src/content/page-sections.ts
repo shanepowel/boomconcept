@@ -2,8 +2,8 @@ export type SectionCopy = { eyebrow?: string; title: string; intro?: string }
 
 export const pageSections = {
   home: {
-    services: { title: 'One team from first question to final approval.', eyebrow: 'Services' },
-    insights: { title: 'What we’re thinking about' },
+    services: { title: 'What we do' },
+    insights: { title: 'Latest from the team' },
   },
   work: {
     approach: { title: 'Before there’s anything to show, there’s a decision to make.', intro: 'Here’s how we go from an open question to something a healthcare team can review, use and adapt.' },

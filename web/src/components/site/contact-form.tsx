@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useState } from 'react'
-import { ArrowUpRight, Mail } from 'lucide-react'
+import { ArrowRight, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -55,7 +55,7 @@ export function ContactForm({ email, topic, context, demo }: { demo: boolean; em
         <Textarea id="message" name="message" value={values.message ?? ''} required maxLength={5000} aria-describedby="message-hint" className="min-h-32 bg-white text-base" />
       </div>
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-        <Button type="submit" variant="brand" size="xl" disabled={pending || status === 'sent'}>{pending ? 'Submitting…' : demo ? 'Submit demo enquiry' : 'Send enquiry'} <ArrowUpRight aria-hidden /></Button>
+        <Button type="submit" variant="brand" size="xl" disabled={pending || status === 'sent'}>{pending ? 'Submitting…' : demo ? 'Submit demo enquiry' : 'Send enquiry'} <ArrowRight aria-hidden /></Button>
         <a href={`mailto:${email}`} className="inline-flex items-center gap-2 text-sm font-semibold text-ink link-underline"><Mail className="size-4" aria-hidden /> Email us directly</a>
       </div>
       {status && <p role="status" className="border-l-2 border-magenta bg-warm p-4 text-sm">{feedback[status]}</p>}

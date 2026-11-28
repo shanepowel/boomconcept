@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { BrandMoment, CaseStudy } from '@/content/types'
 import { Tags, TextLink } from './blocks'
@@ -11,7 +11,7 @@ export function BrandMoments({ moments, cases }: { moments: BrandMoment[]; cases
       <TabsList aria-label="Choose your brand’s stage" className="moment-stages">
         {moments.map((moment, index) => (
           <TabsTrigger className="moment-trigger" key={moment.stage} value={String(index)}>
-            {moment.stage}<ArrowUpRight aria-hidden />
+            {moment.stage}<ArrowRight aria-hidden />
           </TabsTrigger>
         ))}
       </TabsList>

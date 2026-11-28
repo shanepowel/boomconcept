@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { PageCopy, Stat } from '@/content/types'
 import type { SectionCopy } from '@/content/page-sections'
@@ -120,7 +120,10 @@ export function TextLink({ href, children, light }: { href: string; children: Re
   return (
     <Link href={href} className={cn('group inline-flex items-center gap-2 font-bold link-underline hover:text-magenta', light ? 'text-white hover:text-magenta-soft' : 'text-ink')}>
       {children}
-      <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+      {/* ↗ signals leaving the site, so keep it for external links only. */}
+      {/^https?:\/\//.test(href)
+        ? <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+        : <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />}
     </Link>
   )
 }
@@ -132,21 +135,19 @@ export function Stats({ stats, dark }: { stats: Stat[]; dark?: boolean }) {
         <div
           key={stat.label}
           className={cn(
-            'border-t-2 py-7 pr-4',
+            'border-t-2 py-5 pr-4',
             dark ? 'border-white' : 'border-ink',
             i % 2 === 1 && 'border-l pl-4 lg:pl-6',
             i >= 2 && 'lg:border-l lg:pl-6',
             dark ? 'border-l-[#2e2e2e]' : 'border-l-border',
           )}
         >
-          <dt className="sr-only">{stat.label}</dt>
-          <dd>
-            <span className={cn('block text-[clamp(2.4rem,4.6vw,4rem)] leading-none font-semibold tracking-[-0.05em]', dark ? 'text-white' : 'text-ink')}>
-              {stat.value}
-              <span className="text-magenta">+</span>
-            </span>
-            <span className="mt-2.5 block text-[15px]">{stat.label}</span>
-          </dd>
+          <div className="flex flex-col-reverse">
+            <dt className="mt-2 text-[15px]">{stat.label}</dt>
+            <dd className={cn('text-[clamp(2rem,3.4vw,3rem)] leading-none font-semibold tracking-[-0.04em]', dark ? 'text-white' : 'text-ink')}>
+              {stat.value}+
+            </dd>
+          </div>
         </div>
       ))}
     </dl>
@@ -162,7 +163,7 @@ export function CtaBand({ title, body, href = '/contact', label = 'Start a conve
           <p className="text-lg">{body}</p>
           <Button asChild variant="light" size="xl" className="mt-6">
             <Link href={href}>
-              {label} <ArrowUpRight aria-hidden />
+              {label} <ArrowRight aria-hidden />
             </Link>
           </Button>
         </div>

@@ -4,7 +4,7 @@ import { pageSections } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Eyebrow, PageHero, EditableSectionHead, TextLink } from '@/components/site/blocks'
 import { WorkplaceBadges } from '@/components/site/badges'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
@@ -57,7 +57,7 @@ export default async function CareersPage() {
               </ul>
             ) : <p className="max-w-[50ch] text-white/85">There are no vacancies listed on this page. If you’re interested in working here, tell us what you do and what you’d like to do next.</p>}
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <Button asChild variant="light" size="xl"><Link href={introduction}>Introduce yourself <ArrowUpRight aria-hidden /></Link></Button>
+              <Button asChild variant="light" size="xl"><Link href={introduction}>Introduce yourself <ArrowRight aria-hidden /></Link></Button>
               <a href={settings.linkedinUrl} className="text-sm font-bold text-white link-underline">Follow BOOM! for vacancies</a>
             </div>
           </div>

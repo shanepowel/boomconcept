@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { CaseStudy, Lineup, TeamMember } from '@/content/types'
-import { Eyebrow, TextLink } from './blocks'
+import { TextLink } from './blocks'
 
 export function BriefLineup({ lineups, team, cases }: { lineups: Lineup[]; team: TeamMember[]; cases: CaseStudy[] }) {
   if (!lineups.length) return null
@@ -11,9 +11,8 @@ export function BriefLineup({ lineups, team, cases }: { lineups: Lineup[]; team:
   return (
     <section id="lineup" aria-labelledby="lineup-title" className="bg-night text-white">
       <div className="wrap section-pad">
-        <Eyebrow tone="light">Meet the line-up</Eyebrow>
-        <h2 id="lineup-title" className="type-title text-white">Who would we put on your brief?</h2>
-        <p className="mt-4 text-white/75">Choose a challenge to see where we’d start and who could help.</p>
+        <h2 id="lineup-title" className="type-title max-w-[20ch] text-white">Pick a brief. Meet the people who’d play on it.</h2>
+        <p className="mt-4 max-w-[56ch] text-white/75">Every team is put together around the brief. Choose one to see where we’d start and the senior people you’d work with.</p>
         <Tabs defaultValue={lineups[0].id} orientation="vertical" className="mt-8 grid gap-6 lg:grid-cols-[1fr_1.6fr] lg:gap-12">
           <TabsList aria-label="Example briefs" className="grid h-auto w-full justify-stretch self-start rounded-none bg-transparent p-0">
             {lineups.map((lineup) => (
@@ -37,7 +36,7 @@ export function BriefLineup({ lineups, team, cases }: { lineups: Lineup[]; team:
                     <li key={person.slug}>
                       <Link href={`/about#person-${person.slug}`} className="group flex w-full items-center gap-4 rounded-sm min-[440px]:block">
                         <div className="relative aspect-square w-14 max-w-32 shrink-0 min-[440px]:w-full overflow-hidden rounded-full bg-night-2 ring-1 ring-white/25 ring-offset-4 ring-offset-night transition-[box-shadow] group-hover:ring-magenta-soft group-focus-visible:ring-magenta-soft">
-                          {person.photo.alt && <Image src={person.photo.src} alt="" fill sizes="128px" className="object-cover object-[center_30%] grayscale motion-safe:transition-[filter,scale] motion-safe:group-hover:scale-105 group-hover:grayscale-0 group-focus-visible:grayscale-0" />}
+                          {person.photo.alt && <Image src={person.photo.src} alt="" fill sizes="128px" className="object-cover object-[center_30%] motion-safe:transition-[scale] motion-safe:group-hover:scale-105" />}
                         </div>
                         <div className="min-w-0 min-[440px]:mt-3">
                           <span className="block text-sm font-bold leading-snug text-white sm:text-base">{person.fullName}</span>
@@ -48,7 +47,7 @@ export function BriefLineup({ lineups, team, cases }: { lineups: Lineup[]; team:
                   ))}
                 </ul>
                 <div className="mt-7 flex flex-wrap gap-5"><TextLink href={`/contact?lineup=${encodeURIComponent(lineup.id)}#form`} light>Discuss a brief like this</TextLink>
-                {study && <><TextLink href={`/work/${encodeURIComponent(study.slug)}`} light>{study.isExample ? 'See an illustrative case study' : 'See related work'}</TextLink></>}
+                {study && !study.isExample && <TextLink href={`/work/${encodeURIComponent(study.slug)}`} light>See related work</TextLink>}
                 </div>
               </TabsContent>
             )

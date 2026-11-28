@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function NotFound() {
@@ -12,7 +12,7 @@ export default function NotFound() {
         <div className="mt-8 flex flex-wrap gap-4">
           <Button asChild variant="magenta" size="xl">
             <Link href="/">
-              Back to the home page <ArrowUpRight aria-hidden />
+              Back to the home page <ArrowRight aria-hidden />
             </Link>
           </Button>
           <Button asChild variant="outlineBrand" size="xl">
