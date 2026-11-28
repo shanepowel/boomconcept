@@ -216,7 +216,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <CtaBand title="Let's work something out." body="Tell us what you're working on and we'll bring the right people to the first conversation." />
+      <CtaBand title="Let’s achieve something TOGETHER." body="Tell us what you're working on and we'll bring the right people to the first conversation." />
     </>
   )
 }

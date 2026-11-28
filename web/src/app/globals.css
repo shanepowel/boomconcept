@@ -459,3 +459,25 @@ li:hover > .value-word::before { opacity: 0.55; transform: scale(1.05); }
 @media (prefers-reduced-motion: reduce) {
   .value-word::before { transition: none; }
 }
+
+/* A colour burst behind masthead photos, so photo pages share the home page's spark. */
+.photo-splash {
+  position: absolute;
+  inset: -10% -8% -6% -10%;
+  z-index: -1;
+  background:
+    radial-gradient(closest-side at 18% 30%, #ff5fae, transparent),
+    radial-gradient(closest-side at 85% 18%, #5fd0f5, transparent),
+    radial-gradient(closest-side at 78% 85%, #7a2fb5, transparent),
+    radial-gradient(closest-side at 12% 82%, #ff8a3d, transparent 80%);
+  filter: blur(40px);
+  opacity: 0.5;
+}
+.photo-splash--echo { background:
+    radial-gradient(closest-side at 15% 25%, #7a2fb5, transparent),
+    radial-gradient(closest-side at 88% 30%, #ff5fae, transparent),
+    radial-gradient(closest-side at 70% 88%, #1fa8e0, transparent); }
+.photo-splash--press { background:
+    radial-gradient(closest-side at 20% 20%, #1fa8e0, transparent),
+    radial-gradient(closest-side at 85% 70%, #e8333c, transparent),
+    radial-gradient(closest-side at 20% 85%, #ff5fae, transparent); }

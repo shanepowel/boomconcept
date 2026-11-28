@@ -66,7 +66,7 @@ function build(count: number, seed = 18) {
 
 const easeOut = (t: number) => 1 - Math.pow(1 - Math.min(Math.max(t, 0), 1), 4)
 
-export function Burst({ className, originX = 0.62, originY = 0.48 }: { className?: string; originX?: number; originY?: number }) {
+export function Burst({ className, originX = 0.62, originY = 0.48, seed = 18, followNarrow = true }: { className?: string; originX?: number; originY?: number; seed?: number; followNarrow?: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export function Burst({ className, originX = 0.62, originY = 0.48 }: { className
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let width = 0
     let height = 0
-    let scene = build(3400)
+    let scene = build(3400, seed)
     let frame = 0
     let start = 0
     let visible = true
@@ -90,14 +90,14 @@ export function Burst({ className, originX = 0.62, originY = 0.48 }: { className
       canvas.width = Math.round(width * dpr)
       canvas.height = Math.round(height * dpr)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      scene = build(width < 640 ? 1600 : 3400)
+      scene = build(width < 640 ? 1600 : 3400, seed)
     }
 
     const draw = (time: number) => {
       const elapsed = (time - start) / 1000
       const size = Math.min(Math.max(width, height) * 0.62, Math.min(width, height) * 1.05)
       // On narrow screens the text sits low, so the burst moves up and out of its way.
-      const narrow = width < 1024
+      const narrow = followNarrow && width < 1024
       const ox = width * (narrow ? 0.62 : originX)
       const oy = height * (narrow ? 0.26 : originY)
       ctx.clearRect(0, 0, width, height)
@@ -170,7 +170,7 @@ export function Burst({ className, originX = 0.62, originY = 0.48 }: { className
       observer.disconnect()
       window.removeEventListener('resize', onResize)
     }
-  }, [originX, originY])
+  }, [originX, originY, seed, followNarrow])
 
   return <canvas ref={ref} aria-hidden className={className} />
 }

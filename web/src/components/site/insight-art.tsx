@@ -1,5 +1,8 @@
 import Image from 'next/image'
 import type { Insight } from '@/content/insights'
+import { Burst } from './burst'
+
+const topicSeeds: Record<string, number> = { science: 41, strategy: 7, technology: 23 }
 
 export function InsightArt({ article }: { article: Insight }) {
   if (article.image) {
@@ -7,8 +10,8 @@ export function InsightArt({ article }: { article: Insight }) {
   }
 
   return (
-    <div aria-hidden className={`insight-art insight-art--${article.topic.toLowerCase()}`}>
-      <i /><i /><i /><i /><i />
+    <div aria-hidden className="relative aspect-[8/5] w-full overflow-hidden bg-night">
+      <Burst className="absolute inset-0 h-full w-full" seed={topicSeeds[article.topic.toLowerCase()] ?? 18} originX={0.5} originY={0.5} followNarrow={false} />
     </div>
   )
 }

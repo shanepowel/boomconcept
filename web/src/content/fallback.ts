@@ -107,8 +107,8 @@ export const pages: Record<PageKey, PageCopy> = {
   },
   services: {
     eyebrow: 'Services',
-    title: 'From a better question to better work.',
-    lede: 'We use research to understand what matters to clinicians, patients and advocates. Then we turn that understanding into positioning, claims and campaigns, with the same team carrying the work through to approval.',
+    title: 'Inspiration and perspiration.',
+    lede: 'We find out what really matters to clinicians, patients and advocates. We turn it into positioning and claims that stand up. Then we make the work that gets people talking, with the process to get it through review.',
     seoDescription:
       'Insights, strategy and communications for pharma, biotech and medtech brands, with Veeva-built content and a process designed for regulated work.',
   },
@@ -121,13 +121,13 @@ export const pages: Record<PageKey, PageCopy> = {
   },
   about: {
     eyebrow: 'About BOOM!',
-    title: 'Meet the people who do the work.',
+    title: 'The people behind the BOOM!',
     image: {
       src: '/images/culture/five-year-conference.webp',
       alt: 'BOOM! colleagues at the five-year company conference',
       caption: 'BOOM! at five years',
     },
-    lede: 'Cory Inglis founded BOOM! after a decade at Novartis and years leading agencies. We’re independent, and we build each team around the brief. The senior specialists you meet at the start stay involved through delivery.',
+    lede: 'Cory Inglis founded BOOM! in 2018, after a decade at Novartis and years leading agencies on both sides of the Atlantic. We’re independent, and we build the right team around every brief, bringing in specialists whenever they’re needed.',
     seoDescription: "BOOM!'s story, values and leadership team: pharma-side experience, scientific depth and creative leadership.",
   },
   careers: {
@@ -143,7 +143,7 @@ export const pages: Record<PageKey, PageCopy> = {
   },
   contact: {
     eyebrow: 'Contact',
-    title: "Let's talk about what's next.",
+    title: 'Let’s light the fuse.',
     lede: 'Tell us what you’re working on, who it needs to reach and where you’re stuck. A few lines are enough to get a conversation started.',
     seoDescription: 'Contact BOOM! Healthcare Communications in London, Bournemouth and Copenhagen.',
   },

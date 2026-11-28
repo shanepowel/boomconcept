@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import type { PageCopy, Stat } from '@/content/types'
 import type { SectionCopy } from '@/content/page-sections'
 import { cn } from '@/lib/utils'
+import { Burst } from './burst'
 
 export function Eyebrow({ children, tone = 'magenta', className }: { children: React.ReactNode; tone?: 'magenta' | 'light'; className?: string }) {
   return (
@@ -20,6 +21,8 @@ export function Eyebrow({ children, tone = 'magenta', className }: { children: R
   )
 }
 
+const burstSeeds = { groove: 7, echo: 23, press: 41 } as const
+
 export function PageHero({ copy, children, artwork = 'groove' }: { copy: PageCopy; children?: React.ReactNode; artwork?: 'groove' | 'echo' | 'press' }) {
   return (
     <section className="page-masthead border-b border-border bg-warm">
@@ -31,15 +34,16 @@ export function PageHero({ copy, children, artwork = 'groove' }: { copy: PageCop
           {children}
         </div>
         {copy.image ? (
-          <figure>
+          <figure className="relative isolate">
+            <span aria-hidden className={`photo-splash photo-splash--${artwork}`} />
             <div className="relative aspect-[4/3] overflow-hidden masthead-photo bg-night-2">
               <Image src={copy.image.src} alt={copy.image.alt} fill sizes="(min-width: 1024px) 44vw, 90vw" className="object-cover" />
             </div>
             {(copy.image.caption || copy.image.credit) && <figcaption className="mt-2 text-sm">{[copy.image.caption, copy.image.credit].filter(Boolean).join(' · ')}</figcaption>}
           </figure>
         ) : (
-          <div aria-hidden="true" className={`record-sleeve record-sleeve--${artwork}`}>
-            <span className="record-disc" /><span className="record-label" />
+          <div aria-hidden="true" className="relative aspect-[3/2] overflow-hidden masthead-photo bg-night max-lg:aspect-[5/2]">
+            <Burst className="absolute inset-0 h-full w-full" seed={burstSeeds[artwork]} originX={0.5} originY={0.5} followNarrow={false} />
           </div>
         )}
       </div>
@@ -72,7 +76,6 @@ export function ReadingLayout({ back, chapters, children }: {
 }
 
 export function SectionHead({
-  eyebrow,
   title,
   intro,
   action,
@@ -89,7 +92,6 @@ export function SectionHead({
   return (
     <div className={cn('mb-[clamp(36px,4vw,56px)] flex flex-wrap items-end justify-between gap-x-10 gap-y-5', className)}>
       <div className="max-w-[720px]">
-        {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
         <h2 className={cn('type-title', tone === 'light' && 'text-white')}>{title}</h2>
         {intro ? <p className={cn('mt-4 max-w-[600px]', tone === 'light' && 'text-[#d0ccd6]')}>{intro}</p> : null}
       </div>
@@ -154,14 +156,16 @@ export function Stats({ stats, dark }: { stats: Stat[]; dark?: boolean }) {
   )
 }
 
-export function CtaBand({ title, body, href = '/contact', label = 'Start a conversation' }: { title: string; body: string; href?: string; label?: string }) {
+export function CtaBand({ title, body, href = '/contact', label = 'Contact us' }: { title: string; body: string; href?: string; label?: string }) {
   return (
-    <section className="bg-magenta-dark text-white">
-      <div className="wrap grid items-center gap-x-16 gap-y-6 py-[clamp(56px,7vw,96px)] md:grid-cols-[7fr_5fr]">
+    <section className="relative isolate overflow-hidden bg-night text-white">
+      <Burst className="absolute inset-0 -z-10 h-full w-full opacity-75" seed={99} originX={1} originY={0.55} followNarrow={false} />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,var(--night)_45%,color-mix(in_oklch,var(--night)_60%,transparent)_75%,transparent_100%)]" />
+      <div className="wrap grid items-center gap-x-16 gap-y-6 py-[clamp(64px,8vw,112px)] md:grid-cols-[7fr_5fr]">
         <h2 className="type-title text-white">{title}</h2>
         <div>
-          <p className="text-lg">{body}</p>
-          <Button asChild variant="light" size="xl" className="mt-6">
+          <p className="text-lg text-white/85">{body}</p>
+          <Button asChild variant="magenta" size="xl" className="mt-6">
             <Link href={href}>
               {label} <ArrowRight aria-hidden />
             </Link>
