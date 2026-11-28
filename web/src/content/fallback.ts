@@ -87,7 +87,7 @@ export const pages: Record<PageKey, PageCopy> = {
         caseSlug: 'a-new-lease-of-life',
       },
     ],
-    lede: 'BOOM! is an independent healthcare communications agency for pharma, biotech and medtech. We pick the players for each brief, from researchers and medical writers to creatives and Veeva specialists, and the senior people you meet on day one stay with the work through to approval.',
+    lede: 'BOOM! is an independent healthcare communications agency for pharma, biotech and medtech teams. We build the team around your brief, bringing in researchers, scientists, creatives and Veeva specialists as the work needs them.',
     seoTitle: 'BOOM! Healthcare Communications | The right band for every brief',
     seoDescription:
       'Independent healthcare communications agency. 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams.',

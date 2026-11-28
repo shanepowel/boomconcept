@@ -12,7 +12,7 @@ export function BriefLineup({ lineups, team, cases }: { lineups: Lineup[]; team:
     <section id="lineup" aria-labelledby="lineup-title" className="bg-night text-white">
       <div className="wrap section-pad">
         <h2 id="lineup-title" className="type-title max-w-[20ch] text-white">Pick a brief. Meet the people who’d play on it.</h2>
-        <p className="mt-4 max-w-[56ch] text-white/75">Every team is put together around the brief. Choose one to see where we’d start and the senior people you’d work with.</p>
+        <p className="mt-4 max-w-[56ch] text-white/75">Every team is put together around the brief. Choose one to see where we’d start and who you’d work with.</p>
         <Tabs defaultValue={lineups[0].id} orientation="vertical" className="mt-8 grid gap-6 lg:grid-cols-[1fr_1.6fr] lg:gap-12">
           <TabsList aria-label="Example briefs" className="grid h-auto w-full justify-stretch self-start rounded-none bg-transparent p-0">
             {lineups.map((lineup) => (
