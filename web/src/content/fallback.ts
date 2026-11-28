@@ -55,7 +55,8 @@ export const settings: SiteSettings = {
 
 export const pages: Record<PageKey, PageCopy> = {
   home: {
-    title: 'The right band for every brief.',
+    eyebrow: 'Independent healthcare communications',
+    title: 'An explosion of experience.',
     image: {
       src: '/images/culture/five-years-lisbon.webp',
       alt: 'BOOM! colleagues together in Lisbon',
@@ -87,8 +88,8 @@ export const pages: Record<PageKey, PageCopy> = {
         caseSlug: 'a-new-lease-of-life',
       },
     ],
-    lede: 'BOOM! is an independent healthcare communications agency for pharma, biotech and medtech teams. We build the team around your brief, bringing in researchers, scientists, creatives and Veeva specialists as the work needs them.',
-    seoTitle: 'BOOM! Healthcare Communications | The right band for every brief',
+    lede: 'We partner with pharma, biotech and medtech teams to build brands, educate audiences and drive advocacy. Bring us the brief everyone else finds difficult. That’s the one we want.',
+    seoTitle: 'BOOM! Healthcare Communications | An explosion of experience',
     seoDescription:
       'Independent healthcare communications agency. 300+ brands, 50+ launches and 70+ therapy areas, for pharma, biotech and medtech teams.',
   },

@@ -2,7 +2,7 @@ export type SectionCopy = { eyebrow?: string; title: string; intro?: string }
 
 export const pageSections = {
   home: {
-    services: { title: 'What we do' },
+    services: { title: 'Some of the work we do…' },
     insights: { title: 'Latest from the team' },
   },
   work: {

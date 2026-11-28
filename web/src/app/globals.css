@@ -392,3 +392,70 @@
   .reading-layout { grid-template-columns: minmax(0, 3fr) minmax(0, 8fr); }
   .reading-index { position: sticky; top: 6.5rem; }
 }
+
+/* BOOM! burst accents (home page). Colours follow the spark on the BOOM! logo. */
+.burst-text {
+  background: linear-gradient(100deg, #ff7cbc 0%, #ff2f98 30%, #b766ff 62%, #6fd6ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.value-word {
+  --splat-a: #e5007d;
+  --splat-b: #ff5fae;
+  position: relative;
+  isolation: isolate;
+  width: fit-content;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  color: var(--ink);
+}
+.value-word::before {
+  content: '';
+  position: absolute;
+  inset: -30% -14% -30% -10%;
+  z-index: -1;
+  background:
+    radial-gradient(closest-side at 28% 55%, var(--splat-a), transparent),
+    radial-gradient(closest-side at 70% 40%, var(--splat-b), transparent),
+    radial-gradient(closest-side at 52% 72%, var(--splat-a), transparent 80%);
+  filter: blur(22px);
+  opacity: 0.32;
+  transform: scale(0.75);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1.2);
+}
+li:hover > .value-word::before { opacity: 0.55; transform: scale(1.05); }
+.value-word--violet { --splat-a: #7a2fb5; --splat-b: #9b6bff; }
+.value-word--cyan { --splat-a: #1fa8e0; --splat-b: #5fd0f5; }
+.value-word--red { --splat-a: #e8333c; --splat-b: #ff8a3d; }
+
+.founder-splash {
+  position: absolute;
+  inset: -16%;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side at 30% 35%, #ff5fae, transparent),
+    radial-gradient(closest-side at 72% 30%, #5fd0f5, transparent),
+    radial-gradient(closest-side at 60% 75%, #7a2fb5, transparent),
+    radial-gradient(closest-side at 25% 72%, #e8333c, transparent 85%);
+  filter: blur(26px);
+  opacity: 0.55;
+}
+
+.discipline-dot {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff8fc6, #e5007d 60%, #7a1050);
+  box-shadow: 0 0 24px -4px #e5007d;
+}
+.discipline-dot--violet { background: radial-gradient(circle at 35% 35%, #c49bff, #7a2fb5 60%, #3c145c); box-shadow: 0 0 24px -4px #7a2fb5; }
+.discipline-dot--cyan { background: radial-gradient(circle at 35% 35%, #a6e9ff, #1fa8e0 60%, #0b5679); box-shadow: 0 0 24px -4px #1fa8e0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .value-word::before { transition: none; }
+}
