@@ -579,3 +579,87 @@ li:hover > .value-word::before { opacity: 0.55; transform: scale(1.05); }
 
 /* Decorative colour splashes may bleed past the viewport; never let them cause sideways scrolling. */
 html, body { overflow-x: clip; }
+
+/* Therapy-area burst */
+.therapy-burst__figure svg { display: block; width: 100%; height: auto; overflow: visible; }
+.therapy-burst__hit { stroke: transparent; stroke-width: 34; stroke-linecap: round; }
+.therapy-burst__line {
+  stroke: var(--ray-colour);
+  stroke-width: 4;
+  stroke-linecap: round;
+  opacity: 0.75;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: opacity 0.3s ease, stroke-width 0.3s ease;
+}
+.therapy-burst__dot { fill: var(--ray-colour); transition: r 0.3s ease, opacity 0.3s ease; }
+.therapy-burst__dot.is-hit { fill: #fff; filter: drop-shadow(0 0 10px var(--ray-colour)); }
+.therapy-burst__label { fill: rgb(255 255 255 / 0.78); font-size: 24px; font-weight: 600; transition: fill 0.3s ease; }
+.therapy-burst__centre { fill: #fff; font-size: 34px; font-weight: 800; letter-spacing: -0.02em; pointer-events: none; }
+.therapy-burst__ray { cursor: pointer; outline: none; transition: opacity 0.35s ease; }
+.therapy-burst__ray:hover .therapy-burst__line,
+.therapy-burst__ray.is-selected .therapy-burst__line { opacity: 1; stroke-width: 7; }
+.therapy-burst__ray.is-selected .therapy-burst__label,
+.therapy-burst__ray:hover .therapy-burst__label { fill: #fff; }
+.therapy-burst__ray:focus-visible .therapy-burst__label { fill: #fff; text-decoration: underline; text-decoration-color: var(--ray-colour); text-decoration-thickness: 3px; }
+.therapy-burst__ray.is-dim { opacity: 0.12; pointer-events: none; }
+
+@media (max-width: 47.99rem) {
+  .therapy-burst__label { display: none; }
+  .therapy-burst__centre { font-size: 48px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .therapy-burst__figure .therapy-burst__line { stroke-dashoffset: 1; }
+  .therapy-burst__figure .therapy-burst__dot,
+  .therapy-burst__figure .therapy-burst__label { opacity: 0; }
+  .therapy-burst__figure .therapy-burst__core { transform: scale(0.2); transform-origin: center; transform-box: fill-box; }
+  .therapy-burst__figure.is-live .therapy-burst__line { animation: tb-shoot 0.9s cubic-bezier(0.2, 0.9, 0.2, 1) var(--ray-delay) forwards; }
+  .therapy-burst__figure.is-live .therapy-burst__dot { animation: tb-pop 0.4s ease var(--dot-delay) forwards; }
+  .therapy-burst__figure.is-live .therapy-burst__label { animation: tb-pop 0.5s ease calc(var(--ray-delay) + 500ms) forwards; }
+  .therapy-burst__figure.is-live .therapy-burst__core { animation: tb-core 0.8s cubic-bezier(0.2, 0.9, 0.2, 1.3) forwards; }
+  .therapy-burst__figure.is-live .therapy-burst__core { animation-name: tb-core, tb-breathe; animation-duration: 0.8s, 5s; animation-delay: 0s, 0.8s; animation-iteration-count: 1, infinite; animation-direction: normal, alternate; }
+}
+@keyframes tb-shoot { to { stroke-dashoffset: 0; } }
+@keyframes tb-pop { to { opacity: 1; } }
+@keyframes tb-core { to { transform: scale(1); } }
+@keyframes tb-breathe { from { transform: scale(1); } to { transform: scale(1.12); } }
+
+.therapy-burst__panel {
+  position: relative;
+  border-radius: 1.25rem;
+  background: rgb(255 255 255 / 0.04);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  min-height: 18rem;
+}
+.therapy-burst__swatch { display: block; width: 2.5rem; height: 0.5rem; border-radius: 999px; }
+
+.therapy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  padding: 0.45rem 0.9rem;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.85);
+  transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+.therapy-chip:hover, .therapy-chip.is-selected { background: #fff; color: var(--ink); border-color: #fff; }
+.therapy-chip:disabled { opacity: 0.3; cursor: default; }
+.therapy-chip__dot { width: 0.6rem; height: 0.6rem; border-radius: 999px; background: var(--ray-colour); }
+.therapy-burst__leader { stroke: var(--ray-colour); stroke-width: 2; stroke-dasharray: 2 8; stroke-linecap: round; opacity: 0.35; }
+.therapy-burst__ray.is-selected .therapy-burst__leader, .therapy-burst__ray:hover .therapy-burst__leader { opacity: 0.8; }
+.therapy-burst__label { font-size: 29px; }
+@media (prefers-reduced-motion: no-preference) {
+  .therapy-burst__figure .therapy-burst__leader { opacity: 0; }
+  .therapy-burst__figure.is-live .therapy-burst__leader { animation: tb-leader 0.5s ease calc(var(--ray-delay) + 500ms) forwards; }
+}
+@keyframes tb-leader { to { opacity: 0.35; } }
+@media (max-width: 47.99rem) {
+  .therapy-burst__figure { overflow: clip; }
+  .therapy-burst__figure svg { width: 152%; margin-inline: -26%; margin-block: -6%; }
+  .therapy-burst__leader { display: none; }
+}
