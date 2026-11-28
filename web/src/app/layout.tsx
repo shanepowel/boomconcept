@@ -3,6 +3,7 @@ import { DM_Sans } from 'next/font/google'
 import { draftMode } from 'next/headers'
 import { VisualEditing } from 'next-sanity/visual-editing'
 import { SiteFooter } from '@/components/site/site-footer'
+import { CookieBanner } from '@/components/site/cookie-consent'
 import { SiteHeader } from '@/components/site/site-header'
 import { getSettings } from '@/lib/data'
 import { isSanityConfigured } from '@/sanity/env'
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {children}
         </main>
         <SiteFooter settings={settings} />
+        {!isDraft && <CookieBanner />}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         {isSanityConfigured ? <SanityLive /> : null}
         {isSanityConfigured && isDraft ? <VisualEditing /> : null}

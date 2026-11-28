@@ -106,7 +106,7 @@ export default async function AboutPage() {
           <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {lists.beliefs.map((b, i) => (
               <li key={b.title} className={i === 0 ? 'flex flex-col rounded-2xl bg-night p-7 text-[#d6d2db] lg:row-span-2' : 'flex flex-col rounded-2xl bg-white p-7'}>
-                <span className="text-sm font-bold text-magenta">{String(i + 1).padStart(2, '0')}</span>
+                <span className={`text-sm font-bold ${i === 0 ? 'text-magenta-soft' : 'text-magenta'}`}>{String(i + 1).padStart(2, '0')}</span>
                 <h3 className={i === 0 ? 'mt-3 text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight text-white' : 'mt-3 text-xl'}>{b.title}</h3>
                 <p className={i === 0 ? 'mt-2 text-lg font-semibold text-magenta-soft' : 'mt-1 font-semibold text-magenta'}>{b.short}</p>
                 <p className="mt-3 text-[16px]">{b.body}</p>

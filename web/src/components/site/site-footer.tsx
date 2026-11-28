@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SiteSettings } from '@/content/types'
 import { footerNav } from './nav'
+import { CookieSettingsButton } from './cookie-consent'
 
 export function SiteFooter({ settings }: { settings: SiteSettings }) {
   return (
@@ -45,22 +46,29 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
           ))}
         </div>
       </div>
-      <div className="wrap flex flex-wrap justify-between gap-x-6 gap-y-3 border-t border-[#2e2e2e] py-6 text-[13px]">
-        <div className="space-y-1">
-          <p>
-            {settings.name} Limited · Registered in England and Wales no. {settings.companyNumber} · VAT no. {settings.vatNumber} · Registered office: {settings.registeredOffice}
-          </p>
-          <p>
-            {settings.danishEntity.name} · CVR {settings.danishEntity.cvr} · Copenhagen
-          </p>
+      <div className="wrap">
+        <div className="grid gap-x-10 gap-y-6 border-t border-white/10 py-8 text-[13px] leading-relaxed md:grid-cols-2 lg:grid-cols-[1fr_1fr_auto]">
+          <address className="not-italic">
+            <p className="font-semibold text-white">{settings.name} Limited</p>
+            <p>Registered in England and Wales, no. {settings.companyNumber}</p>
+            <p>VAT no. {settings.vatNumber}</p>
+            <p>{settings.registeredOffice}</p>
+          </address>
+          <address className="not-italic">
+            <p className="font-semibold text-white">{settings.danishEntity.name}</p>
+            <p>CVR {settings.danishEntity.cvr}</p>
+            <p>Copenhagen, Denmark</p>
+          </address>
+          <nav aria-label="Legal" className="lg:text-right">
+            <ul className="flex flex-wrap gap-x-5 gap-y-2 lg:flex-col lg:items-end">
+              {settings.legal.map((item) => (
+                <li key={item.href}><a href={item.href} className="whitespace-nowrap hover:text-white hover:underline hover:decoration-magenta">{item.label}</a></li>
+              ))}
+              <li><CookieSettingsButton className="whitespace-nowrap hover:text-white hover:underline hover:decoration-magenta" /></li>
+            </ul>
+          </nav>
         </div>
-        <div className="flex flex-wrap gap-5">
-          {settings.legal.map((item) => (
-            <a key={item.href} href={item.href} className="whitespace-nowrap hover:text-white">
-              {item.label}
-            </a>
-          ))}
-        </div>
+        <p className="border-t border-white/10 py-5 text-[12px] text-white/50">© {new Date().getFullYear()} {settings.name}. All rights reserved.</p>
       </div>
     </footer>
   )
