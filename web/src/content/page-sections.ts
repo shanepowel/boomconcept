@@ -45,11 +45,12 @@ export const pageSections = {
     aboutCta: { title: 'Let’s achieve something TOGETHER.', intro: 'Tell us what you’re working on and we’ll bring the right people to the first conversation.' },
   },
   careers: {
-    roles: { title: 'Find your next role.', intro: 'There are no vacancies listed on this page. If you’re interested in working here, tell us what you do and what you’d like to do next.' },
+    roles: { title: 'Join the band.', intro: 'Nothing open right now. Good Wilburys don’t wait for an advert, though. Tell us what you do and what you’d like to do next.' },
     workingLife: { title: 'Good at your job. Generous with what you know.', intro: 'That’s our version of a Wilbury. Here’s what it means when we work together.' },
     culture: { title: 'Away from the brief.', intro: 'A company birthday in Lisbon, a summer social in London and a day off for Star Wars Day. Here’s a look at life together outside the work.' },
-    benefits: { title: 'The good stuff.' },
+    benefits: { title: 'The rider.', intro: 'Every band has one. Here’s ours.' },
     applying: { title: 'Before you apply.' },
+    careersCta: { title: 'Think you’re a Wilbury?', intro: 'Tell us what you do, what you’d like to do next and why BOOM! caught your eye. A link to work you can share is welcome.' },
   },
   contact: {
     questions: { title: 'Good to know before we talk.' },
@@ -92,6 +93,7 @@ export const sectionLabels = {
   culture: 'Culture gallery',
   benefits: 'Benefits',
   applying: 'Before you apply',
+  careersCta: 'Closing call to action',
   questions: 'Frequently asked questions',
   offices: 'Offices',
 } satisfies Record<string, string>

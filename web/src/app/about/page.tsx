@@ -39,9 +39,12 @@ export default async function AboutPage() {
         <EditableSectionHead page={page} id="team" defaults={pageSections.about.team}
         />
         <ul className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {leaders.map((m) => (
+          {leaders.map((m, i) => (
             <li key={m.slug} id={`person-${m.slug}`} className="flex flex-col border-t border-ink pt-6">
-              <Image src={m.photo.src} alt={m.photo.alt} width={600} height={630} sizes="144px" className="aspect-square w-36 rounded-full bg-warm object-cover object-[center_25%]" />
+              <div className="relative isolate w-36">
+                <span aria-hidden className={`founder-splash founder-splash--small team-splash--${['magenta', 'violet', 'cyan'][i % 3]}`} />
+                <Image src={m.photo.src} alt={m.photo.alt} width={600} height={630} sizes="144px" className="relative aspect-square w-36 rounded-full bg-warm object-cover object-[center_25%]" />
+              </div>
               <p className="mt-5 text-xs font-bold tracking-[0.12em] text-magenta uppercase">{m.discipline}</p>
               <h3 className="mt-1.5 text-2xl">{m.fullName}</h3>
               <p className="text-[15px] font-semibold text-ink">{m.role}</p>
