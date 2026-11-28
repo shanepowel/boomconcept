@@ -5,10 +5,11 @@ import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './schemaTypes'
 import { structure, SINGLETON_TYPES } from './structure'
 
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-project-id'
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'ilv0hlq1'
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
-const siteOrigin = process.env.SANITY_STUDIO_PREVIEW_ORIGIN || 'http://localhost:3000'
+// The live site, for the Presentation tool. Set SANITY_STUDIO_PREVIEW_ORIGIN=http://localhost:3000 for local work.
+const siteOrigin = process.env.SANITY_STUDIO_PREVIEW_ORIGIN || 'https://boom.bmkrs.com'
 const pages = [
   { id: 'page-home', route: '/' },
   { id: 'page-work', route: '/work' },

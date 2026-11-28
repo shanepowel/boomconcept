@@ -21,7 +21,19 @@ npm run dev           # site on http://localhost:3000
 
 The site works straight away with no Sanity project. Until one is connected, every page renders the content in `web/src/content/fallback.ts`.
 
-## Connect Sanity
+## Sanity
+
+The site is connected to the Sanity project **BOOM! Healthcare Communications** (`ilv0hlq1`, dataset `production`). Vercel has the project ID, dataset, Studio URL and a viewer token for preview. The Studio lives at https://boom-healthcare.sanity.studio.
+
+To deploy or update the hosted Studio (needs a Sanity login with deploy rights):
+
+```bash
+cd studio && npx sanity login && npx sanity deploy
+```
+
+Every heading, body copy and closing call to action is editable under **Page copy → Page sections**. Workplace results, the Glassdoor quote and the team mix are under **Site settings → Workplace and team**. Interface labels (link and button text), badge artwork, culture photos and the legal and sustainability pages stay in code.
+
+## Connect a different Sanity project
 
 1. Create a project: `cd studio && npx sanity login && npx sanity init --env` (or create one at sanity.io/manage and note the project ID).
 2. Add the project ID to `studio/.env` (`SANITY_STUDIO_PROJECT_ID`) and `web/.env.local` (`NEXT_PUBLIC_SANITY_PROJECT_ID`). See the two `.env.example` files.
