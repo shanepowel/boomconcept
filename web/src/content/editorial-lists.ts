@@ -26,12 +26,6 @@ const beliefs = [
   },
 ]
 
-const values = [
-  { title: 'Experience', body: "300+ brands, more than 50 launches and over 1,000 projects. We've learned what works, and what doesn't." },
-  { title: 'Skill', body: 'Client services, project management, strategy, research, science, creative and digital, all under one roof.' },
-  { title: 'Effort', body: 'The perfect mix of inspiration and perspiration. We know when to think and when to act.' },
-  { title: 'Courage', body: 'The confidence to stand up and speak, and the good sense to sit down and listen.' },
-]
 
 // The home page's four values. The first one also shows the headline stats from Site settings.
 const homeValues = [
@@ -96,7 +90,7 @@ export const applicationQuestions = [
 
 export const editorialDefaults = {
   home: { values: homeValues },
-  about: { milestones, differentiators, beliefs, values, bestFit: bestFit.map((body) => ({ body })) },
+  about: { milestones, differentiators, beliefs, bestFit: bestFit.map((body) => ({ body })) },
   work: { approachSteps },
   careers: { workingLife, applicationQuestions },
 }

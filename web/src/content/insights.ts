@@ -15,6 +15,12 @@ export type Insight = {
   example?: { original: string; revision: string; note: string }
 }
 
+/** Reading time at about 220 words a minute, never less than two minutes. */
+export function readingMinutes(article: Pick<Insight, 'summary' | 'sections' | 'example'>) {
+  const text = [article.summary, ...article.sections.flatMap((s) => [s.heading, s.text]), article.example?.original, article.example?.revision, article.example?.note].filter(Boolean).join(' ')
+  return Math.max(2, Math.ceil(text.split(/\s+/).length / 220))
+}
+
 export const insights: Insight[] = [
   {
     slug: 'what-does-the-evidence-let-you-say',

@@ -2,7 +2,7 @@ import { getEditorialLists } from '@/content/editorial-lists'
 import { pageSections, sectionCopy } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { CtaBand, PageHero, EditableSectionHead, SectionHead, TextLink } from '@/components/site/blocks'
+import { CtaBand, EditableSectionHead, Eyebrow, SectionHead, TextLink } from '@/components/site/blocks'
 import { WorkplaceBadges } from '@/components/site/badges'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { SubNav } from '@/components/site/sub-nav'
@@ -21,9 +21,19 @@ export default async function AboutPage() {
 
   return (
     <>
-      <PageHero copy={page}>
-        <div className="mt-6"><TextLink href="#band">Meet the band</TextLink></div>
-      </PageHero>
+      <section className="relative isolate overflow-hidden bg-night text-white">
+        {page.image && <Image src={page.image.src} alt={page.image.alt} fill preload sizes="100vw" className="-z-20 object-cover object-[center_40%]" />}
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,var(--night)_12%,color-mix(in_oklch,var(--night)_65%,transparent)_48%,color-mix(in_oklch,var(--night)_15%,transparent)_100%)] max-lg:bg-[linear-gradient(0deg,var(--night)_40%,color-mix(in_oklch,var(--night)_35%,transparent)_100%)]" />
+        <div className="wrap flex min-h-[min(80vh,760px)] flex-col justify-end py-[clamp(56px,7vw,96px)] lg:justify-center">
+          <Eyebrow tone="light">{page.eyebrow || 'About BOOM!'}</Eyebrow>
+          <h1 className="editorial-display max-w-[12ch] text-white lg:text-[clamp(3.4rem,7vw,7rem)]">{page.title}</h1>
+          {page.lede && <p className="mt-6 max-w-[50ch] text-lg leading-relaxed text-white/85 sm:text-xl">{page.lede}</p>}
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <a href="#band" className="inline-flex items-center gap-2 font-bold text-white link-underline">Meet the band</a>
+            <a href="#story" className="inline-flex items-center gap-2 font-bold text-white link-underline">Our story</a>
+          </div>
+        </div>
+      </section>
       <SubNav
         items={[
           { id: 'band', label: 'The band' },
@@ -88,14 +98,17 @@ export default async function AboutPage() {
         <h2 id="timeline-heading" className="text-[13px] font-bold tracking-[0.14em] text-ink uppercase">
           {sectionCopy(page, 'about', 'timeline').title}
         </h2>
-        <ol className="mt-6 grid gap-0 border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-6">
-          {lists.milestones.map((m) => (
-            <li key={m.year} className="relative border-b border-border py-5 pr-5 lg:border-b-0 lg:border-l lg:pl-5 lg:first:border-l-0 lg:first:pl-0">
-              <span aria-hidden className="absolute -top-[7px] left-0 size-3 rounded-full bg-magenta lg:left-5 lg:first:left-0" />
-              <p className="text-2xl font-semibold tracking-tight text-ink">{m.year}</p>
-              <p className="mt-2 text-[15px]">{m.text}</p>
-            </li>
-          ))}
+        <ol className="fuse mt-8" style={{ '--fuse-count': lists.milestones.length } as React.CSSProperties}>
+          {lists.milestones.map((m, i) => {
+            const last = i === lists.milestones.length - 1
+            return (
+              <li key={m.year} className={`fuse__stop ${last ? 'fuse__stop--now' : ''}`}>
+                <span aria-hidden className="fuse__dot" />
+                <p className="fuse__year">{m.year}</p>
+                <p className="mt-2 text-[15px] leading-relaxed">{m.text}</p>
+              </li>
+            )
+          })}
         </ol>
       </section>
 
@@ -118,17 +131,7 @@ export default async function AboutPage() {
 
       {/* How we succeed + why BOOM! */}
       <section id="why" className="wrap section-pad lg:scroll-mt-14">
-        <SectionHead title={sectionCopy(page, 'about', 'howWeSucceed').title} intro={sectionCopy(page, 'about', 'howWeSucceed').intro} />
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {lists.values.map((v) => (
-            <div key={v.title}>
-              <h3 className="text-[clamp(1.5rem,2.4vw,2rem)] tracking-[-0.04em] after:mt-4 after:block after:h-[3px] after:w-9 after:bg-burst">{v.title}</h3>
-              <p className="mt-4">{v.body}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-[clamp(56px,7vw,96px)] grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
+        <div className="grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
           <div>
             <h3 className="type-title text-[clamp(1.8rem,3vw,2.5rem)]">{sectionCopy(page, 'about', 'whyChoose').title}</h3>
             <p className="mt-4">{sectionCopy(page, 'about', 'whyChoose').intro}</p>

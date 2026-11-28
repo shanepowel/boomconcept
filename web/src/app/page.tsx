@@ -168,7 +168,7 @@ export default async function HomePage() {
       {latest && (
         <section className="wrap section-pad">
           <EditableSectionHead page={page} id="insights" defaults={pageSections.home.insights} action={<TextLink href="/insights">All insights</TextLink>} />
-          <InsightFeature article={latest} showArt={Boolean(latest.image)} />
+          <InsightFeature article={latest} />
         </section>
       )}
 

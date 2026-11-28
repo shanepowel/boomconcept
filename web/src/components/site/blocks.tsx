@@ -20,7 +20,7 @@ export function Eyebrow({ children, tone = 'magenta', className }: { children: R
   )
 }
 
-export function PageHero({ copy, children, artwork = 'groove' }: { copy: PageCopy; children?: React.ReactNode; artwork?: 'groove' | 'echo' | 'press' }) {
+export function PageHero({ copy, children, artwork = 'groove', art }: { copy: PageCopy; children?: React.ReactNode; artwork?: 'groove' | 'echo' | 'press'; art?: React.ReactNode }) {
   return (
     <section className="page-masthead border-b border-border bg-warm">
       <div className="wrap masthead-grid">
@@ -38,6 +38,8 @@ export function PageHero({ copy, children, artwork = 'groove' }: { copy: PageCop
             </div>
             {(copy.image.caption || copy.image.credit) && <figcaption className="mt-2 text-sm">{[copy.image.caption, copy.image.credit].filter(Boolean).join(' · ')}</figcaption>}
           </figure>
+        ) : art ? (
+          <div className="overflow-hidden masthead-photo">{art}</div>
         ) : (
           <div aria-hidden="true" className={`cloud-art cloud-art--${artwork} aspect-[3/2] masthead-photo max-lg:aspect-[5/2]`} />
         )}

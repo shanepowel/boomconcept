@@ -14,7 +14,6 @@ const lists = {
     { name: 'milestones', fields: [text('year', 'Date or period'), body('text')] },
     { name: 'differentiators', fields: titleAndBody() },
     { name: 'beliefs', fields: [text('title'), text('short', 'Summary'), body()] },
-    { name: 'values', fields: titleAndBody() },
     { name: 'bestFit', fields: [body()] },
   ],
   work: [{ name: 'approachSteps', fields: [...titleAndBody(), text('output', 'What you get')] }],

@@ -663,3 +663,64 @@ html, body { overflow-x: clip; }
   .therapy-burst__figure svg { width: 152%; margin-inline: -26%; margin-block: -6%; }
   .therapy-burst__leader { display: none; }
 }
+
+/* Insights */
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  height: 4px;
+  background: linear-gradient(90deg, #ff5fae, #b36bff 55%, #5fd0f5);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fingerprint .fingerprint__rays { transition: rotate 1.2s cubic-bezier(0.2, 0.9, 0.2, 1); }
+  a:hover .fingerprint .fingerprint__rays, a:focus-visible .fingerprint .fingerprint__rays { rotate: 12deg; }
+}
+.insight-lead:focus-visible, .insight-row:focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; }
+
+/* About: the timeline as a lit fuse, burning towards the latest milestone */
+.fuse { position: relative; display: grid; gap: 1.75rem; padding-left: 2rem; }
+.fuse::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.45rem;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, rgb(0 0 0 / 0.15), #ff5fae 55%, #b36bff 80%, #5fd0f5);
+}
+.fuse__stop { position: relative; }
+.fuse__dot {
+  position: absolute;
+  top: 0.55rem;
+  left: -2rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 3px var(--ink);
+}
+.fuse__year { font-size: clamp(1.75rem, 2.6vw, 2.25rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
+.fuse__stop--now .fuse__year { background: linear-gradient(100deg, #e5007d, #8a3fd1 60%, #1f8fc0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.fuse__stop--now .fuse__dot {
+  background: radial-gradient(circle, #fff 0 25%, #ff5fae 45%, #b36bff 70%, transparent 72%);
+  box-shadow: 0 0 0 6px rgb(255 95 174 / 0.18), 0 0 24px 6px rgb(179 107 255 / 0.45);
+  width: 1.35rem;
+  height: 1.35rem;
+  left: -2.2rem;
+  top: 0.35rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fuse__stop--now .fuse__dot { animation: fuse-spark 1.6s ease-in-out infinite alternate; }
+}
+@keyframes fuse-spark { to { box-shadow: 0 0 0 10px rgb(255 95 174 / 0.12), 0 0 34px 10px rgb(95 208 245 / 0.45); } }
+
+@media (min-width: 64rem) {
+  .fuse { grid-template-columns: repeat(var(--fuse-count, 6), minmax(0, 1fr)); gap: 2rem; padding-left: 0; padding-top: 2.25rem; }
+  .fuse::before { top: 0.45rem; bottom: auto; left: 0; right: 0; width: auto; height: 3px; background: linear-gradient(90deg, rgb(0 0 0 / 0.15), #ff5fae 55%, #b36bff 80%, #5fd0f5); }
+  .fuse__dot { top: -2.25rem; left: 0; }
+  .fuse__stop--now .fuse__dot { top: -2.45rem; left: -0.2rem; }
+}
