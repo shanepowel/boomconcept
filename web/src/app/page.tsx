@@ -1,4 +1,5 @@
-import { pageSections } from '@/content/page-sections'
+import { getEditorialLists } from '@/content/editorial-lists'
+import { pageSections, sectionCopy } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,7 +10,7 @@ import { InsightFeature } from '@/components/site/insight-feature'
 import { BriefLineup } from '@/components/site/brief-lineup'
 import { CtaBand, Eyebrow, EditableSectionHead, TextLink } from '@/components/site/blocks'
 import { Button } from '@/components/ui/button'
-import { disciplines as defaultDisciplines, getCaseStudies, getInsights, getPage, getSettings, getTeam, workplace } from '@/lib/data'
+import { disciplines as defaultDisciplines, getCaseStudies, getInsights, getPage, getProof, getSettings, getTeam } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('home', { stega: false })
@@ -24,46 +25,16 @@ function Headline({ text }: { text: string }) {
 }
 
 export default async function HomePage() {
-  const [page, settings, team, cases, insights, servicesPage] = await Promise.all([getPage('home'), getSettings(), getTeam(), getCaseStudies(), getInsights(), getPage('services')])
+  const [page, settings, team, cases, insights, servicesPage, { workplace }] = await Promise.all([getPage('home'), getSettings(), getTeam(), getCaseStudies(), getInsights(), getPage('services'), getProof()])
   const disciplines = servicesPage.servicesCopy?.disciplines ?? defaultDisciplines
   const latest = insights.find((article) => article.featured) ?? insights[0]
   // Only real, approved work earns a place on the home page. Example stories stay on the Work page.
   const featured = cases.find((study) => !study.isExample)
   const founder = team.find((person) => person.isFounder)
-  const statValue = (label: string) => settings.stats.find((stat) => stat.label === label)?.value
-
-  const values = [
-    {
-      word: 'Experience',
-      tone: 'magenta',
-      body: (
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
-          {settings.stats.map((stat) => (
-            <div key={stat.label} className="flex flex-col-reverse">
-              <dt className="mt-1 text-[15px]">{stat.label}</dt>
-              <dd className="text-[clamp(1.9rem,3vw,2.6rem)] leading-none font-semibold tracking-[-0.04em] text-ink">{stat.value}+</dd>
-            </div>
-          ))}
-          <p className="col-span-full text-[15px]">Global, regional and local, including emerging markets.</p>
-        </dl>
-      ),
-    },
-    {
-      word: 'Skill',
-      tone: 'violet',
-      body: <p className="text-lg leading-relaxed">Client services, project management, strategy, market research, science, creative and digital. Plus the Veeva know-how to take content from approved email and sales aids right through PromoMats.</p>,
-    },
-    {
-      word: 'Effort',
-      tone: 'cyan',
-      body: <p className="text-lg leading-relaxed">The perfect mix of inspiration and perspiration. We know when to think and when to act.</p>,
-    },
-    {
-      word: 'Courage',
-      tone: 'red',
-      body: <p className="text-lg leading-relaxed">The confidence to stand up and speak. And the sense to sit down and listen!</p>,
-    },
-  ]
+  const lists = getEditorialLists('home', page.editorialLists)
+  const copy = (id: Parameters<typeof sectionCopy<'home'>>[2]) => sectionCopy(page, 'home', id)
+  const [values, lineup, founderCopy, lean, people, cta] = [copy('values'), copy('lineup'), copy('founder'), copy('lean'), copy('people'), copy('homeCta')]
+  const tones = ['magenta', 'violet', 'cyan', 'red']
 
   return (
     <>
@@ -88,7 +59,7 @@ export default async function HomePage() {
           {[
             { href: '/about#band', title: 'Independent & award-winning', detail: `${settings.teamSize} specialists, one team` },
             { href: '/services#veeva', title: 'Veeva partner', detail: 'Multichannel and Vault Content' },
-            { href: '/careers#culture', title: workplace.lists[1].rank + ' in the UK', detail: 'Best Workplaces 2026 (Small)' },
+            { href: '/careers#culture', title: (workplace.lists[1]?.rank ?? '') + ' in the UK', detail: workplace.lists[1]?.name.replace('™', '') ?? '' },
             { href: '/about#offices', title: 'Our studios', detail: settings.offices.map(({ city }) => city).join(' · ') },
           ].map(({ href, title, detail }) => (
             <li key={href}><Link className="group" href={href}>
@@ -100,18 +71,30 @@ export default async function HomePage() {
       </nav>
 
       <section aria-labelledby="values-title" className="wrap section-pad">
-        <h2 id="values-title" className="type-title max-w-[24ch] text-pretty">Partnering with you, we succeed through experience, skill, effort and courage.</h2>
+        <h2 id="values-title" className="type-title max-w-[24ch] text-pretty">{values.title}</h2>
         <ol className="mt-10 border-b border-ink">
-          {values.map((value) => (
-            <li key={value.word} className="grid gap-x-12 gap-y-4 border-t border-ink py-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] lg:items-center lg:py-10">
-              <p className={`value-word value-word--${value.tone}`}>{value.word}</p>
-              <div className="max-w-[60ch]">{value.body}</div>
+          {lists.values.map((value, i) => (
+            <li key={value.title} className="grid gap-x-12 gap-y-4 border-t border-ink py-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] lg:items-center lg:py-10">
+              <p className={`value-word value-word--${tones[i % tones.length]}`}>{value.title}</p>
+              <div className="max-w-[60ch]">
+                {i === 0 && (
+                  <dl className="mb-5 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+                    {settings.stats.map((stat) => (
+                      <div key={stat.label} className="flex flex-col-reverse">
+                        <dt className="mt-1 text-[15px]">{stat.label}</dt>
+                        <dd className="text-[clamp(1.9rem,3vw,2.6rem)] leading-none font-semibold tracking-[-0.04em] text-ink">{stat.value}+</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+                <p className={i === 0 ? 'text-[15px]' : 'text-lg leading-relaxed'}>{value.body}</p>
+              </div>
             </li>
           ))}
         </ol>
       </section>
 
-      <BriefLineup lineups={page.lineups ?? []} team={team} cases={cases} />
+      <BriefLineup lineups={page.lineups ?? []} team={team} cases={cases} title={lineup.title} intro={lineup.intro} />
 
       {founder && (
         <section aria-labelledby="founder-story" className="wrap section-pad">
@@ -121,10 +104,8 @@ export default async function HomePage() {
               <Image src={founder.photo.src} alt={founder.photo.alt} width={520} height={520} sizes="260px" className="relative aspect-square w-full rounded-full object-cover object-[center_30%]" />
             </div>
             <div>
-              <h2 id="founder-story" className="type-title max-w-[22ch] text-pretty">Ten years at Novartis. Then BOOM!</h2>
-              <p className="mt-4 max-w-[62ch] text-lg leading-relaxed">
-                {founder.fullName} spent the first decade of his career at Novartis, across sales, key accounts, market access, research and marketing. He went on to lead research, digital, medical communications and creative agencies on both sides of the Atlantic, then founded BOOM! in 2018 to bring an explosion of experience to the people who need it.
-              </p>
+              <h2 id="founder-story" className="type-title max-w-[22ch] text-pretty">{founderCopy.title}</h2>
+              <p className="mt-4 max-w-[62ch] text-lg leading-relaxed">{founderCopy.intro}</p>
               <div className="mt-5"><TextLink href="/about#band">Meet the leadership team</TextLink></div>
             </div>
           </div>
@@ -162,10 +143,9 @@ export default async function HomePage() {
             ))}
           </ul>
           <div className="mt-14 grid items-start gap-x-12 gap-y-4 md:grid-cols-[1fr_1.2fr]">
-            <h3 className="text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight font-semibold text-pretty text-ink">Small team, big brief? That’s our favourite kind.</h3>
+            <h3 className="text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight font-semibold text-pretty text-ink">{lean.title}</h3>
             <div className="text-lg leading-relaxed">
-              <p className="max-w-[54ch]">We love the passion and energy of small to mid-size teams, and of teams that are leanly resourced with a genuine need for partnership. We go looking for challenging projects, because that’s where {statValue('therapy areas') ? `experience across ${statValue('therapy areas')}+ therapy areas` : 'our experience'} gets us to the heart of the issue quickly.</p>
-              <p className="mt-4 max-w-[54ch]">We challenge beliefs and change behaviour, and we always make sure the juice is worth the squeeze!</p>
+              <p className="max-w-[54ch]">{lean.intro}</p>
               <div className="mt-5"><TextLink href="/about#why">Why choose BOOM!</TextLink></div>
             </div>
           </div>
@@ -176,8 +156,8 @@ export default async function HomePage() {
         {page.image && <Image src={page.image.src} alt={page.image.alt} fill sizes="100vw" className="-z-20 object-cover object-[center_40%] opacity-55" />}
         <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,var(--night)_8%,color-mix(in_oklch,var(--night)_40%,transparent)_70%)]" />
         <div className="wrap flex min-h-[620px] flex-col justify-end py-[clamp(56px,7vw,96px)]">
-          <h2 id="people-title" className="type-title max-w-[22ch] text-pretty text-white">We aim to be the agency our clients would absolutely hate to lose, and our people would hate to leave!</h2>
-          <p className="mt-5 max-w-[52ch] text-lg text-white/85">{workplace.headline.boom} of our people say BOOM! is a great place to work, and we’re ranked {workplace.lists[1].rank} in the UK’s Best Workplaces 2026 (Small).</p>
+          <h2 id="people-title" className="type-title max-w-[22ch] text-pretty text-white">{people.title}</h2>
+          <p className="mt-5 max-w-[52ch] text-lg text-white/85">{people.intro}</p>
           <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-5">
             <WorkplaceBadges size="sm" />
             <TextLink href="/careers" light>Life at BOOM!</TextLink>
@@ -192,7 +172,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      <CtaBand title="Got a challenging brief? Let’s light the fuse." body="Tell us who you need to reach and what has to change. We’ll bring the right people to the first conversation." label="Contact us" />
+      <CtaBand title={cta.title} body={cta.intro ?? ''} />
     </>
   )
 }

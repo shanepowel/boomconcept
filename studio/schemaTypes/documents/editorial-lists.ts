@@ -9,6 +9,7 @@ const body = (name = 'body') => defineField({
 
 const titleAndBody = () => [text('title'), body()]
 const lists = {
+  home: [{ name: 'values', fields: titleAndBody() }],
   about: [
     { name: 'milestones', fields: [text('year', 'Date or period'), body('text')] },
     { name: 'differentiators', fields: titleAndBody() },

@@ -9,6 +9,7 @@ export const siteSettings = defineType({
   groups: [
     { name: 'brand', title: 'Brand', default: true },
     { name: 'proof', title: 'Proof' },
+    { name: 'workplace', title: 'Workplace and team' },
     { name: 'contact', title: 'Contact and legal' },
   ],
   fields: [
@@ -17,6 +18,50 @@ export const siteSettings = defineType({
     defineField({ name: 'teamSize', title: 'Team size', type: 'string', group: 'brand', description: 'Number of specialists, for example 65.' }),
     defineField({ name: 'proofPoints', title: 'Proof points', type: 'array', group: 'proof', of: [defineArrayMember({ type: 'string' })], description: 'Legacy homepage credentials. The editorial homepage places proof beside the relevant story.' }),
     defineField({ name: 'stats', type: 'array', group: 'proof', of: [defineArrayMember({ type: 'stat' })], validation: (r) => r.max(4) }),
+    defineField({
+      name: 'workplace',
+      title: 'Great Place To Work results',
+      type: 'object',
+      group: 'workplace',
+      fields: [
+        defineField({ name: 'source', title: 'Source link', type: 'url' }),
+        defineField({ name: 'headline', type: 'object', fields: [
+          defineField({ name: 'boom', title: 'BOOM! score', type: 'string', description: 'For example 96%.' }),
+          defineField({ name: 'typical', title: 'Typical UK company', type: 'string', description: 'For example 54%.' }),
+        ] }),
+        defineField({ name: 'lists', title: 'Rankings', type: 'array', description: 'The second ranking is the one quoted on the home page.', of: [defineArrayMember({ type: 'object', fields: [
+          defineField({ name: 'rank', type: 'string' }),
+          defineField({ name: 'name', type: 'string' }),
+        ], preview: { select: { title: 'rank', subtitle: 'name' } } })] }),
+      ],
+    }),
+    defineField({
+      name: 'glassdoor',
+      title: 'Glassdoor quote',
+      type: 'object',
+      group: 'workplace',
+      fields: [
+        defineField({ name: 'quote', type: 'text', rows: 2 }),
+        defineField({ name: 'attribution', type: 'string' }),
+        defineField({ name: 'rating', type: 'string' }),
+        defineField({ name: 'url', title: 'Link', type: 'url' }),
+      ],
+    }),
+    defineField({
+      name: 'teamMix',
+      title: 'Team mix',
+      type: 'object',
+      group: 'workplace',
+      fields: [
+        defineField({ name: 'where', title: 'Where the team is based', type: 'text', rows: 2 }),
+        defineField({ name: 'disciplines', type: 'array', of: [defineArrayMember({ type: 'object', fields: [
+          defineField({ name: 'count', type: 'string' }),
+          defineField({ name: 'label', type: 'string' }),
+          defineField({ name: 'note', type: 'string' }),
+        ], preview: { select: { title: 'label', subtitle: 'count' } } })] }),
+        defineField({ name: 'backgrounds', title: 'Degree backgrounds', type: 'array', of: [defineArrayMember({ type: 'string' })] }),
+      ],
+    }),
     defineField({ name: 'offices', type: 'array', group: 'contact', of: [defineArrayMember({ type: 'office' })] }),
     defineField({ name: 'enquiriesEmail', title: 'Enquiries email', type: 'string', group: 'contact', validation: (r) => r.email() }),
     defineField({ name: 'careersEmail', title: 'Careers email', type: 'string', group: 'contact', validation: (r) => r.email() }),
@@ -44,9 +89,8 @@ const sectionFields = Object.entries(pageSections).flatMap(([page, sections]) =>
     type: 'object',
     hidden: ({ document }) => document?._id?.replace(/^drafts\./, '') !== `page-${page}`,
     fields: [
-      defineField({ name: 'eyebrow', title: 'Label above the heading', type: 'string', validation: (rule) => rule.max(45) }),
-      defineField({ name: 'title', title: 'Heading', type: 'string', validation: (rule) => rule.max(95) }),
-      defineField({ name: 'intro', type: 'text', rows: 3, validation: (rule) => rule.max(340) }),
+      defineField({ name: 'title', title: 'Heading', type: 'string', validation: (rule) => rule.max(140) }),
+      defineField({ name: 'intro', title: 'Copy', type: 'text', rows: 4, validation: (rule) => rule.max(600) }),
     ],
   })),
 )

@@ -1,6 +1,6 @@
 import { getEditorialLists } from '@/content/editorial-lists'
 import { SubNav } from '@/components/site/sub-nav'
-import { pageSections } from '@/content/page-sections'
+import { pageSections, sectionCopy } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { ArrowDown } from 'lucide-react'
@@ -99,7 +99,7 @@ export default async function WorkPage() {
           <TextLink href="/insights">Read more about how we think</TextLink>
         </div>
       </section>
-      <CtaBand title="What’s the decision in front of you?" body="Tell us where the brief is stuck, who it needs to reach and what has to happen next." />
+      <CtaBand title={sectionCopy(page, 'work', 'workCta').title} body={sectionCopy(page, 'work', 'workCta').intro ?? ''} />
     </>
   )
 }

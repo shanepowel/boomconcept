@@ -1,12 +1,12 @@
 import { getEditorialLists } from '@/content/editorial-lists'
-import { pageSections } from '@/content/page-sections'
+import { pageSections, sectionCopy } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { CtaBand, Eyebrow, PageHero, EditableSectionHead, SectionHead, TextLink } from '@/components/site/blocks'
+import { CtaBand, PageHero, EditableSectionHead, SectionHead, TextLink } from '@/components/site/blocks'
 import { WorkplaceBadges } from '@/components/site/badges'
 import { OfficeStrip } from '@/components/site/office-strip'
 import { SubNav } from '@/components/site/sub-nav'
-import { getPage, getSettings, getTeam, teamMix, workplace, glassdoor } from '@/lib/data'
+import { getPage, getProof, getSettings, getTeam } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('about', { stega: false })
@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const [page, team, settings] = await Promise.all([getPage('about'), getTeam(), getSettings()])
+  const [page, team, settings, { workplace, glassdoor, teamMix }] = await Promise.all([getPage('about'), getTeam(), getSettings(), getProof()])
   const lists = getEditorialLists('about', page.editorialLists)
   const founder = team.find((m) => m.isFounder) ?? team[0]
   const leaders = team.filter((m) => m !== founder)
@@ -60,8 +60,7 @@ export default async function AboutPage() {
       <section id="story" className="wrap section-pad lg:scroll-mt-14">
         <div className="grid items-center gap-[clamp(40px,6vw,96px)] md:grid-cols-[7fr_5fr]">
           <div>
-            <Eyebrow>Our story</Eyebrow>
-            <h2 className="type-title">Ten years inside pharma. Then he switched sides.</h2>
+            <h2 className="type-title">{sectionCopy(page, 'about', 'story').title}</h2>
             <p className="mt-5 text-lg">{founder.bio}</p>
             {founder.linkedinUrl ? (
               <a href={founder.linkedinUrl} className="mt-6 inline-block text-[15px] font-bold text-ink link-underline">
@@ -84,7 +83,7 @@ export default async function AboutPage() {
       {/* Timeline */}
       <section aria-labelledby="timeline-heading" className="wrap pb-[clamp(64px,8vw,120px)]">
         <h2 id="timeline-heading" className="text-[13px] font-bold tracking-[0.14em] text-ink uppercase">
-          The story so far
+          {sectionCopy(page, 'about', 'timeline').title}
         </h2>
         <ol className="mt-6 grid gap-0 border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-6">
           {lists.milestones.map((m) => (
@@ -100,11 +99,7 @@ export default async function AboutPage() {
       {/* Beliefs */}
       <section id="beliefs" className="lg:scroll-mt-14 bg-warm">
         <div className="wrap section-pad">
-          <SectionHead
-            eyebrow="What we believe"
-            title="We believe in achieving TOGETHER."
-            intro="Creativity and chemistry win pitches. It's the everyday that produces great results and long partnerships, so that's where our beliefs live."
-          />
+          <SectionHead title={sectionCopy(page, 'about', 'beliefs').title} intro={sectionCopy(page, 'about', 'beliefs').intro} />
           <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {lists.beliefs.map((b, i) => (
               <li key={b.title} className={i === 0 ? 'flex flex-col rounded-2xl bg-night p-7 text-[#d6d2db] lg:row-span-2' : 'flex flex-col rounded-2xl bg-white p-7'}>
@@ -120,7 +115,7 @@ export default async function AboutPage() {
 
       {/* How we succeed + why BOOM! */}
       <section id="why" className="wrap section-pad lg:scroll-mt-14">
-        <SectionHead eyebrow="How we succeed" title="Experience. Skill. Effort. Courage." intro="Four things we bring to every brief, and the reason clients stay." />
+        <SectionHead title={sectionCopy(page, 'about', 'howWeSucceed').title} intro={sectionCopy(page, 'about', 'howWeSucceed').intro} />
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {lists.values.map((v) => (
             <div key={v.title}>
@@ -132,16 +127,11 @@ export default async function AboutPage() {
 
         <div className="mt-[clamp(56px,7vw,96px)] grid gap-[clamp(32px,6vw,96px)] md:grid-cols-[5fr_7fr]">
           <div>
-            <Eyebrow>Why choose BOOM!</Eyebrow>
-            <h3 className="type-title text-[clamp(1.8rem,3vw,2.5rem)]">The agency you&apos;d absolutely hate to lose.</h3>
-            <p className="mt-4">
-              It&apos;s not one single thing that makes working with us a success. It&apos;s several, and they depend on each other. Our aim is simple: to be the agency our
-              clients would hate to lose, and the place our people would hate to leave.
-            </p>
+            <h3 className="type-title text-[clamp(1.8rem,3vw,2.5rem)]">{sectionCopy(page, 'about', 'whyChoose').title}</h3>
+            <p className="mt-4">{sectionCopy(page, 'about', 'whyChoose').intro}</p>
             <WorkplaceBadges size="sm" className="mt-8" />
             <p className="mt-4 rounded-xl bg-magenta-tint px-5 py-4 text-[15px] text-ink">
-              <strong>Proud to be a great place to work.</strong> 96% of the team say so, against 54% at a typical UK company, and we&apos;re #23 in the UK&apos;s Best
-              Workplaces™ 2026 for small companies.{' '}
+              <strong>Proud to be a great place to work.</strong> {workplace.headline.boom} of the team say so, against {workplace.headline.typical} at a typical UK company, and we&apos;re {workplace.lists[1]?.rank} in the UK&apos;s {workplace.lists[1]?.name}.{' '}
               <a href={workplace.source} className="font-bold link-underline [text-underline-offset:4px]">
                 Great Place To Work®
               </a>
@@ -157,7 +147,7 @@ export default async function AboutPage() {
                 </li>
               ))}
             </ol>
-            <h4 className="mt-10 text-[13px] font-bold tracking-[0.14em] text-ink uppercase">Who we work best with</h4>
+            <h4 className="mt-10 text-[13px] font-bold tracking-[0.14em] text-ink uppercase">{sectionCopy(page, 'about', 'bestFitHeading').title}</h4>
             <ul className="mt-3 space-y-2">
               {lists.bestFit.map((f) => (
                 <li key={f.body} className="relative pl-7 before:absolute before:top-[0.8rem] before:left-0 before:h-0.5 before:w-4 before:bg-magenta">
@@ -176,7 +166,6 @@ export default async function AboutPage() {
               <SectionHead
                 tone="light"
                 className="mb-0"
-                eyebrow="The wider team"
                 title={`${settings.teamSize} specialists in the band.`}
                 intro={`${teamMix.where} Every brief gets the line-up it needs.`}
               />
@@ -216,7 +205,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <CtaBand title="Let’s achieve something TOGETHER." body="Tell us what you're working on and we'll bring the right people to the first conversation." />
+      <CtaBand title={sectionCopy(page, 'about', 'aboutCta').title} body={sectionCopy(page, 'about', 'aboutCta').intro ?? ''} />
     </>
   )
 }

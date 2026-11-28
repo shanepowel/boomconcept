@@ -1,15 +1,15 @@
 import { getEditorialLists } from '@/content/editorial-lists'
 import { SubNav } from '@/components/site/sub-nav'
-import { pageSections } from '@/content/page-sections'
+import { pageSections, sectionCopy } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react'
-import { Eyebrow, PageHero, EditableSectionHead, TextLink } from '@/components/site/blocks'
+import { PageHero, EditableSectionHead, TextLink } from '@/components/site/blocks'
 import { WorkplaceBadges } from '@/components/site/badges'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
-import { getCareersRoles, getPage, getPerks, getSettings, workplace } from '@/lib/data'
+import { getCareersRoles, getPage, getPerks, getProof, getSettings } from '@/lib/data'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage('careers', { stega: false })
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CareersPage() {
-  const [page, perks, settings, roles] = await Promise.all([getPage('careers'), getPerks(), getSettings({ stega: false }), getCareersRoles()])
+  const [page, perks, settings, roles, { workplace }] = await Promise.all([getPage('careers'), getPerks(), getSettings({ stega: false }), getCareersRoles(), getProof()])
   const lists = getEditorialLists('careers', page.editorialLists)
   const introduction = '/contact?topic=careers#form'
 
@@ -40,8 +40,7 @@ export default async function CareersPage() {
       <section id="join" className="bg-night text-white">
         <div className="wrap grid gap-x-12 gap-y-6 py-[clamp(38px,6vw,76px)] lg:grid-cols-[0.85fr_1.15fr]">
           <div>
-            <Eyebrow tone="light">Careers at BOOM!</Eyebrow>
-            <h2 className="type-title text-white">Find your next role.</h2>
+            <h2 className="type-title text-white">{sectionCopy(page, 'careers', 'roles').title}</h2>
           </div>
           <div className="border-t border-white/25 pt-5">
             {roles.length > 0 ? (
@@ -55,7 +54,7 @@ export default async function CareersPage() {
                   </li>
                 ))}
               </ul>
-            ) : <p className="max-w-[50ch] text-white/85">There are no vacancies listed on this page. If you’re interested in working here, tell us what you do and what you’d like to do next.</p>}
+            ) : <p className="max-w-[50ch] text-white/85">{sectionCopy(page, 'careers', 'roles').intro}</p>}
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-4">
               <Button asChild variant="light" size="xl"><Link href={introduction}>Introduce yourself <ArrowRight aria-hidden /></Link></Button>
               <a href={settings.linkedinUrl} className="text-sm font-bold text-white link-underline">Follow BOOM! for vacancies</a>
@@ -102,7 +101,7 @@ export default async function CareersPage() {
       </section>
 
       <section id="benefits" className="wrap section-pad section-split">
-        <div><Eyebrow>Benefits</Eyebrow><h2 className="type-title">The good stuff.</h2></div>
+        <div><h2 className="type-title">{sectionCopy(page, 'careers', 'benefits').title}</h2></div>
         <ul className="grid gap-x-8 sm:grid-cols-2">
           {perks.map((perk) => (
             <li key={perk.title} className="border-t border-border py-4">
@@ -116,7 +115,7 @@ export default async function CareersPage() {
       <section id="questions" className="border-t border-border bg-warm">
         <div className="wrap section-pad section-split">
           <div>
-            <h2 className="type-title">Before you apply.</h2>
+            <h2 className="type-title">{sectionCopy(page, 'careers', 'applying').title}</h2>
             <div className="mt-5"><TextLink href={introduction}>Ask us a question</TextLink></div>
           </div>
           <Accordion type="single" collapsible className="border-t border-ink">

@@ -36,6 +36,17 @@ docs.push({
   danishEntity: s.danishEntity,
   sustainabilityUrl: s.sustainabilityUrl,
   legal: s.legal.map((x) => ({ _key: key(), _type: 'legalLink', ...x })),
+  workplace: {
+    source: content.workplace.source,
+    headline: content.workplace.headline,
+    lists: content.workplace.lists.map((x) => ({ _key: key(), ...x })),
+  },
+  glassdoor: { quote: content.glassdoor.quote, attribution: content.glassdoor.attribution, rating: content.glassdoor.rating, url: content.glassdoor.url },
+  teamMix: {
+    where: content.teamMix.where,
+    backgrounds: content.teamMix.backgrounds,
+    disciplines: content.teamMix.disciplines.map((x) => ({ _key: key(), ...x })),
+  },
 })
 
 const reference = (id) => ({ _type: 'reference', _ref: id })

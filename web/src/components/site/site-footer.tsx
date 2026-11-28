@@ -10,8 +10,8 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
     <footer className="bg-night text-[15px] text-[#b9b5bf]">
       <div className="wrap grid gap-10 pt-14 pb-12 md:grid-cols-[4fr_8fr]">
         <div>
-          <Link href="/" className="inline-block bg-white px-4 py-2" aria-label="BOOM! Healthcare Communications home">
-            <Image src="/images/boom-logo.png" alt="BOOM! Healthcare Communications" width={640} height={338} className="h-auto w-[124px]" />
+          <Link href="/" className="inline-block" aria-label="BOOM! Healthcare Communications home">
+            <Image src="/images/boom-logo-reversed.png" alt="BOOM! Healthcare Communications" width={640} height={338} className="h-auto w-[140px]" />
           </Link>
           <p className="mt-5 max-w-xs">
             Independent healthcare communications for pharma, biotech and medtech.

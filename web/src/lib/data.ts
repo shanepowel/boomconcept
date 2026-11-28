@@ -26,6 +26,7 @@ import {
   INSIGHTS_QUERY,
   PAGE_QUERY,
   PERKS_QUERY,
+  PROOF_QUERY,
   SETTINGS_QUERY,
   SPECIALIST_AREAS_QUERY,
   TEAM_QUERY,
@@ -140,6 +141,28 @@ export async function getPerks(): Promise<Perk[]> {
 }
 
 export const { audiences, capabilities, processSteps, disciplines, workplace, glassdoor, people2025, sustainability, teamMix } = fallback
+
+/** Drops empty values so a half-filled Sanity object never blanks a fallback field. */
+function filled<T extends object>(value: T | null | undefined): Partial<T> {
+  return Object.fromEntries(Object.entries(value ?? {}).filter(([, v]) => v !== null && v !== undefined && v !== '' && !(Array.isArray(v) && v.length === 0))) as Partial<T>
+}
+
+type Proof = { workplace: typeof fallback.workplace; glassdoor: typeof fallback.glassdoor; teamMix: typeof fallback.teamMix }
+
+/** Workplace results, the Glassdoor quote and the team mix: editable in Site settings, with code defaults. */
+export async function getProof(): Promise<Proof> {
+  const data = await fromSanity<{ workplace?: Partial<Proof['workplace']>; glassdoor?: Partial<Proof['glassdoor']>; teamMix?: Partial<Proof['teamMix']> }>(PROOF_QUERY)
+  const edited = filled(data?.workplace)
+  return {
+    workplace: {
+      ...fallback.workplace,
+      ...edited,
+      headline: { ...fallback.workplace.headline, ...filled(data?.workplace?.headline) },
+    },
+    glassdoor: { ...fallback.glassdoor, ...filled(data?.glassdoor) },
+    teamMix: { ...fallback.teamMix, ...filled(data?.teamMix) },
+  }
+}
 
 export async function getInsights(opts: { stega?: boolean } = {}): Promise<Insight[]> {
   const data = await fromSanity<(Omit<Insight, 'image'> & { image?: SanityImage })[]>(INSIGHTS_QUERY, {}, opts)

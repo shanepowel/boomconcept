@@ -1,7 +1,7 @@
 import { SubNav } from '@/components/site/sub-nav'
-import { pageSections } from '@/content/page-sections'
+import { pageSections, sectionCopy } from '@/content/page-sections'
 import type { Metadata } from 'next'
-import { CtaBand, Eyebrow, PageHero, EditableSectionHead, Tags, TextLink } from '@/components/site/blocks'
+import { CtaBand, PageHero, EditableSectionHead, Tags, TextLink } from '@/components/site/blocks'
 import { TherapyDirectory } from '@/components/site/therapy-directory'
 import { getCaseStudies, getPage, getSpecialistAreas, getTherapyAreas } from '@/lib/data'
 
@@ -71,9 +71,8 @@ export default async function TherapyAreasPage() {
 
       <section id="across" className="wrap section-pad section-split">
         <div>
-          <Eyebrow>Across therapy areas</Eyebrow>
-          <h2 className="type-title">When the challenge crosses categories.</h2>
-          <p className="mt-4">Some briefs need experience of a particular market change or treatment pathway. We bring that perspective into the team alongside therapy-area knowledge.</p>
+          <h2 className="type-title">{sectionCopy(page, 'therapyAreas', 'across').title}</h2>
+          <p className="mt-4">{sectionCopy(page, 'therapyAreas', 'across').intro}</p>
           <Tags items={['Rare disease', 'Biosimilars', 'Brand substitution', 'Generics', 'Multi-indication therapies']} />
         </div>
         {cases.length > 0 && (
@@ -91,7 +90,7 @@ export default async function TherapyAreasPage() {
         )}
       </section>
 
-      <CtaBand title="Got a brief in one of these areas?" body="Tell us the challenge. We'll put the right people around it." />
+      <CtaBand title={sectionCopy(page, 'therapyAreas', 'therapyCta').title} body={sectionCopy(page, 'therapyAreas', 'therapyCta').intro ?? ''} />
     </>
   )
 }

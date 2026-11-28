@@ -7,6 +7,12 @@ export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
   enquiriesEmail, careersEmail, linkedinUrl, companyNumber, vatNumber, registeredOffice, danishEntity, sustainabilityUrl, legal[]{label, href}
 }`)
 
+export const PROOF_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
+  workplace{source, headline{boom, typical}, lists[]{rank, name}},
+  glassdoor{quote, attribution, rating, url},
+  teamMix{where, backgrounds, disciplines[]{count, label, note}}
+}`)
+
 export const PAGE_QUERY = defineQuery(`*[_id == "page-" + $key][0]{
   eyebrow, title, lede, seoTitle, seoDescription, sections, servicesCopy, editorialLists, image${imageFields},
   lineups[]{ "id": _key, title, approach, disciplines, "people": people[]->slug.current,

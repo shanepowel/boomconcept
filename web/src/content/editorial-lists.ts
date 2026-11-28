@@ -33,6 +33,14 @@ const values = [
   { title: 'Courage', body: 'The confidence to stand up and speak, and the good sense to sit down and listen.' },
 ]
 
+// The home page's four values. The first one also shows the headline stats from Site settings.
+const homeValues = [
+  { title: 'Experience', body: 'Global, regional and local, including emerging markets.' },
+  { title: 'Skill', body: 'Client services, project management, strategy, market research, science, creative and digital. Plus the Veeva know-how to take content from approved email and sales aids right through PromoMats.' },
+  { title: 'Effort', body: 'The perfect mix of inspiration and perspiration. We know when to think and when to act.' },
+  { title: 'Courage', body: 'The confidence to stand up and speak. And the sense to sit down and listen!' },
+]
+
 const bestFit = [
   'Small and mid-sized brand teams that need senior specialists to work alongside them',
   'Challenging projects, where a broad mix of experience gets to the heart of the issue quickly',
@@ -87,6 +95,7 @@ export const applicationQuestions = [
 ]
 
 export const editorialDefaults = {
+  home: { values: homeValues },
   about: { milestones, differentiators, beliefs, values, bestFit: bestFit.map((body) => ({ body })) },
   work: { approachSteps },
   careers: { workingLife, applicationQuestions },

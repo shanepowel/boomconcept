@@ -1,4 +1,4 @@
-import { pageSections } from '@/content/page-sections'
+import { pageSections, sectionCopy } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -71,8 +71,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
 
       <section className="bg-night text-[#d9d6de]">
         <div className="wrap section-pad">
-          <Eyebrow tone="light">Where we are</Eyebrow>
-          <h2 className="mb-8 type-title text-white">Three bases. One team.</h2>
+          <h2 className="mb-8 type-title text-white">{sectionCopy(page, 'contact', 'offices').title}</h2>
           <OfficeStrip offices={settings.offices} />
         </div>
       </section>

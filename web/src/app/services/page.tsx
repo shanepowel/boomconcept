@@ -1,5 +1,5 @@
 import { BrandMoments } from '@/components/site/brand-moments'
-import { pageSections } from '@/content/page-sections'
+import { pageSections, sectionCopy } from '@/content/page-sections'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
@@ -87,9 +87,8 @@ export default async function ServicesPage() {
           <SectionHead
             tone="light"
             className="mb-0"
-            eyebrow="Veeva partners"
-            title="Built for how pharma actually works."
-            intro="We’re Veeva Multichannel and Vault Content Partners. We plan for your channels, review process and local approvals from the first brief."
+            title={sectionCopy(page, 'services', 'veeva').title}
+            intro={sectionCopy(page, 'services', 'veeva').intro}
           />
           <ul className="grid grid-cols-2 gap-3">
             {['CLM', 'Approved Email', 'PromoMats', 'Engage Meeting', 'Engage for Portals'].map((c) => (
@@ -104,9 +103,8 @@ export default async function ServicesPage() {
       {/* Brand moments */}
       <section id="moments" className="wrap section-pad lg:scroll-mt-14">
         <SectionHead
-          eyebrow="When to call us"
-          title="Find the moment that feels familiar."
-          intro="Pick the stage your brand is at to see where we can help."
+          title={sectionCopy(page, 'services', 'moments').title}
+          intro={sectionCopy(page, 'services', 'moments').intro}
         />
         <BrandMoments moments={moments} cases={cases} />
       </section>
@@ -138,7 +136,7 @@ export default async function ServicesPage() {
         <div className="wrap section-pad grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center">
           <div>
             <Eyebrow tone="light">For procurement teams</Eyebrow>
-            <h2 className="type-title text-white">Ready for your supplier checks.</h2>
+            <h2 className="type-title text-white">{sectionCopy(page, 'services', 'procurement').title}</h2>
             <p className="mt-4 max-w-[600px] text-[#d0ccd6]">
               Big organisations need suppliers they can check. We keep the essentials in one place: company details, data protection, information security, sustainability and our Veeva
               credentials. We work within the ABPI Code of Practice, report against SASB standards, and in 2025 had zero information security incidents.
@@ -191,7 +189,7 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      <CtaBand title="Bring us the complicated brief." body="We'll ask the right questions and put the right people on it." />
+      <CtaBand title={sectionCopy(page, 'services', 'servicesCta').title} body={sectionCopy(page, 'services', 'servicesCta').intro ?? ''} />
     </>
   )
 }
